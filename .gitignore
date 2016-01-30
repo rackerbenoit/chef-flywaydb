@@ -1,6 +1,6 @@
-.idea
 .DS_Store
 
+C:\\chef\\cache/
 Berksfile.lock
 Gemfile.lock
 .kitchen/
