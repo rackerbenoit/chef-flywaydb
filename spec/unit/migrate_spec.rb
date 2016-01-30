@@ -36,16 +36,18 @@ describe 'flywaydb::migrate' do
         source: 'flyway.conf.erb',
         sensitive: false,
         variables: {
-          'url' => 'jdbc:mysql://localhost/mysql',
-          'user' => 'mysql',
-          'password' => 'mysql'
+          conf: {
+            'url' => 'jdbc:mysql://localhost/mysql',
+            'user' => 'mysql',
+            'password' => 'mysql'
+          }
         },
         owner: 'flyway'
       )
     end
 
     it 'executes flyway migrate' do
-      expect(chef_run).to run_execute('flyway -configFile=/opt/flyway/conf/flyway.conf migrate')
+      expect(chef_run).to run_execute('/opt/flyway/flyway -configFile=/opt/flyway/conf/flyway.conf migrate')
     end
   end
 
@@ -54,7 +56,7 @@ describe 'flywaydb::migrate' do
       ChefSpec::ServerRunner.new(
         platform: 'windows',
         version: '2012R2',
-        file_cache_path: 'C:\chef',
+        file_cache_path: 'C:\\chef\\cache',
         step_into: ['flywaydb'],
         log_level: ::LOG_LEVEL) do |node|
         ENV['SYSTEMDRIVE'] = 'C:'
@@ -99,39 +101,43 @@ describe 'flywaydb::migrate' do
     end
 
     it 'creates conf file' do
-      expect(chef_run).to create_template('C:/flyway/conf/flyway_1.conf').with(
+      expect(chef_run).to create_template('C:\flyway/conf/flyway_1.conf').with(
         source: 'flyway.conf.erb',
         sensitive: true,
         variables: {
-          'url' => 'jdbc:mysql://localhost/mysql',
-          'user' => 'mysql',
-          'password' => 'mysql',
-          'schemas' => 'schema_a'
+          conf: {
+            'url' => 'jdbc:mysql://localhost/mysql',
+            'user' => 'mysql',
+            'password' => 'mysql',
+            'schemas' => 'schema_a'
+          }
         },
         owner: 'flyway'
       )
     end
 
     it 'executes flyway migrate' do
-      expect(chef_run).to run_execute('flyway -configFile=C:/flyway/conf/flyway_1.conf -X migrate')
+      expect(chef_run).to run_execute('C:\flyway/flyway -configFile=C:\flyway/conf/flyway_1.conf -X migrate')
     end
 
     it 'creates conf file' do
-      expect(chef_run).to create_template('C:/flyway/conf/flyway_2.conf').with(
+      expect(chef_run).to create_template('C:\flyway/conf/flyway_2.conf').with(
         source: 'flyway.conf.erb',
         sensitive: true,
         variables: {
-          'url' => 'jdbc:mysql://localhost/mysql',
-          'user' => 'mysql',
-          'password' => 'mysql',
-          'schemas' => 'schema_b'
+          conf: {
+            'url' => 'jdbc:mysql://localhost/mysql',
+            'user' => 'mysql',
+            'password' => 'mysql',
+            'schemas' => 'schema_b'
+          }
         },
         owner: 'flyway'
       )
     end
 
     it 'executes flyway migrate' do
-      expect(chef_run).to run_execute('flyway -configFile=C:/flyway/conf/flyway_2.conf -X migrate')
+      expect(chef_run).to run_execute('C:\flyway/flyway -configFile=C:\flyway/conf/flyway_2.conf -X migrate')
     end
   end
 end
