@@ -18,7 +18,6 @@ Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway comm
 - Debian/Ubuntu
 - Windows
 
-
 ## Usage
 
 Include recipe in cookbook or run list to install flywaydb .

@@ -19,12 +19,11 @@ end
 
 remote_file cache do
   source flyway['url']
-  notifies :run, "batch[unzip flyway (powershell 3 or higher required)]",:immediately if platform?('windows')
-  notifies :run, "execute[untar flyway]",:immediately unless platform?('windows')
+  notifies :run, 'batch[unzip flyway (powershell 3 or higher required)]', :immediately if platform?('windows')
+  notifies :run, 'execute[untar flyway]', :immediately unless platform?('windows')
 end
 
 if platform?('windows')
-  # powershell version 3 or higher required
   batch 'unzip flyway (powershell 3 or higher required)' do
     code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';"\
       " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache}', '#{flyway['install_dir']}'); }\""

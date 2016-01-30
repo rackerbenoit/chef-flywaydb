@@ -18,4 +18,15 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[flywaydb::default]
+      - recipe[flywaydb::migrate]
+    attributes:
+      flywaydb:
+        conf:
+          - url: 'jdbc:mysql://localhost/flyway_test'
+            user: 'root'
+            password: 'mysql'
+            locations: 'filesystem:/tmp/db1'
+          - url: 'jdbc:mysql://localhost/flyway_test'
+            user: 'root'
+            password: 'mysql'
+            locations: 'filesystem:/tmp/db2'
