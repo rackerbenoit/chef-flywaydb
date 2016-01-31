@@ -174,7 +174,7 @@ Cookbook Matchers
 
 ## Getting Help
 
-- Ask specific questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/flywaydb).
+- Ask specific questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/flyway).
 - Report bugs and discuss potential features in [Github issues](https://github.com/dhoer/chef-flywaydb/issues).
 
 ## Contributing
