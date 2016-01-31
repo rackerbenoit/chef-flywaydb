@@ -92,7 +92,7 @@ flyway accompanying command.
 
 #### Attributes
 
-* `name` - The name of the flyway conf file. Defaults to name of resource.
+* `name` - The name of the flyway conf file. Defaults to resource name.
 * `conf` - A hash or array of hashes used to create the default configuration for the flyway conf file. Key 
 values automatically get prefixed with flyway. Default `nil`.
 * `debug` - Print debug output during execution of flyway commands. Default `false`.
