@@ -22,7 +22,7 @@ Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway comm
 
 ### Recipes
 
-Include recipe (baseline, info, migrate, repair, and validate) in cookbook or run list to install and execute 
+Include recipe (migrate, info, validate, baseline, and repair) in cookbook or run list to install and execute 
 flyway accompanying command.
 
 #### Attributes
