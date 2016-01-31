@@ -40,7 +40,8 @@ values automatically get prefixed with flyway. Default `nil`.
 
 #### Examples
 
-Single flyway conf migration:
+Single flyway conf migration
+
 ```ruby
 {
   "run_list": [
@@ -57,7 +58,8 @@ Single flyway conf migration:
 }
 ```
 
-Multiple flyway conf migrations:
+Multiple flyway conf migrations
+
 ```ruby
 {
   "run_list": [
@@ -100,7 +102,8 @@ Actions: migrate (default), clean, info, validate, baseline, and repair.
 * `conf` - A hash or array of hashes used to create the default configuration for the flyway conf file. Key 
 values automatically get prefixed with flyway. Default `nil`.
 
-Single flyway conf migration:
+Single flyway conf migration
+
 ```ruby
 flywaydb 'myapp' do
   conf({
@@ -113,7 +116,8 @@ flywaydb 'myapp' do
 end
 ```
 
-Multiple flyway conf migrations:
+Multiple flyway conf migrations
+
 ```ruby
 flywaydb 'myapp' do
   conf([
@@ -165,7 +169,7 @@ expect(chef_run).to migrate_flywaydb('flyway').with(
       
 Cookbook Matchers
 
-- migrate_mysqldb(resource_name)
+- migrate_flywaydb(resource_name)
 - clean_flywaydb(resource_name)
 - baseline_flywaydb(resource_name)
 - info_flywaydb(resource_name)
