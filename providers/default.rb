@@ -10,6 +10,7 @@ def process_conf(command, conf_path, conf)
     sensitive new_resource.sensitive
     variables(conf: conf)
     owner new_resource.user
+    group new_resource.group
   end
 
   execute "#{new_resource.install_dir}/flyway -configFile=#{conf_path}#{new_resource.debug ? ' -X' : nil} #{command}"

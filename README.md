@@ -20,7 +20,157 @@ Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway comm
 
 ## Usage
 
-Include recipe in cookbook or run list to install flywaydb .
+### Recipes
+
+Include recipe in cookbook or run list to install and execute flyway commands (baseline, info, migrate, repair, and 
+validate).
+
+#### Attributes
+
+* `node['flywaydb']['version']` - The version of fly to install. Default `3.2.1`.
+* `node['flywaydb']['install_dir']` - The base install directory. Default linux: `/opt/flyway` windows: `C:\flyway`.
+* `node['flywaydb']['user']` - The owner of the flyway install. Default `flyway`.
+* `node['flywaydb']['group']` - The group of the flyway install. Default `flyway`.
+* `node['flywaydb']['debug']` - Print debug output during execution of flyway commands. Default `false`.
+* `node['flywaydb']['sensitive']` - Ensure that sensitive resource data is not logged by the 
+chef-client. Default `false`.
+* `node['flywaydb']['name']` - The name of the flyway conf file. Default `flyway`.
+* `node['flywaydb']['conf']` - A hash or array used to create the default configuration for the flyway conf file. Key 
+values automatically get prefixed with flyway. Default `nil`.
+
+#### Examples
+
+Single flyway conf migration:
+```ruby
+{
+  "run_list": [
+    "recipe[flywaydb::migrate]"
+  ],
+  "flywaydb": {
+    "conf": {
+      "url": "jdbc:mysql/localhost/mydb",
+      "user": "root",
+      "password": "changeme",
+      "locations": "filesystem:/opt/myapp/db/migration"
+    }
+  }
+}
+```
+
+Multiple flyway conf migrations:
+```ruby
+{
+  "run_list": [
+    "recipe[flywaydb::migrate]"
+  ],
+  "flywaydb": {
+    "conf": [
+      {
+        "url": "jdbc:mysql/localhost/mysql",
+        "user": "root",
+        "password": "changeme",
+        "schemas": "schema1",
+        "locations": "classpath:com.mycomp.migration,database/migrations,filesystem:/sql-migrations"
+      },
+      {
+        "url": "jdbc:mysql/localhost/mydb",
+        "user": "root",
+        "password": "changeme",
+        "locations": "filesystem:/opt/myapp/db/migration"
+      }
+    ]
+  }
+}
+```
+
+### Resources
+
+Install mysqldb and execute flyway commands.  
+
+Actions: migrate (default), clean, info, validate, baseline, and repair.
+
+#### Attributes
+
+* `install_dir` - The base install directory. Default linux: `/opt/flyway` windows: `C:\flyway`.
+* `user` - The owner of the flyway install. Default `flyway`.
+* `group` - The group of the flyway install. Default `flyway`.
+* `debug` - Print debug output during execution of flyway commands. Default `false`.
+* `sensitive` - Ensure that sensitive resource data is not logged by the chef-client. Default `false`.
+* `name` - The name of the flyway conf file. Default `flyway`.
+* `conf` - A hash or array of hashes used to create the default configuration for the flyway conf file. Key 
+values automatically get prefixed with flyway. Default `nil`.
+
+Single flyway conf migration:
+```ruby
+flywaydb 'myapp' do
+  conf({
+    url: 'jdbc:mysql/localhost/mydb',
+    user: 'root',
+    password: 'changeme',
+    locations: 'filesystem:/opt/myapp/db/migration'
+  })
+  action :migrate
+end
+```
+
+Multiple flyway conf migrations:
+```ruby
+flywaydb 'myapp' do
+  conf([
+    {
+      url: 'jdbc:mysql/localhost/mysql',
+      user: 'root',
+      password: 'changeme',
+      schemas: 'schema',
+      locations: 'classpath:com.mycomp.migration,database/migrations,filesystem:/sql-migrations'
+    },
+    {
+      url: 'jdbc:mysql/localhost/mydb',
+      user: 'root',
+      password: 'changeme',
+      locations: 'filesystem:/opt/myapp/db/migration'
+    }
+  ])
+  action :migrate
+end
+```
+
+## ChefSpec Matchers
+
+This cookbook includes custom [ChefSpec](https://github.com/sethvargo/chefspec) matchers you can use to test 
+your own cookbooks.
+
+Example Matcher Usage
+
+```ruby
+expect(chef_run).to migrate_flywaydb('flyway').with(
+  conf: [
+    {
+      'url' => 'jdbc:mysql://localhost/mysql',
+      'user' => 'mysql',
+      'password' => 'mysql',
+      'schemas' => 'schema_a'
+    },
+    {
+      'url' => 'jdbc:mysql://localhost/mysql',
+      'user' => 'mysql',
+      'password' => 'mysql',
+      'schemas' => 'schema_b'
+    }
+  ],
+  debug: true,
+  sensitive: true
+)
+```
+      
+Cookbook Matchers
+
+- migrate_mysqldb(resource_name)
+- clean_flywaydb(resource_name)
+- baseline_flywaydb(resource_name)
+- info_flywaydb(resource_name)
+- repair_flywaydb(resource_name)
+- validate_flywaydb(resource_name)
 
 ## Getting Help
 

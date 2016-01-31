@@ -14,9 +14,9 @@ end
 
 default['flywaydb']['user'] = 'flyway'
 default['flywaydb']['group'] = 'flyway'
-
 default['flywaydb']['debug'] = false
 default['flywaydb']['sensitive'] = false
+default['flywaydb']['name'] = 'flyway'
 
 # hash or array of hashes used to generate flyway conf file(s) - you can override any flyway config
 default['flywaydb']['conf'] = nil

@@ -42,7 +42,8 @@ describe 'flywaydb::migrate' do
             'password' => 'mysql'
           }
         },
-        owner: 'flyway'
+        owner: 'flyway',
+        group: 'flyway'
       )
     end
 
@@ -112,7 +113,8 @@ describe 'flywaydb::migrate' do
             'schemas' => 'schema_a'
           }
         },
-        owner: 'flyway'
+        owner: 'flyway',
+        group: 'flyway'
       )
     end
 
@@ -132,7 +134,8 @@ describe 'flywaydb::migrate' do
             'schemas' => 'schema_b'
           }
         },
-        owner: 'flyway'
+        owner: 'flyway',
+        group: 'flyway'
       )
     end
 

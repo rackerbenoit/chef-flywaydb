@@ -7,3 +7,4 @@ attribute :sensitive, kind_of: [TrueClass, FalseClass], default: lazy { node['fl
 attribute :debug, kind_of: [TrueClass, FalseClass], default: lazy { node['flywaydb']['debug'] }
 attribute :install_dir, kind_of: String, default: lazy { node['flywaydb']['install_dir'] }
 attribute :user, kind_of: String, default: lazy { node['flywaydb']['user'] }
+attribute :group, kind_of: String, default: lazy { node['flywaydb']['group'] }
