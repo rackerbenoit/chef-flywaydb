@@ -17,6 +17,8 @@ def process_conf(command, conf_path, conf)
 end
 
 def execute_flyway(command)
+  fail("Flyway #{command} requires conf!") unless new_resource.conf
+
   recipe_eval { run_context.include_recipe 'flywaydb::default' }
 
   conf_name = new_resource.name.tr(' ', '_')
