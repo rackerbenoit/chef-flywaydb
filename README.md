@@ -22,14 +22,14 @@ Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway comm
 
 ### Recipes
 
-Include recipe (migrate, info, validate, baseline, or repair) in cookbook or run list to install flywaydb and execute 
+Include migrate, info, validate, baseline, or repair recipe in cookbook or run list to install flywaydb and execute 
 flyway associated command.
 
 #### Attributes
 
+* `node['flywaydb']['conf']` (required) - A hash or array used to create the default configuration for the flyway 
+conf file. Key values automatically get prefixed with flyway. 
 * `node['flywaydb']['name']` - The name of the flyway conf file. Default `flyway`.
-* `node['flywaydb']['conf']` - A hash or array used to create the default configuration for the flyway conf file. Key 
-values automatically get prefixed with flyway. Default `nil`.
 * `node['flywaydb']['debug']` - Print debug output during execution of flyway commands. Default `false`.
 * `node['flywaydb']['sensitive']` - Ensure that sensitive resource data is not logged by the 
 chef-client. Default `false`.
@@ -87,14 +87,13 @@ Multiple flyway conf migrations
 
 ### Resources
 
-Use actions (migrate (default), clean, info, validate, baseline, or repair) to install flywaydb and execute 
-flyway associated command.
+Use migrate, info, validate, baseline, or repair actions to install flywaydb and execute flyway associated command.
 
 #### Attributes
 
+* `conf` (required) - A hash or array of hashes used to create the default configuration for the flyway conf file. Key 
+values automatically get prefixed with flyway.
 * `name` - The name of the flyway conf file. Defaults to resource name.
-* `conf` - A hash or array of hashes used to create the default configuration for the flyway conf file. Key 
-values automatically get prefixed with flyway. Default `nil`.
 * `debug` - Print debug output during execution of flyway commands. Default `false`.
 * `sensitive` - Ensure that sensitive resource data is not logged by the chef-client. Default `false`.
 
