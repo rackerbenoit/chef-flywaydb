@@ -22,8 +22,8 @@ Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway comm
 
 ### Recipes
 
-Include recipe in cookbook or run list to install and execute flyway commands (baseline, info, migrate, repair, and 
-validate).
+Include recipe (baseline, info, migrate, repair, and validate) in cookbook or run list to install and execute 
+flyway accompanying command.
 
 #### Attributes
 
@@ -31,12 +31,12 @@ validate).
 * `node['flywaydb']['install_dir']` - The base install directory. Default linux: `/opt/flyway` windows: `C:\flyway`.
 * `node['flywaydb']['user']` - The owner of the flyway install. Default `flyway`.
 * `node['flywaydb']['group']` - The group of the flyway install. Default `flyway`.
-* `node['flywaydb']['debug']` - Print debug output during execution of flyway commands. Default `false`.
-* `node['flywaydb']['sensitive']` - Ensure that sensitive resource data is not logged by the 
-chef-client. Default `false`.
 * `node['flywaydb']['name']` - The name of the flyway conf file. Default `flyway`.
 * `node['flywaydb']['conf']` - A hash or array used to create the default configuration for the flyway conf file. Key 
 values automatically get prefixed with flyway. Default `nil`.
+* `node['flywaydb']['debug']` - Print debug output during execution of flyway commands. Default `false`.
+* `node['flywaydb']['sensitive']` - Ensure that sensitive resource data is not logged by the 
+chef-client. Default `false`.
 
 #### Examples
 
@@ -87,20 +87,16 @@ Multiple flyway conf migrations
 
 ### Resources
 
-Install mysqldb and execute flyway commands.  
-
-Actions: migrate (default), clean, info, validate, baseline, and repair.
+Resource actions (migrate (default), clean, info, validate, baseline, and repair) to install and execute 
+flyway accompanying command.
 
 #### Attributes
 
-* `install_dir` - The base install directory. Default linux: `/opt/flyway` windows: `C:\flyway`.
-* `user` - The owner of the flyway install. Default `flyway`.
-* `group` - The group of the flyway install. Default `flyway`.
-* `debug` - Print debug output during execution of flyway commands. Default `false`.
-* `sensitive` - Ensure that sensitive resource data is not logged by the chef-client. Default `false`.
-* `name` - The name of the flyway conf file. Default `flyway`.
+* `name` - The name of the flyway conf file. Defaults to name of resource.
 * `conf` - A hash or array of hashes used to create the default configuration for the flyway conf file. Key 
 values automatically get prefixed with flyway. Default `nil`.
+* `debug` - Print debug output during execution of flyway commands. Default `false`.
+* `sensitive` - Ensure that sensitive resource data is not logged by the chef-client. Default `false`.
 
 Single flyway conf migration
 
