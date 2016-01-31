@@ -22,8 +22,8 @@ Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway comm
 
 ### Recipes
 
-Include recipe (migrate, info, validate, baseline, or repair) in cookbook or run list to install and execute 
-flyway accompanying command.
+Include recipe (migrate, info, validate, baseline, or repair) in cookbook or run list to install flywaydb and execute 
+flyway associated command.
 
 #### Attributes
 
@@ -87,8 +87,8 @@ Multiple flyway conf migrations
 
 ### Resources
 
-Use actions (migrate (default), clean, info, validate, baseline, or repair) to install and execute 
-flyway accompanying command.
+Use actions (migrate (default), clean, info, validate, baseline, or repair) to install flywaydb and execute 
+flyway associated command.
 
 #### Attributes
 
@@ -158,8 +158,8 @@ expect(chef_run).to migrate_flywaydb('flyway').with(
       'schemas' => 'schema_b'
     }
   ],
-  debug: true,
-  sensitive: true
+  debug: false,
+  sensitive: false
 )
 ```
       
