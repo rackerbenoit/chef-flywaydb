@@ -27,16 +27,16 @@ flyway associated command.
 
 #### Attributes
 
-* `node['flywaydb']['version']` - The version of fly to install. Default `3.2.1`.
-* `node['flywaydb']['install_dir']` - The base install directory. Default linux: `/opt/flyway` windows: `C:\flyway`.
-* `node['flywaydb']['user']` - The owner of the flyway install. Default `flyway`.
-* `node['flywaydb']['group']` - The group of the flyway install. Default `flyway`.
 * `node['flywaydb']['name']` - The name of the flyway conf file. Default `flyway`.
 * `node['flywaydb']['conf']` - A hash or array used to create the default configuration for the flyway conf file. Key 
 values automatically get prefixed with flyway. Default `nil`.
 * `node['flywaydb']['debug']` - Print debug output during execution of flyway commands. Default `false`.
 * `node['flywaydb']['sensitive']` - Ensure that sensitive resource data is not logged by the 
 chef-client. Default `false`.
+* `node['flywaydb']['version']` - The version of fly to install. Default `3.2.1`.
+* `node['flywaydb']['install_dir']` - The base install directory. Default linux: `/opt/flyway` windows: `C:\flyway`.
+* `node['flywaydb']['user']` - The owner of the flyway install. Default `flyway`.
+* `node['flywaydb']['group']` - The group of the flyway install. Default `flyway`.
 
 #### Examples
 
