@@ -12,9 +12,9 @@ cookbook_file 'V002__data.sql' do
   source 'V002__data.sql'
 end
 
-cookbook_file 'V003__user.sql' do
-  path '/tmp/db/V003__user.sql'
-  source 'V003__user.sql'
+cookbook_file 'V003__user_grants.sql' do
+  path '/tmp/db/V003__user_grants.sql'
+  source 'V003__user_grants.sql'
 end
 
 include_recipe 'flywaydb::migrate'
