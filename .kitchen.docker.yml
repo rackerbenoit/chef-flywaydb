@@ -40,7 +40,7 @@ platforms:
     run_command: /sbin/init
     provision_command:
       - /usr/bin/apt-get update
-      - /usr/bin/apt-get install apt-transport-https net-tools -y
+      - /usr/bin/apt-get install apt-transport-https net-tools mysql-server-5.6 mysql-client-5.6 -y
 
 suites:
 - name: default
