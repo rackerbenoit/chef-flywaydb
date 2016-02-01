@@ -15,19 +15,12 @@ platforms:
   - name: centos-7.1
     driver:
       network:
-      - ["forwarded_port", {guest: 3306, host: 3326}]
+      - ["forwarded_port", {guest: 3306, host: 3326}] # mysql -h 127.0.0.1 -P 3326 -u test -ptest
 
   - name: ubuntu-14.04
     driver:
       network:
-      - ["forwarded_port", {guest: 3306, host: 3346}]
-
-  - name: windows-2012r2
-    driver:
-      network:
-      - ["forwarded_port", {guest: 3306, host: 3356}]
-    driver:
-      box: dhoer/windows-2012r2
+      - ["forwarded_port", {guest: 3306, host: 3336}] # mysql -h 127.0.0.1 -P 3336 -u test -ptest
 
 suites:
   - name: default
