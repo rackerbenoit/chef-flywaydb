@@ -10,7 +10,7 @@ platforms:
   - name: centos-6.7
     driver:
       network:
-      - ["forwarded_port", {guest: 3306, host: 3316}]
+      - ["forwarded_port", {guest: 3306, host: 3316}] # mysql -h 127.0.0.1 -P 3316 -u test -ptest
 
   - name: centos-7.1
     driver:
@@ -42,9 +42,11 @@ suites:
     attributes:
       flywaydb:
         params:
-          user: 'root'
-          password: 'mysql'
+          user: root
+          password: mysql
         conf:
-          url: 'jdbc:mysql://localhost/mysql'
-          schemas: 'flywaydb_test'
-          locations: 'filesystem:/tmp/db'
+          url: jdbc:mysql://localhost/mysql
+          schemas: flywaydb_test
+          locations: filesystem:/tmp/db
+          placeholders.test_user: test
+          placeholders.test_password: test
