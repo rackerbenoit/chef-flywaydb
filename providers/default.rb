@@ -13,11 +13,22 @@ def process_conf(command, conf_path, conf)
     group new_resource.group
   end
 
-  execute "#{new_resource.install_dir}/flyway -configFile=#{conf_path}#{new_resource.debug ? ' -X' : nil} #{command}"
+  cmd = ["#{new_resource.install_dir}/flyway"]
+  new_resource.params.each do |key,value|
+    cmd << "-#{key}=#{value}"
+  end
+  cmd << "-configFile=#{conf_path}"
+  cmd << '-X' if new_resource.debug && !new_resource.sensitive
+  cmd << '-q' if new_resource.quiet
+  cmd << command
+
+  execute cmd.join(' ') do
+    sensitive new_resource.sensitive
+  end
 end
 
-def execute_flyway(command)
-  fail("Flyway #{command} requires conf!") unless new_resource.conf
+def flyway(command)
+  fail("Flyway #{command} requires conf to be defined!") unless new_resource.conf
 
   recipe_eval { run_context.include_recipe 'flywaydb::default' }
 
@@ -36,36 +47,36 @@ end
 
 action :migrate do
   converge_by('migrate') do
-    execute_flyway('migrate')
+    flyway('migrate')
   end
 end
 
 action :clean do
   converge_by('migrate') do
-    execute_flyway('migrate')
+    flyway('migrate')
   end
 end
 
 action :info do
   converge_by('info') do
-    execute_flyway('info')
+    flyway('info')
   end
 end
 
 action :validate do
   converge_by('validate') do
-    execute_flyway('validate')
+    flyway('validate')
   end
 end
 
 action :baseline do
   converge_by('baseline') do
-    execute_flyway('baseline')
+    flyway('baseline')
   end
 end
 
 action :repair do
   converge_by('repair') do
-    execute_flyway('repair')
+    flyway('repair')
   end
 end

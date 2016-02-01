@@ -12,11 +12,13 @@ when 'windows'
   default['flywaydb']['install_dir'] = "#{ENV['SYSTEMDRIVE']}\\flyway"
 end
 
+default['flywaydb']['name'] = 'flyway'
 default['flywaydb']['user'] = 'flyway'
 default['flywaydb']['group'] = 'flyway'
+
 default['flywaydb']['debug'] = false
 default['flywaydb']['sensitive'] = false
-default['flywaydb']['name'] = 'flyway'
+default['flywaydb']['quiet'] = false
 
-# hash or array of hashes used to generate flyway conf file(s) - you can override any flyway config
+default['flywaydb']['params'] = {}
 default['flywaydb']['conf'] = nil

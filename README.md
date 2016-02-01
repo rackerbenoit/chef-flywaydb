@@ -27,10 +27,13 @@ flyway associated command.
 
 #### Attributes
 
-* `node['flywaydb']['conf']` (required) - A hash or array used to create the default configuration for the flyway 
-conf file. Key values automatically get prefixed with flyway. 
+* `node['flywaydb']['conf']` (required) - A hash or array of hashes used to create the default Configuration file(s) 
+for the flyway conf file. Key values automatically get prefixed with flyway.
+* `node['flywaydb']['params']` - A hash of command-line parameters to pass to flyway command. Command-line parameters 
+override Configuration files.
 * `node['flywaydb']['name']` - The name of the flyway conf file. Default `flyway`.
 * `node['flywaydb']['debug']` - Print debug output during execution of flyway commands. Default `false`.
+* `node['flywaydb']['quiet']` - Suppress all output, except for errors and warnings. Default `false`.
 * `node['flywaydb']['sensitive']` - Ensure that sensitive resource data is not logged by the 
 chef-client. Default `false`.
 * `node['flywaydb']['version']` - The version of fly to install. Default `3.2.1`.
@@ -58,7 +61,7 @@ Single flyway conf migration
 }
 ```
 
-Multiple flyway conf migrations
+Multiple flyway conf migrations with user and password parameters
 
 ```ruby
 {
@@ -66,18 +69,18 @@ Multiple flyway conf migrations
     "recipe[flywaydb::migrate]"
   ],
   "flywaydb": {
+    "params": {
+      "user": "root",
+      "password": "changeme"    
+    }
     "conf": [
       {
         "url": "jdbc:mysql/localhost/mysql",
-        "user": "root",
-        "password": "changeme",
         "schemas": "schema1",
         "locations": "classpath:com.mycomp.migration,database/migrations,filesystem:/sql-migrations"
       },
       {
         "url": "jdbc:mysql/localhost/mydb",
-        "user": "root",
-        "password": "changeme",
         "locations": "filesystem:/opt/myapp/db/migration"
       }
     ]
@@ -91,45 +94,48 @@ Use migrate, info, validate, baseline, or repair actions to install flywaydb and
 
 #### Attributes
 
-* `conf` (required) - A hash or array of hashes used to create the default configuration for the flyway conf file. Key 
-values automatically get prefixed with flyway.
+* `conf` (required) - A hash or array of hashes used to create the default Configuration file(s) for the flyway conf 
+file. Key values automatically get prefixed with flyway.
+* `params` - A hash of command-line parameters to pass to flyway command. Command-line parameters override 
+Configuration files.
 * `name` - The name of the flyway conf file. Defaults to resource name.
 * `debug` - Print debug output during execution of flyway commands. Default `false`.
+* `quiet` -  Suppress all output, except for errors and warnings. Default `false`.
 * `sensitive` - Ensure that sensitive resource data is not logged by the chef-client. Default `false`.
 
 Single flyway conf migration
 
 ```ruby
 flywaydb 'myapp' do
-  conf({
+  conf {
     url: 'jdbc:mysql/localhost/mydb',
     user: 'root',
     password: 'changeme',
     locations: 'filesystem:/opt/myapp/db/migration'
-  })
+  }
   action :migrate
 end
 ```
 
-Multiple flyway conf migrations
+Multiple flyway conf migrations with user and password parameters
 
 ```ruby
 flywaydb 'myapp' do
-  conf([
+  params: {
+    user: 'root',
+    password: 'changeme'
+  }
+  conf [
     {
       url: 'jdbc:mysql/localhost/mysql',
-      user: 'root',
-      password: 'changeme',
       schemas: 'schema',
       locations: 'classpath:com.mycomp.migration,database/migrations,filesystem:/sql-migrations'
     },
     {
       url: 'jdbc:mysql/localhost/mydb',
-      user: 'root',
-      password: 'changeme',
       locations: 'filesystem:/opt/myapp/db/migration'
     }
-  ])
+  ]
   action :migrate
 end
 ```
@@ -143,18 +149,20 @@ Example Matcher Usage
 
 ```ruby
 expect(chef_run).to migrate_flywaydb('flyway').with(
+  params: {
+      'user' => 'mysql',
+      'password' => 'mysql'  
+  }
   conf: [
     {
       'url' => 'jdbc:mysql://localhost/mysql',
-      'user' => 'mysql',
-      'password' => 'mysql',
-      'schemas' => 'schema_a'
+      'schemas' => 'schema_a',
+      'locations' => 'classpath:com.mycomp.migration,database/migrations,filesystem:/sql-migrations'
     },
     {
       'url' => 'jdbc:mysql://localhost/mysql',
-      'user' => 'mysql',
-      'password' => 'mysql',
-      'schemas' => 'schema_b'
+      'schemas' => 'schema_b',
+      'locations' => 'filesystem:/opt/myapp/db/migration'
     }
   ],
   debug: false,
