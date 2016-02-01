@@ -48,7 +48,7 @@ suites:
     - recipe[flywaydb_test::migrate]
   attributes:
     flywaydb:
-      sensitive: true
+      sensitive: false
       params:
         user: root
         password: ''
