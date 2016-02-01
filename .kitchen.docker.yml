@@ -54,8 +54,9 @@ platforms:
 suites:
 - name: default
   run_list:
-    - recipe[flywaydb_test::mysql]
-    - recipe[flywaydb_test::migrate]
+#    - recipe[flywaydb_test::mysql]
+#    - recipe[flywaydb_test::migrate]
+    - recipe[flywaydb::migrate]
   attributes:
     flywaydb:
       sensitive: true
