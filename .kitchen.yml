@@ -17,11 +17,6 @@ platforms:
       network:
       - ["forwarded_port", {guest: 3306, host: 3326}]
 
-  - name: ubuntu-12.04
-    driver:
-      network:
-      - ["forwarded_port", {guest: 3306, host: 3336}]
-
   - name: ubuntu-14.04
     driver:
       network:
@@ -44,9 +39,9 @@ suites:
         params:
           user: root
           password: mysql
+          placeholders.test_password: test
         conf:
           url: jdbc:mysql://localhost/mysql
           schemas: flywaydb_test
           locations: filesystem:/tmp/db
           placeholders.test_user: test
-          placeholders.test_password: test
