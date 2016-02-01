@@ -121,7 +121,7 @@ Multiple flyway conf migrations with user and password parameters
 
 ```ruby
 flywaydb 'myapp' do
-  params: {
+  params {
     user: 'root',
     password: 'changeme'
   }
@@ -149,7 +149,7 @@ Example Matcher Usage
 
 ```ruby
 expect(chef_run).to migrate_flywaydb('flyway').with(
-  params: {
+  params {
       'user' => 'mysql',
       'password' => 'mysql'  
   }
