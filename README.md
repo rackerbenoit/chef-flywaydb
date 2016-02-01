@@ -61,7 +61,7 @@ Single flyway conf migration
 }
 ```
 
-Multiple flyway conf migrations with user and password parameters
+Multiple flyway conf migrations with user and password passed as command-line parameters
 
 ```ruby
 {
@@ -117,7 +117,7 @@ flywaydb 'myapp' do
 end
 ```
 
-Multiple flyway conf migrations with user and password parameters
+Multiple flyway conf migrations with user and password passed as command-line parameters
 
 ```ruby
 flywaydb 'myapp' do
