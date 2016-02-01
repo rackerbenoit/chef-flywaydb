@@ -23,7 +23,7 @@ platforms:
     platform: rhel
     run_command: /sbin/init
     provision_command:
-      - /usr/bin/yum install -y initscripts net-tools wget libxml2 libxml2-dev
+      - /usr/bin/yum install -y initscripts net-tools wget
 - name: centos-7
   driver:
     image: centos:7
@@ -31,7 +31,7 @@ platforms:
     run_command: /usr/lib/systemd/systemd
     provision_command:
       - /bin/yum update -y
-      - /bin/yum install -y initscripts net-tools wget linux-libc-dev
+      - /bin/yum install -y initscripts net-tools wget
 - name: ubuntu-12.04
   driver:
     image: ubuntu-upstart:12.04
