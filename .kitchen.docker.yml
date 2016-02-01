@@ -54,9 +54,9 @@ suites:
         user: root
         password: mysql
         placeholders.test_password: test
-    conf:
-      url: jdbc:mysql://localhost/mysql
-      schemas: flywaydb_test
-      locations: filesystem:/tmp/db
-      placeholders.test_user: test
+      conf:
+        url: jdbc:mysql://localhost/mysql
+        schemas: flywaydb_test
+        locations: filesystem:/tmp/db
+        placeholders.test_user: test
 
