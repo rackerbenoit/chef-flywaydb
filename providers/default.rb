@@ -4,6 +4,17 @@ def whyrun_supported?
   true
 end
 
+def build_command(command, conf_path)
+  cmd = ["#{new_resource.install_dir}/flyway"]
+  new_resource.params.each do |key, value|
+    cmd << "-#{key}=#{value}"
+  end
+  cmd << "-configFile=#{conf_path}"
+  cmd << '-X' if new_resource.debug
+  cmd << '-q' if new_resource.quiet
+  cmd << command
+end
+
 def process_conf(command, conf_path, conf)
   template conf_path do
     source 'flyway.conf.erb'
@@ -13,14 +24,7 @@ def process_conf(command, conf_path, conf)
     group new_resource.group
   end
 
-  cmd = ["#{new_resource.install_dir}/flyway"]
-  new_resource.params.each do |key,value|
-    cmd << "-#{key}=#{value}"
-  end
-  cmd << "-configFile=#{conf_path}"
-  cmd << '-X' if new_resource.debug && !new_resource.sensitive
-  cmd << '-q' if new_resource.quiet
-  cmd << command
+  cmd = build_command(command, conf_path)
 
   execute cmd.join(' ') do
     sensitive new_resource.sensitive
