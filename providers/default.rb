@@ -26,7 +26,8 @@ def process_conf(command, conf_path, conf)
 
   cmd = build_command(command, conf_path)
 
-  execute cmd.join(' ') do
+  execute 'exec flyway' do
+    command cmd.join(' ')
     sensitive new_resource.sensitive
   end
 end

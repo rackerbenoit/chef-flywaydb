@@ -10,7 +10,6 @@ addons:
 
 services:
   - docker
-  - mysql
 
 env:
   matrix:
