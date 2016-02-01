@@ -51,9 +51,10 @@ suites:
       sensitive: true
       params:
         user: root
+        password: mysql
         placeholders.test_password: test
       conf:
-        url: jdbc:mysql://localhost/mysql
+        url: jdbc:mysql://127.0.0.1/mysql
         schemas: flywaydb_test
         locations: filesystem:/tmp/db
         placeholders.test_user: test
