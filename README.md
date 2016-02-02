@@ -103,6 +103,8 @@ Configuration files.
 * `quiet` -  Suppress all output, except for errors and warnings. Default `false`.
 * `sensitive` - Ensure that sensitive resource data is not logged by the chef-client. Default `false`.
 
+#### Examples
+
 Single flyway conf migration
 
 ```ruby
