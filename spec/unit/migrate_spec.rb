@@ -11,20 +11,24 @@ describe 'flywaydb::migrate' do
         file_cache_path: '/etc/chef',
         step_into: ['flywaydb'],
         log_level: ::LOG_LEVEL) do |node|
-        node.set['flywaydb']['conf'] = {
-          url: 'jdbc:mysql://localhost/mysql',
+        node.set['flywaydb']['params'] = {
           user: 'mysql',
           password: 'mysql'
+        }
+        node.set['flywaydb']['conf'] = {
+          url: 'jdbc:mysql://localhost/mysql'
         }
       end.converge(described_recipe)
     end
 
     it 'migrates db' do
       expect(chef_run).to migrate_flywaydb('flyway').with(
-        conf: {
-          'url' => 'jdbc:mysql://localhost/mysql',
+        params: {
           'user' => 'mysql',
           'password' => 'mysql'
+        },
+        conf: {
+          'url' => 'jdbc:mysql://localhost/mysql'
         },
         debug: false,
         sensitive: false
@@ -37,9 +41,7 @@ describe 'flywaydb::migrate' do
         sensitive: false,
         variables: {
           conf: {
-            'url' => 'jdbc:mysql://localhost/mysql',
-            'user' => 'mysql',
-            'password' => 'mysql'
+            'url' => 'jdbc:mysql://localhost/mysql'
           }
         },
         owner: 'flyway',
@@ -48,7 +50,9 @@ describe 'flywaydb::migrate' do
     end
 
     it 'executes flyway migrate' do
-      expect(chef_run).to run_execute('/opt/flyway/flyway -configFile=/opt/flyway/conf/flyway.conf migrate')
+      expect(chef_run).to run_execute('flyway migrate /opt/flyway/conf/flyway.conf').with(
+        command: '/opt/flyway/flyway -user=mysql -password=mysql -configFile=/opt/flyway/conf/flyway.conf migrate'
+      )
     end
   end
 
@@ -61,17 +65,17 @@ describe 'flywaydb::migrate' do
         step_into: ['flywaydb'],
         log_level: ::LOG_LEVEL) do |node|
         ENV['SYSTEMDRIVE'] = 'C:'
+        node.set['flywaydb']['params'] = {
+          user: 'mysql',
+          password: 'mysql'
+        }
         node.set['flywaydb']['conf'] = [
           {
             url: 'jdbc:mysql://localhost/mysql',
-            user: 'mysql',
-            password: 'mysql',
             schemas: 'schema_a'
           },
           {
             url: 'jdbc:mysql://localhost/mysql',
-            user: 'mysql',
-            password: 'mysql',
             schemas: 'schema_b'
           }
         ]
@@ -82,17 +86,17 @@ describe 'flywaydb::migrate' do
 
     it 'migrates db' do
       expect(chef_run).to migrate_flywaydb('flyway').with(
+        params: {
+          'user' => 'mysql',
+          'password' => 'mysql'
+        },
         conf: [
           {
             'url' => 'jdbc:mysql://localhost/mysql',
-            'user' => 'mysql',
-            'password' => 'mysql',
             'schemas' => 'schema_a'
           },
           {
             'url' => 'jdbc:mysql://localhost/mysql',
-            'user' => 'mysql',
-            'password' => 'mysql',
             'schemas' => 'schema_b'
           }
         ],
@@ -108,8 +112,6 @@ describe 'flywaydb::migrate' do
         variables: {
           conf: {
             'url' => 'jdbc:mysql://localhost/mysql',
-            'user' => 'mysql',
-            'password' => 'mysql',
             'schemas' => 'schema_a'
           }
         },
@@ -119,7 +121,9 @@ describe 'flywaydb::migrate' do
     end
 
     it 'executes flyway migrate' do
-      expect(chef_run).to run_execute('C:\flyway/flyway -configFile=C:\flyway/conf/flyway_1.conf -X migrate')
+      expect(chef_run).to run_execute('flyway migrate C:\flyway/conf/flyway_1.conf').with(
+        command: 'C:\flyway/flyway -user=mysql -password=mysql -configFile=C:\flyway/conf/flyway_1.conf -X migrate'
+      )
     end
 
     it 'creates conf file' do
@@ -129,8 +133,6 @@ describe 'flywaydb::migrate' do
         variables: {
           conf: {
             'url' => 'jdbc:mysql://localhost/mysql',
-            'user' => 'mysql',
-            'password' => 'mysql',
             'schemas' => 'schema_b'
           }
         },
@@ -140,7 +142,8 @@ describe 'flywaydb::migrate' do
     end
 
     it 'executes flyway migrate' do
-      expect(chef_run).to run_execute('C:\flyway/flyway -configFile=C:\flyway/conf/flyway_2.conf -X migrate')
+      expect(chef_run).to run_execute('flyway migrate C:\flyway/conf/flyway_2.conf').with(
+        command: 'C:\flyway/flyway -user=mysql -password=mysql -configFile=C:\flyway/conf/flyway_2.conf -X migrate')
     end
   end
 end
