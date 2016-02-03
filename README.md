@@ -35,10 +35,11 @@ override Configuration files.
 * `node['flywaydb']['debug']` - Print debug output during execution of flyway commands. Default `false`.
 * `node['flywaydb']['sensitive']` - Ensure that sensitive resource data is not logged by the 
 chef-client. Default `false`.
-* `node['flywaydb']['version']` - The version of fly to install. Default `3.2.1`.
+* `node['flywaydb']['version']` - The flywaydb version to install. Default `3.2.1`.
+* `node['flywaydb']['sha256']` - The flywaydb SHA 256 checksum for linux or windows platform.
 * `node['flywaydb']['install_dir']` - The base install directory. Default linux: `/opt/flyway` windows: `C:\flyway`.
-* `node['flywaydb']['user']` - The owner of the flyway install. Default `flyway`.
-* `node['flywaydb']['group']` - The group of the flyway install. Default `flyway`.
+* `node['flywaydb']['user']` - The owner of flywaydb. Default `flyway`.
+* `node['flywaydb']['group']` - The group of flywaydb. Default `flyway`.
 
 #### Examples
 

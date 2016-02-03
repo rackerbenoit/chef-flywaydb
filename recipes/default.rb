@@ -26,6 +26,7 @@ end
 remote_file 'download flywaydb' do
   path cache
   source flyway['url']
+  checksum flyway['sha256']
   notifies :run, 'batch[unzip flyway (powershell 3 or higher required)]', :immediately if platform?('windows')
   notifies :run, 'execute[extract flyway]', :immediately unless platform?('windows')
 end

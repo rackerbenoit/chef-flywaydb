@@ -3,7 +3,7 @@ name 'flywaydb'
 maintainer 'Dennis Hoer'
 maintainer_email 'dennis.hoer@gmail.com'
 license 'MIT'
-description 'Installs and configures flywaydb a database migration tool'
+description 'Installs and configures flywaydb database migration tool'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '1.0.0'
 
