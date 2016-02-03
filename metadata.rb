@@ -10,7 +10,7 @@ version '1.0.0'
 supports 'centos', '>= 6.0'
 supports 'redhat', '>= 6.0'
 supports 'debian', '~> 7.0'
-supports 'ubuntu', '>= 12.04'
+supports 'ubuntu', '>= 14.04'
 supports 'windows'
 
 source_url 'https://github.com/dhoer/chef-flywaydb' if respond_to?(:source_url)
