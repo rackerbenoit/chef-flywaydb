@@ -11,7 +11,6 @@ def build_command(command, conf_path)
   end
   cmd << "-configFile=#{conf_path}"
   cmd << '-X' if new_resource.debug
-  cmd << '-q' if new_resource.quiet
   cmd << command
 end
 
@@ -20,6 +19,7 @@ def process_conf(command, conf_path, conf)
     source 'flyway.conf.erb'
     sensitive new_resource.sensitive
     variables(conf: conf)
+    cookbook 'flywaydb'
     owner new_resource.user
     group new_resource.group
   end

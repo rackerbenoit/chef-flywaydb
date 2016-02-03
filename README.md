@@ -33,7 +33,6 @@ for the flyway conf file. Key values automatically get prefixed with flyway.
 override Configuration files.
 * `node['flywaydb']['name']` - The name of the flyway conf file. Default `flyway`.
 * `node['flywaydb']['debug']` - Print debug output during execution of flyway commands. Default `false`.
-* `node['flywaydb']['quiet']` - Suppress all output, except for errors and warnings. Default `false`.
 * `node['flywaydb']['sensitive']` - Ensure that sensitive resource data is not logged by the 
 chef-client. Default `false`.
 * `node['flywaydb']['version']` - The version of fly to install. Default `3.2.1`.
