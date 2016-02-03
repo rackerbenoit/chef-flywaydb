@@ -2,7 +2,7 @@ actions :migrate, :clean, :baseline, :info, :repair, :validate
 default_action :migrate
 
 attribute :name, kind_of: String, name_attribute: true
-attribute :conf, kind_of: [Hash, Array], required: true
+attribute :conf, kind_of: [Hash, Array, NilClass], default: lazy { node['flywaydb']['conf'] }
 attribute :params, kind_of: Hash, default: lazy { node['flywaydb']['params'] }
 attribute :sensitive, kind_of: [TrueClass, FalseClass], default: lazy { node['flywaydb']['sensitive'] }
 attribute :debug, kind_of: [TrueClass, FalseClass], default: lazy { node['flywaydb']['debug'] }

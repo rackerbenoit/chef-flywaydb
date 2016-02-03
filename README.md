@@ -27,7 +27,7 @@ flyway associated command.
 
 #### Attributes
 
-* `node['flywaydb']['conf']` (required) - A hash or array of hashes used to create the default Configuration file(s) 
+* `node['flywaydb']['conf']` - A hash or array of hashes used to create the default Configuration file(s) 
 for the flyway conf file. Key values automatically get prefixed with flyway.
 * `node['flywaydb']['params']` - A hash of command-line parameters to pass to flyway command. Command-line parameters 
 override Configuration files.
@@ -94,7 +94,7 @@ Use migrate, info, validate, baseline, or repair actions to install flywaydb and
 
 #### Attributes
 
-* `conf` (required) - A hash or array of hashes used to create the default Configuration file(s) for the flyway conf 
+* `conf` A hash or array of hashes used to create the default Configuration file(s) for the flyway conf 
 file. Key values automatically get prefixed with flyway.
 * `params` - A hash of command-line parameters to pass to flyway command. Command-line parameters override 
 Configuration files.

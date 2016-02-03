@@ -33,7 +33,7 @@ def process_conf(command, conf_path, conf)
 end
 
 def flyway(command)
-  fail("Flyway #{command} requires conf to be defined!") unless new_resource.conf
+  fail('Flyway conf and/or params required!') if new_resource.params.empty? && new_resource.conf.nil?
 
   recipe_eval { run_context.include_recipe 'flywaydb::default' }
 
