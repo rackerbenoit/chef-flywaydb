@@ -64,7 +64,7 @@ Single flyway conf migration
 }
 ```
 
-Multiple flyway conf migrations with user and password passed as command-line parameters
+Multiple flyway conf migrations with command-line parameters
 
 ```ruby
 {
@@ -74,18 +74,39 @@ Multiple flyway conf migrations with user and password passed as command-line pa
   "flywaydb": {
     "params": {
       "user": "root",
-      "password": "changeme"    
-    }
+      "password": "changeme",
+      "url": "jdbc:mysql/localhost/mysql"
+    },
     "conf": [
       {
-        "url": "jdbc:mysql/localhost/mysql",
-        "schemas": "schema1",
-        "locations": "classpath:com.mycomp.migration,database/migrations,filesystem:/sql-migrations"
+        "schemas": "custA",
+        "locations": "filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custA"
       },
       {
-        "url": "jdbc:mysql/localhost/mydb",
-        "locations": "filesystem:/opt/myapp/db/migration"
+        "schemas": "custB",
+        "locations": "filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custA"
       }
+    ]
+  }
+}
+```
+
+Multiple flyway ext_conf migrations with command-line parameters
+
+```ruby
+{
+  "run_list": [
+    "recipe[flywaydb::migrate]"
+  ],
+  "flywaydb": {
+    "params": {
+      "user": "root",
+      "password": "changeme",
+      "url": "jdbc:mysql/localhost/mysql"
+    },
+    "ext_conf": [
+      "/opt/myapp/db/migration/custA.properties",
+      "/opt/myapp/db/migration/custB.properties"
     ]
   }
 }
@@ -124,24 +145,41 @@ flywaydb 'myapp' do
 end
 ```
 
-Multiple flyway conf migrations with user and password passed as command-line parameters
+Multiple flyway conf migrations with command-line parameters
 
 ```ruby
 flywaydb 'myapp' do
-  params {
+  params({
     user: 'root',
-    password: 'changeme'
-  }
+    password: 'changeme',
+    url: 'jdbc:mysql/localhost/mysql'
+  })
   conf([
     {
-      url: 'jdbc:mysql/localhost/mysql',
-      schemas: 'schema',
-      locations: 'classpath:com.mycomp.migration,database/migrations,filesystem:/sql-migrations'
+      schemas: 'custA',
+      locations: 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custA'
     },
     {
-      url: 'jdbc:mysql/localhost/mydb',
-      locations: 'filesystem:/opt/myapp/db/migration'
+       schemas: 'custB',
+       locations: 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custB'
     }
+  ])
+  action :migrate
+end
+```
+
+Multiple flyway ext_conf migrations with command-line parameters
+
+```ruby
+flywaydb 'myapp' do
+  params({
+    user: 'root',
+    password: 'changeme',
+    url: 'jdbc:mysql/localhost/mysql'
+  })
+  ext_conf([
+    '/opt/myapp/db/migration/custA.properties',
+    '/opt/myapp/db/migration/custB.properties'
   ])
   action :migrate
 end
@@ -158,18 +196,17 @@ Example Matcher Usage
 expect(chef_run).to migrate_flywaydb('flyway').with(
   params {
       'user' => 'mysql',
-      'password' => 'mysql'  
+      'password' => 'mysql',
+      'url' => 'jdbc:mysql://localhost/mysql'
   }
   conf: [
     {
-      'url' => 'jdbc:mysql://localhost/mysql',
-      'schemas' => 'schema_a',
-      'locations' => 'classpath:com.mycomp.migration,database/migrations,filesystem:/sql-migrations'
+      'schemas' => 'custA',
+      'locations' => 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custA'
     },
     {
-      'url' => 'jdbc:mysql://localhost/mysql',
-      'schemas' => 'schema_b',
-      'locations' => 'filesystem:/opt/myapp/db/migration'
+      'schemas' => 'custB',
+      'locations' => 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custB'
     }
   ],
   debug: false,
