@@ -1,4 +1,4 @@
-# Flyway Cookbook
+# Flywaydb Cookbook
 
 [![Cookbook Version](http://img.shields.io/cookbook/v/flywaydb.svg?style=flat-square)][supermarket]
 [![Build Status](http://img.shields.io/travis/dhoer/chef-flywaydb.svg?style=flat-square)][travis]
@@ -6,7 +6,7 @@
 [supermarket]: https://supermarket.chef.io/cookbooks/flywaydb
 [travis]: https://travis-ci.org/dhoer/chef-flywaydb
 
-Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway commands.
+Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway commands via recipe or resource actions.
 
 ## Requirements
 
@@ -23,7 +23,7 @@ Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway comm
 ### Recipes
 
 Include migrate, info, validate, baseline, or repair recipe in cookbook or run list to install flywaydb and execute 
-flyway associated command.
+associated flyway command.
 
 #### Attributes
 
@@ -114,7 +114,7 @@ Multiple flyway ext_conf migrations with command-line parameters
 
 ### Resources
 
-Use migrate, info, validate, baseline, or repair actions to install flywaydb and execute flyway associated command.
+Use migrate, info, validate, baseline, or repair actions to install flywaydb and execute associated flyway command.
 
 #### Attributes
 
@@ -126,7 +126,6 @@ this is set.
 Configuration files.
 * `name` - The name of the flyway conf file. Defaults to resource name.
 * `debug` - Print debug output during execution of flyway commands. Default `false`.
-* `quiet` -  Suppress all output, except for errors and warnings. Default `false`.
 * `sensitive` - Ensure that sensitive resource data is not logged by the chef-client. Default `false`.
 
 #### Examples
