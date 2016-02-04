@@ -194,7 +194,7 @@ Example Matcher Usage
 
 ```ruby
 expect(chef_run).to migrate_flywaydb('flyway').with(
-  params {
+  params: {
       'user' => 'mysql',
       'password' => 'mysql',
       'url' => 'jdbc:mysql://localhost/mysql'
