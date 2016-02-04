@@ -105,8 +105,8 @@ Multiple flyway ext_conf migrations with command-line parameters
       "url": "jdbc:mysql/localhost/mysql"
     },
     "ext_conf": [
-      "/opt/myapp/db/migration/custA.properties",
-      "/opt/myapp/db/migration/custB.properties"
+      "/opt/myapp/custA.properties",
+      "/opt/myapp/custB.properties"
     ]
   }
 }
@@ -178,8 +178,8 @@ flywaydb 'myapp' do
     url: 'jdbc:mysql/localhost/mysql'
   })
   ext_conf([
-    '/opt/myapp/db/migration/custA.properties',
-    '/opt/myapp/db/migration/custB.properties'
+    '/opt/myapp/custA.properties',
+    '/opt/myapp/custB.properties'
   ])
   action :migrate
 end
