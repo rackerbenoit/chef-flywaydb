@@ -14,7 +14,7 @@ def build_command(command, conf_path)
   cmd << command
 end
 
-def process_conf(command, conf_path, conf)
+def write_conf(conf_path, conf)
   template conf_path do
     source 'flyway.conf.erb'
     sensitive new_resource.sensitive
@@ -23,7 +23,33 @@ def process_conf(command, conf_path, conf)
     owner new_resource.user
     group new_resource.group
   end
+end
 
+def process_conf(command, conf_name)
+  if new_resource.conf.respond_to?(:key)
+    conf_path = "#{new_resource.install_dir}/conf/#{conf_name}.conf"
+    write_conf(conf_path, new_resource.conf)
+    exec_flyway(command, conf_path)
+  else
+    new_resource.conf.each_with_index do |h, i|
+      conf_path = "#{new_resource.install_dir}/conf/#{conf_name}_#{i + 1}.conf"
+      write_conf(conf_path, h)
+      exec_flyway(command, conf_path)
+    end
+  end
+end
+
+def process_ext_conf(command)
+  if new_resource.ext_conf.is_a?(Array)
+    new_resource.ext_conf.each do |conf_path|
+      exec_flyway(command, conf_path)
+    end
+  else
+    exec_flyway(command, new_resource.ext_conf)
+  end
+end
+
+def exec_flyway(command, conf_path)
   cmd = build_command(command, conf_path)
 
   execute "flyway #{command} #{conf_path}" do
@@ -33,20 +59,17 @@ def process_conf(command, conf_path, conf)
 end
 
 def flyway(command)
-  fail('Flyway conf and/or params required!') if new_resource.params.empty? && new_resource.conf.nil?
+  if new_resource.conf.nil? && new_resource.ext_conf.nil? && new_resource.params.empty?
+    fail('Flyway requires at least one following attributes to be defined: conf, ext_conf, or params!')
+  end
 
   recipe_eval { run_context.include_recipe 'flywaydb::default' }
 
-  conf_name = new_resource.name.tr(' ', '_')
-
-  if new_resource.conf.respond_to?(:key)
-    conf_path = "#{new_resource.install_dir}/conf/#{conf_name}.conf"
-    process_conf(command, conf_path, new_resource.conf)
+  if new_resource.ext_conf.nil?
+    conf_name = new_resource.name.tr(' ', '_')
+    process_conf(command, conf_name)
   else
-    new_resource.conf.each_with_index do |h, i|
-      conf_path = "#{new_resource.install_dir}/conf/#{conf_name}_#{i + 1}.conf"
-      process_conf(command, conf_path, h)
-    end
+    process_ext_conf(command)
   end
 end
 

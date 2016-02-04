@@ -21,5 +21,6 @@ default['flywaydb']['group'] = 'flyway'
 default['flywaydb']['debug'] = false
 default['flywaydb']['sensitive'] = false
 
-default['flywaydb']['params'] = {}
 default['flywaydb']['conf'] = nil
+default['flywaydb']['ext_conf'] = nil
+default['flywaydb']['params'] = {}

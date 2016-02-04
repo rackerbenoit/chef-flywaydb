@@ -16,5 +16,3 @@ cookbook_file 'V003__user_grants.sql' do
   path '/tmp/db/V003__user_grants.sql'
   source 'V003__user_grants.sql'
 end
-
-include_recipe 'flywaydb::migrate'

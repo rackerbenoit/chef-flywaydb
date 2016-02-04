@@ -28,7 +28,10 @@ flyway associated command.
 #### Attributes
 
 * `node['flywaydb']['conf']` - A hash or array of hashes used to create the default Configuration file(s) 
-for the flyway conf file. Key values automatically get prefixed with flyway.
+for the flyway conf file. Key values automatically get prefixed with flyway. This attribute will be ignored
+if `ext_conf` is set. 
+* `node['flywaydb']['ext_conf']` - Path or array of paths to external Configuration file(s). The `conf` attribute 
+will be ignored if this is set. 
 * `node['flywaydb']['params']` - A hash of command-line parameters to pass to flyway command. Command-line parameters 
 override Configuration files.
 * `node['flywaydb']['name']` - The name of the flyway conf file. Default `flyway`.
@@ -95,7 +98,9 @@ Use migrate, info, validate, baseline, or repair actions to install flywaydb and
 #### Attributes
 
 * `conf` A hash or array of hashes used to create the default Configuration file(s) for the flyway conf 
-file. Key values automatically get prefixed with flyway.
+file. Key values automatically get prefixed with flyway. This attribute will be ignored if `ext_conf` is set. 
+* `ext_conf` - Path or array of paths to external Configuration file(s). The `conf` attribute will be ignored if 
+this is set. 
 * `params` - A hash of command-line parameters to pass to flyway command. Command-line parameters override 
 Configuration files.
 * `name` - The name of the flyway conf file. Defaults to resource name.
@@ -109,12 +114,12 @@ Single flyway conf migration
 
 ```ruby
 flywaydb 'myapp' do
-  conf {
+  conf({
     url: 'jdbc:mysql/localhost/mydb',
     user: 'root',
     password: 'changeme',
     locations: 'filesystem:/opt/myapp/db/migration'
-  }
+  })
   action :migrate
 end
 ```
@@ -127,7 +132,7 @@ flywaydb 'myapp' do
     user: 'root',
     password: 'changeme'
   }
-  conf [
+  conf([
     {
       url: 'jdbc:mysql/localhost/mysql',
       schemas: 'schema',
@@ -137,7 +142,7 @@ flywaydb 'myapp' do
       url: 'jdbc:mysql/localhost/mydb',
       locations: 'filesystem:/opt/myapp/db/migration'
     }
-  ]
+  ])
   action :migrate
 end
 ```
