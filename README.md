@@ -128,7 +128,7 @@ expect(chef_run).to migrate_flywaydb('flyway').with(
     }
   ],
   debug: false,
-  sensitive: false
+  sensitive: true
 )
 ```
       
