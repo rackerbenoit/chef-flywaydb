@@ -6,7 +6,7 @@
 [supermarket]: https://supermarket.chef.io/cookbooks/flywaydb
 [travis]: https://travis-ci.org/dhoer/chef-flywaydb
 
-Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway commands via recipe or resource actions.
+Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway commands via resource actions.
 
 ## Requirements
 
@@ -20,97 +20,15 @@ Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway comm
 
 ## Usage
 
-### Recipes
-
-Include migrate, info, validate, baseline, or repair recipe in cookbook or run list to install flywaydb and execute 
-associated flyway command.
+Include default recipe in cookbook or run list to install flywaydb.
 
 #### Attributes
 
-* `node['flywaydb']['conf']` - A hash or array of hashes used to create the default Configuration file(s) 
-for the flyway conf file. Key values automatically get prefixed with flyway. This attribute will be ignored
-if `ext_conf` is set. 
-* `node['flywaydb']['ext_conf']` - Path or array of paths to external Configuration file(s). The `conf` attribute 
-will be ignored if this is set. 
-* `node['flywaydb']['params']` - A hash of command-line parameters to pass to flyway command. Command-line parameters 
-override Configuration files.
-* `node['flywaydb']['name']` - The name of the flyway conf file. Default `flyway`.
-* `node['flywaydb']['debug']` - Print debug output during execution of flyway commands. Default `false`.
-* `node['flywaydb']['sensitive']` - Ensure that sensitive resource data is not logged by the 
-chef-client. Default `false`.
 * `node['flywaydb']['version']` - The flywaydb version to install. Default `3.2.1`.
 * `node['flywaydb']['sha256']` - The flywaydb SHA 256 checksum for linux or windows platform.
 * `node['flywaydb']['install_dir']` - The base install directory. Default linux: `/opt/flyway` windows: `C:\flyway`.
 * `node['flywaydb']['user']` - The owner of flywaydb. Default `flyway`.
 * `node['flywaydb']['group']` - The group of flywaydb. Default `flyway`.
-
-#### Examples
-
-Single flyway conf migration
-
-```ruby
-{
-  "run_list": [
-    "recipe[flywaydb::migrate]"
-  ],
-  "flywaydb": {
-    "conf": {
-      "url": "jdbc:mysql/localhost/mydb",
-      "user": "root",
-      "password": "changeme",
-      "locations": "filesystem:/opt/myapp/db/migration"
-    }
-  }
-}
-```
-
-Multiple flyway conf migrations with command-line parameters
-
-```ruby
-{
-  "run_list": [
-    "recipe[flywaydb::migrate]"
-  ],
-  "flywaydb": {
-    "params": {
-      "user": "root",
-      "password": "changeme",
-      "url": "jdbc:mysql/localhost/mysql"
-    },
-    "conf": [
-      {
-        "schemas": "custA",
-        "locations": "filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custA"
-      },
-      {
-        "schemas": "custB",
-        "locations": "filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custA"
-      }
-    ]
-  }
-}
-```
-
-Multiple flyway ext_conf migrations with command-line parameters
-
-```ruby
-{
-  "run_list": [
-    "recipe[flywaydb::migrate]"
-  ],
-  "flywaydb": {
-    "params": {
-      "user": "root",
-      "password": "changeme",
-      "url": "jdbc:mysql/localhost/mysql"
-    },
-    "ext_conf": [
-      "/opt/myapp/custA.properties",
-      "/opt/myapp/custB.properties"
-    ]
-  }
-}
-```
 
 ### Resources
 
@@ -134,12 +52,11 @@ Single flyway conf migration
 
 ```ruby
 flywaydb 'myapp' do
-  conf({
+  conf(
     url: 'jdbc:mysql/localhost/mydb',
     user: 'root',
-    password: 'changeme',
     locations: 'filesystem:/opt/myapp/db/migration'
-  })
+  )
   action :migrate
 end
 ```
@@ -148,12 +65,12 @@ Multiple flyway conf migrations with command-line parameters
 
 ```ruby
 flywaydb 'myapp' do
-  params({
+  params(
     user: 'root',
-    password: 'changeme',
+    password: password,
     url: 'jdbc:mysql/localhost/mysql'
-  })
-  conf([
+  )
+  conf(
     {
       schemas: 'custA',
       locations: 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custA'
@@ -162,7 +79,8 @@ flywaydb 'myapp' do
        schemas: 'custB',
        locations: 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custB'
     }
-  ])
+  )
+  sensitive true
   action :migrate
 end
 ```
@@ -171,15 +89,16 @@ Multiple flyway ext_conf migrations with command-line parameters
 
 ```ruby
 flywaydb 'myapp' do
-  params({
+  params(
     user: 'root',
-    password: 'changeme',
+    password: password,
     url: 'jdbc:mysql/localhost/mysql'
-  })
-  ext_conf([
+  )
+  ext_conf(
     '/opt/myapp/custA.properties',
     '/opt/myapp/custB.properties'
-  ])
+  )
+  sensitive true
   action :migrate
 end
 ```
@@ -194,8 +113,8 @@ Example Matcher Usage
 ```ruby
 expect(chef_run).to migrate_flywaydb('flyway').with(
   params: {
-      'user' => 'mysql',
-      'password' => 'mysql',
+      'user' => 'root',
+      'password' => 'password',
       'url' => 'jdbc:mysql://localhost/mysql'
   }
   conf: [
