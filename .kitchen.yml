@@ -25,23 +25,7 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[flywaydb_test::migrate_recipe]
-    attributes:
-      flywaydb:
-        sensitive: true
-        params:
-          user: root
-          password: mysql
-          placeholders.test_password: test
-        conf:
-          url: jdbc:mysql://localhost/mysql
-          schemas: flywaydb_test
-          locations: filesystem:/tmp/db
-          placeholders.test_user: test
-
-  - name: ext-conf
-    run_list:
-      - recipe[flywaydb_test::migrate_resource]
+      - recipe[flywaydb_test::migrate]
     attributes:
       flywaydb:
         sensitive: true

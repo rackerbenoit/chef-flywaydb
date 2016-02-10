@@ -10,7 +10,7 @@ cookbook_file 'ext_conf' do
   source 'ext.conf'
 end
 
-flywaydb 'ext_conf' do
+flywaydb 'flyway' do
   ext_conf node['flywaydb']['ext_conf']
   params node['flywaydb']['params']
   debug node['flywaydb']['debug']

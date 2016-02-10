@@ -60,7 +60,7 @@ end
 
 def flyway(command)
   if new_resource.conf.nil? && new_resource.ext_conf.nil? && new_resource.params.empty?
-    fail('Flyway requires at least one following attributes to be defined: conf, ext_conf, or params!')
+    raise('Flyway requires at least one following attributes to be defined: conf, ext_conf, or params!')
   end
 
   recipe_eval { run_context.include_recipe 'flywaydb::default' }

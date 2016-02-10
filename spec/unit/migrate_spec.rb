@@ -2,7 +2,7 @@
 
 require_relative 'spec_helper'
 
-describe 'flywaydb::migrate' do
+describe 'flywaydb_test::migrate' do
   describe 'linux' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(
