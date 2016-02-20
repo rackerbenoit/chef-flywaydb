@@ -2,11 +2,11 @@ actions :migrate, :clean, :baseline, :info, :repair, :validate
 default_action :migrate
 
 attribute :name, kind_of: String, name_attribute: true
-attribute :ext_conf, kind_of: [String, Array, NilClass], default: lazy { node['flywaydb']['ext_conf'] }
-attribute :conf, kind_of: [Hash, Array, NilClass], default: lazy { node['flywaydb']['conf'] }
-attribute :params, kind_of: Hash, default: lazy { node['flywaydb']['params'] }
-attribute :sensitive, kind_of: [TrueClass, FalseClass], default: lazy { node['flywaydb']['sensitive'] }
-attribute :debug, kind_of: [TrueClass, FalseClass], default: lazy { node['flywaydb']['debug'] }
+attribute :ext_conf, kind_of: [String, Array, NilClass], default: nil
+attribute :conf, kind_of: [Hash, Array, NilClass], default: nil
+attribute :params, kind_of: Hash, default: {}
+attribute :sensitive, kind_of: [TrueClass, FalseClass], default: false
+attribute :debug, kind_of: [TrueClass, FalseClass], default: false
 attribute :install_dir, kind_of: String, default: lazy { node['flywaydb']['install_dir'] }
 attribute :user, kind_of: String, default: lazy { node['flywaydb']['user'] }
 attribute :group, kind_of: String, default: lazy { node['flywaydb']['group'] }

@@ -37,14 +37,15 @@ Use migrate, info, validate, baseline, or repair actions to install flywaydb and
 #### Attributes
 
 * `conf` A hash or array of hashes used to create the default Configuration file(s) for the flyway conf 
-file. Key values automatically get prefixed with flyway. This attribute will be ignored if `ext_conf` is set. 
+file. Key values automatically get prefixed with flyway. This attribute will be ignored if `ext_conf` is 
+set. Default: `nil`. 
 * `ext_conf` - Path or array of paths to external Configuration file(s). The `conf` attribute will be ignored if 
-this is set. 
+this is set.  Default: `nil`. 
 * `params` - A hash of command-line parameters to pass to flyway command. Command-line parameters override 
-Configuration files.
+Configuration files. Default: `{}`.
 * `name` - The name of the flyway conf file. Defaults to resource name.
-* `debug` - Print debug output during execution of flyway commands. Default `false`.
-* `sensitive` - Ensure that sensitive resource data is not logged by the chef-client. Default `false`.
+* `debug` - Print debug output during execution of flyway commands. Default: `false`.
+* `sensitive` - Ensure that sensitive resource data is not logged by the chef-client. Default: `true`.
 
 #### Examples
 

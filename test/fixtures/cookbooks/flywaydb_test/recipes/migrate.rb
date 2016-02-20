@@ -11,9 +11,10 @@ cookbook_file 'ext_conf' do
 end
 
 flywaydb 'flyway' do
-  ext_conf node['flywaydb']['ext_conf']
-  params node['flywaydb']['params']
-  debug node['flywaydb']['debug']
-  sensitive node['flywaydb']['sensitive']
+  conf node['flywaydb_test']['conf']
+  ext_conf node['flywaydb_test']['ext_conf']
+  params node['flywaydb_test']['params']
+  debug node['flywaydb_test']['debug']
+  sensitive node['flywaydb_test']['sensitive']
   action :migrate
 end

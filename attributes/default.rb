@@ -17,10 +17,3 @@ end
 default['flywaydb']['name'] = 'flyway'
 default['flywaydb']['user'] = 'flyway'
 default['flywaydb']['group'] = 'flyway'
-
-default['flywaydb']['debug'] = false
-default['flywaydb']['sensitive'] = false
-
-default['flywaydb']['conf'] = nil
-default['flywaydb']['ext_conf'] = nil
-default['flywaydb']['params'] = {}

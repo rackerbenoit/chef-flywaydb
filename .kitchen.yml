@@ -27,7 +27,7 @@ suites:
     run_list:
       - recipe[flywaydb_test::migrate]
     attributes:
-      flywaydb:
+      flywaydb_test:
         sensitive: true
         params:
           user: root

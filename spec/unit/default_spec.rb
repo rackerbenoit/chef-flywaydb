@@ -9,13 +9,7 @@ describe 'flywaydb::default' do
         platform: 'centos',
         version: '7.0',
         file_cache_path: '/etc/chef/cache',
-        log_level: ::LOG_LEVEL) do |node|
-        node.set['flywaydb']['conf'] = {
-          url: 'jdbc:mysql://localhost/mysql',
-          user: 'mysql',
-          password: 'mysql'
-        }
-      end.converge(described_recipe)
+        log_level: ::LOG_LEVEL).converge(described_recipe)
     end
 
     it 'creates user' do
@@ -53,13 +47,8 @@ describe 'flywaydb::default' do
         platform: 'windows',
         version: '2012R2',
         file_cache_path: 'C:\chef\cache',
-        log_level: ::LOG_LEVEL) do |node|
+        log_level: ::LOG_LEVEL) do
         ENV['SYSTEMDRIVE'] = 'C:'
-        node.set['flywaydb']['conf'] = {
-          url: 'jdbc:mysql://localhost/mysql',
-          user: 'mysql',
-          password: 'mysql'
-        }
       end.converge(described_recipe)
     end
 

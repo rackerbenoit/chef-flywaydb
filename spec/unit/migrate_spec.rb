@@ -11,11 +11,11 @@ describe 'flywaydb_test::migrate' do
         file_cache_path: '/etc/chef',
         step_into: ['flywaydb'],
         log_level: ::LOG_LEVEL) do |node|
-        node.set['flywaydb']['params'] = {
+        node.set['flywaydb_test']['params'] = {
           user: 'mysql',
           password: 'mysql'
         }
-        node.set['flywaydb']['conf'] = {
+        node.set['flywaydb_test']['conf'] = {
           url: 'jdbc:mysql://localhost/mysql'
         }
       end.converge(described_recipe)
@@ -65,11 +65,11 @@ describe 'flywaydb_test::migrate' do
         step_into: ['flywaydb'],
         log_level: ::LOG_LEVEL) do |node|
         ENV['SYSTEMDRIVE'] = 'C:'
-        node.set['flywaydb']['params'] = {
+        node.set['flywaydb_test']['params'] = {
           user: 'mysql',
           password: 'mysql'
         }
-        node.set['flywaydb']['conf'] = [
+        node.set['flywaydb_test']['conf'] = [
           {
             url: 'jdbc:mysql://localhost/mysql',
             schemas: 'schema_a'
@@ -79,8 +79,8 @@ describe 'flywaydb_test::migrate' do
             schemas: 'schema_b'
           }
         ]
-        node.set['flywaydb']['debug'] = true
-        node.set['flywaydb']['sensitive'] = true
+        node.set['flywaydb_test']['debug'] = true
+        node.set['flywaydb_test']['sensitive'] = true
       end.converge(described_recipe)
     end
 
