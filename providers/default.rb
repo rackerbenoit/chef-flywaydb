@@ -52,6 +52,10 @@ end
 def exec_flyway(command, conf_path)
   cmd = build_command(command, conf_path)
 
+  puts '**********************************************************************'
+  puts "SENSITIVE: #{new_resource.sensitive}"
+  puts '**********************************************************************'
+
   execute "flyway #{command} #{conf_path}" do
     command cmd.join(' ')
     sensitive new_resource.sensitive
