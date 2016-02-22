@@ -4,4 +4,4 @@ default['flywaydb_test']['conf'] = nil
 default['flywaydb_test']['ext_conf'] = nil
 default['flywaydb_test']['params'] = {}
 default['flywaydb_test']['debug'] = false
-default['flywaydb_test']['sensitive'] = false
+default['flywaydb_test']['sensitive'] = true
