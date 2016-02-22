@@ -9,7 +9,7 @@ driver:
   privileged: true
 
 provisioner:
-  name: dokken
+  name: chef_solo
 
 verifier:
   root_path: '/opt/verifier'
