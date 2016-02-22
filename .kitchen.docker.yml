@@ -28,7 +28,7 @@ platforms:
   driver:
     image: centos:7
     platform: rhel
-    run_command: /usr/sbin/init
+    run_command: /sbin/init
     provision_command:
       - /bin/yum update -y
       - /bin/yum install -y initscripts net-tools wget
