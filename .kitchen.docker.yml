@@ -6,15 +6,18 @@ settings:
 transport:
   name: dokken
 
+driver:
+  name: docker
+  # privileged is required otherwise the container doesn't boot right
+  privileged: true
+
+
 provisioner:
   name: dokken
 
 verifier:
   root_path: '/opt/verifier'
   sudo: false
-
-driver:
-  name: dokken
 
 platforms:
 - name: centos-6
