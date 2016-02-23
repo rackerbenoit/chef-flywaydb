@@ -18,6 +18,7 @@ describe 'flywaydb_test::migrate' do
         node.set['flywaydb_test']['conf'] = {
           url: 'jdbc:mysql://localhost/mysql'
         }
+        node.set['flywaydb_test']['sensitive'] = false
       end.converge(described_recipe)
     end
 

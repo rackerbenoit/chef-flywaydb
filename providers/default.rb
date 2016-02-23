@@ -52,10 +52,6 @@ end
 def exec_flyway(command, conf_path)
   cmd = build_command(command, conf_path)
 
-  Chef::Log.warn('**********************************************************************')
-  Chef::Log.warn("SENSITIVE: #{new_resource.sensitive}")
-  Chef::Log.warn('**********************************************************************')
-
   execute "flyway #{command} #{conf_path}" do
     command cmd.join(' ')
     sensitive new_resource.sensitive
