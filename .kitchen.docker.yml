@@ -3,18 +3,13 @@
 settings:
   parallel: true
 
-transport:
-  name: dokken
+driver:
+  name: docker
+  # privileged is required otherwise the container doesn't boot right
+  privileged: true
 
 provisioner:
-  name: dokken
-
-verifier:
-  root_path: '/opt/verifier'
-  sudo: false
-
-driver:
-  name: dokken
+  name: chef_solo
 
 platforms:
 - name: centos-6
@@ -47,8 +42,7 @@ suites:
   run_list:
     - recipe[flywaydb_test::migrate]
   attributes:
-    flywaydb:
-      sensitive: true
+    flywaydb_test:
       params:
         user: root
         password: mysql
