@@ -81,7 +81,6 @@ flywaydb 'myapp' do
        locations: 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custB'
     }
   )
-  sensitive true
   action :migrate
 end
 ```
@@ -99,7 +98,6 @@ flywaydb 'myapp' do
     '/opt/myapp/custA.properties',
     '/opt/myapp/custB.properties'
   )
-  sensitive true
   action :migrate
 end
 ```
