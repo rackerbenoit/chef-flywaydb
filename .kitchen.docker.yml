@@ -67,4 +67,3 @@ suites:
         schemas: flywaydb_test
         locations: filesystem:/tmp/db
         placeholders.test_user: test
-
