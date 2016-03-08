@@ -47,7 +47,7 @@ platforms:
   attributes:
     flywaydb_test:
       mysql:
-        version: 5.5
+        version: '5.5'
 - name: debian-8
   driver:
     image: debian:8
@@ -58,7 +58,7 @@ platforms:
   attributes:
     flywaydb_test:
       mysql:
-        version: 5.5
+        version: '5.5'
 
 suites:
 - name: default
