@@ -36,6 +36,21 @@ platforms:
     provision_command:
       - /usr/bin/apt-get update
       - /usr/bin/apt-get install apt-transport-https net-tools -y
+- name: debian-7
+  driver:
+    image: debian:7
+    platform: debian
+    run_command: /sbin/init
+    provision_command:
+      - /usr/bin/apt-get update
+      - /usr/bin/apt-get install apt-transport-https net-tools -y
+- name: debian-8
+  driver:
+    image: debian:8
+    platform: debian
+    run_command: /bin/systemd
+    provision_command:
+#      - /usr/bin/apt-get update
 
 suites:
 - name: default
