@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 3.0.1 2016-02-08
+
+- Fix sensitive not defaulting to true
+- Fix clean action
+
 ## 3.0.0 2016-02-20
 
 - Remove global attributes ext_conf, conf, params, sensitive, and debug 

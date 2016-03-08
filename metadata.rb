@@ -5,11 +5,11 @@ maintainer_email 'dennis.hoer@gmail.com'
 license 'MIT'
 description 'Installs and configures flywaydb database migration tool'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '3.0.0'
+version '3.0.1'
 
 supports 'centos', '>= 6.0'
 supports 'redhat', '>= 6.0'
-supports 'debian', '~> 7.0'
+supports 'debian', '>= 7.0'
 supports 'ubuntu', '>= 14.04'
 supports 'windows'
 
