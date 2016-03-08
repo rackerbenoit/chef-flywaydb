@@ -80,8 +80,8 @@ action :migrate do
 end
 
 action :clean do
-  converge_by('migrate') do
-    flyway('migrate')
+  converge_by('clean') do
+    flyway('clean')
   end
 end
 
