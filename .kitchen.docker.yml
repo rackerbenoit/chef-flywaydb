@@ -44,6 +44,10 @@ platforms:
     provision_command:
       - /usr/bin/apt-get update
       - /usr/bin/apt-get install apt-transport-https net-tools -y
+  attributes:
+    flywaydb_test:
+      mysql:
+        version: 5.5
 - name: debian-8
   driver:
     image: debian:8
@@ -51,6 +55,10 @@ platforms:
     run_command: /bin/systemd
     provision_command:
 #      - /usr/bin/apt-get update
+  attributes:
+    flywaydb_test:
+      mysql:
+        version: 5.5
 
 suites:
 - name: default

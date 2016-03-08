@@ -5,3 +5,5 @@ default['flywaydb_test']['ext_conf'] = nil
 default['flywaydb_test']['params'] = {}
 default['flywaydb_test']['debug'] = false
 default['flywaydb_test']['sensitive'] = true
+
+default['flywaydb_test']['mysql']['version'] = '5.6'
