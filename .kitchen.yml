@@ -33,3 +33,18 @@ suites:
           password: mysql
           placeholders.test_password: test
         ext_conf: /tmp/conf/ext.conf
+  - name: conf
+    run_list:
+      - recipe[flywaydb_test::migrate]
+    attributes:
+      flywaydb_test:
+        params:
+          password: mysql
+          placeholders.test_user: test
+        conf:
+          user: root
+          url: jdbc:mysql://localhost/mysql
+          schemas: flywaydb_test
+          locations: filesystem:/tmp/db
+          cleanDisabled: true
+        sensitive: false
