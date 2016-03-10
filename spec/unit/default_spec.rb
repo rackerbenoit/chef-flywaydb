@@ -25,13 +25,14 @@ describe 'flywaydb::default' do
     end
 
     it 'downloads flyway cli' do
-      expect(chef_run).to create_remote_file('/etc/chef/cache/flyway-commandline-3.2.1-linux-x64.tar.gz').with(
-        source: 'https://bintray.com/artifact/download/business/maven/flyway-commandline-3.2.1-linux-x64.tar.gz'
+      expect(chef_run).to create_remote_file('/etc/chef/cache/flyway-commandline-4.0-linux-x64.tar.gz').with(
+        source:
+          'https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/4.0/flyway-commandline-4.0-linux-x64.tar.gz'
       )
     end
 
     it 'notifies execute untar flyway' do
-      resource = chef_run.remote_file('/etc/chef/cache/flyway-commandline-3.2.1-linux-x64.tar.gz')
+      resource = chef_run.remote_file('/etc/chef/cache/flyway-commandline-4.0-linux-x64.tar.gz')
       expect(resource).to notify('execute[extract flyway]').to(:run).immediately
     end
 
@@ -65,8 +66,9 @@ describe 'flywaydb::default' do
     end
 
     it 'downloads flyway cli' do
-      expect(chef_run).to create_remote_file('C:\chef\cache/flyway-commandline-3.2.1-windows-x64.zip').with(
-        source: 'https://bintray.com/artifact/download/business/maven/flyway-commandline-3.2.1-windows-x64.zip'
+      expect(chef_run).to create_remote_file('C:\chef\cache/flyway-commandline-4.0-windows-x64.zip').with(
+        source:
+          'https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/4.0/flyway-commandline-4.0-windows-x64.zip'
       )
     end
 

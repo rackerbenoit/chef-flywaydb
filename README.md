@@ -24,7 +24,7 @@ Include default recipe in cookbook or run list to install flywaydb.
 
 #### Attributes
 
-* `node['flywaydb']['version']` - The flywaydb version to install. Default `3.2.1`.
+* `node['flywaydb']['version']` - The flywaydb version to install. Default `4.0`.
 * `node['flywaydb']['sha256']` - The flywaydb SHA 256 checksum for linux or windows platform.
 * `node['flywaydb']['install_dir']` - The base install directory. Default linux: `/opt/flyway` windows: `C:\flyway`.
 * `node['flywaydb']['user']` - The owner of flywaydb. Default `flyway`.
@@ -57,6 +57,7 @@ flywaydb 'myapp' do
     url: 'jdbc:mysql/localhost/mydb',
     user: 'root',
     locations: 'filesystem:/opt/myapp/db/migration'
+    cleanDisabled: true
   )
   action :migrate
 end

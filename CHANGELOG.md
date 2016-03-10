@@ -1,6 +1,10 @@
 # CHANGELOG
 
-## 3.0.1 2016-02-08
+## 3.1.0 2016-03-09
+
+- Use Flyway 4.0
+
+## 3.0.1 2016-03-08
 
 - Fix sensitive not defaulting to true
 - Fix clean action
