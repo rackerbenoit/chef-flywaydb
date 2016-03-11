@@ -40,11 +40,12 @@ suites:
       flywaydb_test:
         params:
           password: mysql
-          placeholders.test_user: test
+          placeholders.test_password: test
         conf:
           user: root
           url: jdbc:mysql://localhost/mysql
           schemas: flywaydb_test
           locations: filesystem:/tmp/db
           cleanDisabled: true
+          placeholders.test_user: test
         sensitive: false

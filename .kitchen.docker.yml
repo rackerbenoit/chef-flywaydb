@@ -65,11 +65,12 @@ suites:
   attributes:
     flywaydb_test:
       params:
-        user: root
         password: mysql
         placeholders.test_password: test
       conf:
+        user: root
         url: jdbc:mysql://127.0.0.1/mysql
         schemas: flywaydb_test
         locations: filesystem:/tmp/db
+        cleanDisabled: true
         placeholders.test_user: test

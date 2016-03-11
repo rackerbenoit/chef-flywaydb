@@ -11,5 +11,4 @@
   [ "${lines[0]}" = "flyway.url=jdbc:mysql://localhost/mysql" ]
   [ "${lines[1]}" = "flyway.schemas=flywaydb_test" ]
   [ "${lines[2]}" = "flyway.locations=filesystem:/tmp/db" ]
-  [ "${lines[3]}" = "flyway.placeholders.test_user=test" ]
 }
