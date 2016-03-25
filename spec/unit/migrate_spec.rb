@@ -52,7 +52,8 @@ describe 'flywaydb_test::migrate' do
 
     it 'executes flyway migrate' do
       expect(chef_run).to run_execute('flyway migrate /opt/flyway/conf/flyway.conf').with(
-        command: '/opt/flyway/flyway -user=mysql -password=mysql -configFile=/opt/flyway/conf/flyway.conf migrate'
+        command: "/opt/flyway/flyway -user='mysql' -password='mysql'" \
+          " -configFile='/opt/flyway/conf/flyway.conf' migrate"
       )
     end
   end
@@ -106,7 +107,7 @@ describe 'flywaydb_test::migrate' do
       )
     end
 
-    it 'creates conf file' do
+    it 'creates conf file on flyway_1' do
       expect(chef_run).to create_template('C:\flyway/conf/flyway_1.conf').with(
         source: 'flyway.conf.erb',
         sensitive: true,
@@ -121,13 +122,14 @@ describe 'flywaydb_test::migrate' do
       )
     end
 
-    it 'executes flyway migrate' do
+    it 'executes flyway migrate on flyway_1' do
       expect(chef_run).to run_execute('flyway migrate C:\flyway/conf/flyway_1.conf').with(
-        command: 'C:\flyway/flyway -user=mysql -password=mysql -configFile=C:\flyway/conf/flyway_1.conf -X migrate'
+        command: 'C:\\flyway/flyway -user="mysql" -password="mysql" ' \
+          '-configFile="C:\\flyway/conf/flyway_1.conf" -X migrate'
       )
     end
 
-    it 'creates conf file' do
+    it 'creates conf file on flyway_2' do
       expect(chef_run).to create_template('C:\flyway/conf/flyway_2.conf').with(
         source: 'flyway.conf.erb',
         sensitive: true,
@@ -142,9 +144,11 @@ describe 'flywaydb_test::migrate' do
       )
     end
 
-    it 'executes flyway migrate' do
+    it 'executes flyway migrate on flyway_2' do
       expect(chef_run).to run_execute('flyway migrate C:\flyway/conf/flyway_2.conf').with(
-        command: 'C:\flyway/flyway -user=mysql -password=mysql -configFile=C:\flyway/conf/flyway_2.conf -X migrate')
+        command: 'C:\\flyway/flyway -user="mysql" -password="mysql" ' \
+          '-configFile="C:\\flyway/conf/flyway_2.conf" -X migrate'
+      )
     end
   end
 end

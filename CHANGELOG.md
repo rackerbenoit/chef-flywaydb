@@ -1,12 +1,16 @@
 # CHANGELOG
 
+## 4.0.0 2016-03-24
+
+- Fix #4 Quote param values to avoid interpretation by the shell 
+
 ## 3.1.0 2016-03-09
 
 - Use Flyway 4.0
 
 ## 3.0.1 2016-03-08
 
-- Fix sensitive not defaulting to true
+- Fix #3 sensitive not defaulting to true
 - Fix clean action
 
 ## 3.0.0 2016-02-20

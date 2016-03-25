@@ -7,9 +7,9 @@ end
 def build_command(command, conf_path)
   cmd = ["#{new_resource.install_dir}/flyway"]
   new_resource.params.each do |key, value|
-    cmd << "-#{key}=#{value}"
+    cmd << (platform?('windows') ? "-#{key}=\"#{value}\"" : "-#{key}='#{value}'")
   end
-  cmd << "-configFile=#{conf_path}"
+  cmd << (platform?('windows') ? "-configFile=\"#{conf_path}\"" : "-configFile='#{conf_path}'")
   cmd << '-X' if new_resource.debug
   cmd << command
 end
