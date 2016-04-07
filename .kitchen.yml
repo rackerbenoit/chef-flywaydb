@@ -27,7 +27,7 @@ suites:
     run_list:
       - recipe[flywaydb_test::migrate]
     attributes:
-      flywaydb_test:
+       flywaydb_test:
         params:
           user: root
           password: mysql
@@ -49,3 +49,16 @@ suites:
           cleanDisabled: true
           placeholders.test_user: test
         sensitive: false
+  - name: 3.2.1
+    run_list:
+      - recipe[flywaydb_test::migrate]
+    attributes:
+      flywaydb:
+        url: https://bintray.com/artifact/download/business/maven/flyway-commandline-3.2.1-linux-x64.tar.gz
+        sha256: 8b9ba320a69b8cdef6de60118e312d3cbe96ca37a24b8aec7be4cdf4950bb5fe
+      flywaydb_test:
+        params:
+          user: root
+          password: mysql
+          placeholders.test_password: test
+        ext_conf: /tmp/conf/ext.conf
