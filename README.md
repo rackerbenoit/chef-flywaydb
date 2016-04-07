@@ -15,7 +15,7 @@ Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway comm
 ### Platforms
 
 - CentOS/RedHat 
-- Debian/Ubuntu
+- Ubuntu
 - Windows
 
 ## Usage
