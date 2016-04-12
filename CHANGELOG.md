@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 4.0.1 2016-04-12
+
+- Include default recipe in provide only if required
+
 ## 4.0.0 2016-03-24
 
 - Fix #4 Quote param values to avoid interpretation by the shell 
