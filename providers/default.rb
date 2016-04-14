@@ -50,11 +50,18 @@ def process_ext_conf(command)
 end
 
 def exec_flyway(command, conf_path)
-  cmd = build_command(command, conf_path)
+  cmd = build_command(command, conf_path).join(' ')
 
-  execute "flyway #{command} #{conf_path}" do
-    command cmd.join(' ')
-    sensitive new_resource.sensitive
+  # if sensitive then suppress cmd but not stdout or stderr
+  ruby_block "flyway #{command} #{conf_path}" do
+    block do
+      puts ''
+      puts cmd unless new_resource.sensitive
+      exec = Mixlib::ShellOut.new(cmd)
+      exec.run_command
+      puts exec.stdout
+      raise exec.stderr if exec.error?
+    end
   end
 end
 
