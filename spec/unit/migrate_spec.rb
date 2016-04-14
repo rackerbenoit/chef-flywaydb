@@ -51,10 +51,7 @@ describe 'flywaydb_test::migrate' do
     end
 
     it 'executes flyway migrate' do
-      expect(chef_run).to run_execute('flyway migrate /opt/flyway/conf/flyway.conf').with(
-        command: "/opt/flyway/flyway -user='mysql' -password='mysql'" \
-          " -configFile='/opt/flyway/conf/flyway.conf' migrate"
-      )
+      expect(chef_run).to run_ruby_block('flyway migrate /opt/flyway/conf/flyway.conf')
     end
   end
 
@@ -123,10 +120,7 @@ describe 'flywaydb_test::migrate' do
     end
 
     it 'executes flyway migrate on flyway_1' do
-      expect(chef_run).to run_execute('flyway migrate C:\flyway/conf/flyway_1.conf').with(
-        command: 'C:\\flyway/flyway -user="mysql" -password="mysql" ' \
-          '-configFile="C:\\flyway/conf/flyway_1.conf" -X migrate'
-      )
+      expect(chef_run).to run_ruby_block('flyway migrate C:\flyway/conf/flyway_1.conf')
     end
 
     it 'creates conf file on flyway_2' do
@@ -145,10 +139,7 @@ describe 'flywaydb_test::migrate' do
     end
 
     it 'executes flyway migrate on flyway_2' do
-      expect(chef_run).to run_execute('flyway migrate C:\flyway/conf/flyway_2.conf').with(
-        command: 'C:\\flyway/flyway -user="mysql" -password="mysql" ' \
-          '-configFile="C:\\flyway/conf/flyway_2.conf" -X migrate'
-      )
+      expect(chef_run).to run_ruby_block('flyway migrate C:\flyway/conf/flyway_2.conf')
     end
   end
 end

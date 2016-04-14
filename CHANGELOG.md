@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 4.1.0 2016-04-13
+
+- Fix #6 Suppress the command that was executed to hide sensitive 
+information but still log stdout and stderr
+
 ## 4.0.1 2016-04-12
 
 - Include default recipe in provide only if required

@@ -45,7 +45,8 @@ this is set.  Default: `nil`.
 Configuration files. Default: `{}`.
 * `name` - The name of the flyway conf file. Defaults to resource name.
 * `debug` - Print debug output during execution of flyway commands. Default: `false`.
-* `sensitive` - Ensure that sensitive resource data is not logged by the chef-client. Default: `true`.
+* `sensitive` - Suppress the Flyway command that was executed to hide sensitive information but still log stdout 
+and stderr from Flyway to chef-client.  Default: `true`.
 
 #### Examples
 
