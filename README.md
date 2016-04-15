@@ -36,39 +36,39 @@ Use migrate, info, validate, baseline, or repair actions to _install_ flywaydb a
 
 #### Attributes
 
-* `flyway_conf` -  A file path string or a hash of configuration settings to copy to or write to 
-`#{install_dir}/conf/flyway.conf`.  Configuration settings in alt_conf override settings configured 
+* `flyway_conf` -  Flyway configuration path or settings to copy or create as 
+`#{install_dir}/conf/flyway.conf` accordingly.  Settings in alt_conf override settings 
 in flyway.conf. Settings in params override all other settings. Default: `nil`.
-* `alt_conf` -  Alternative configuration file path string or a hash of configuration settings. An array
-of both strings and/or hashes is also supported.  Hash(es) are written as 
-`#{install_dir}/conf/#{name}[_#{i + 1}].conf` where name is the Flyway resource name and for arrays 
-the i is the index where a hash was found in array. File path(s) are run as is.  Each item in an array will 
-result in an independent execution of Flyway. Configuration settings in alt_conf override settings configured 
-in flyway.conf. Settings in params override all other settings. Default: `nil`. 
-* `params` - A hash of command-line parameters to pass to flyway command. Settings in params override all 
-other configuration settings. Default: `{}`.
-* `name` - The name of the flyway conf file when alt_conf is defined. Defaults to resource name.
+* `alt_conf` -  Alternative configuration path or settings. An array
+of both paths and/or settings is also supported.  Each path or settings are written as 
+`#{install_dir}/conf/#{name}[_#{i + 1}].conf` where name is the resource name and i is the index 
+in array. Each item in an array will result in an independent execution of Flyway. Settings in alt_conf 
+override settings in flyway.conf. Settings in params override all other settings. Default: `nil`. 
+* `params` - Command-line parameters to pass to flyway command. Settings in params 
+override all other settings. Default: `{}`.
+* `name` - Name of the alternative conf file when alt_conf is defined. Defaults to resource name.
 * `debug` - Print debug output during execution of flyway commands. Default: `false`.
-* `sensitive` - Suppress logging the Flyway command that was executed to hide sensitive information but still log Flyway
-stdout and stderr to chef-client.  Default: `true`.
+* `sensitive` - Suppress logging the Flyway command that was executed to hide sensitive information but 
+still log Flyway stdout and stderr to chef-client.  Writing of conf files will also be suppressed when
+executing on Chef-client versions that support sensitive. Default: `true`.
 
 #### Examples
 
-##### Single migration 
+##### Single migration using settings
 
 ```ruby
 flywaydb 'myapp' do
   flyway_conf(
     url: 'jdbc:mysql/localhost/mydb',
     user: 'root',
-    locations: 'filesystem:/opt/myapp/db/migration'
+    locations: 'filesystem:/opt/myapp/db/migration',
     cleanDisabled: true
   )
   action :migrate
 end
 ```
 
-##### Single migration using file path
+##### Single migration using path
 
 ```ruby
 flywaydb 'myapp' do
@@ -79,13 +79,10 @@ flywaydb 'myapp' do
 end
 ```
 
-##### Multiple migrations with command-line parameters
+##### Multiple migrations using settings with alt_conf and params 
 
 ```ruby
 flywaydb 'myapp' do
-  params(
-    password: password   
-  )
   flyway_conf(
     user: 'root',
     url: 'jdbc:mysql/localhost/mysql'
@@ -100,23 +97,26 @@ flywaydb 'myapp' do
        locations: 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custB'
     }
   )
+  params(
+    password: password   
+  )
   action :migrate
 end
 ```
 
-##### Multiple migrations with command-line parameters and file paths
+##### Multiple migrations using paths with alt_conf and params 
 
 ```ruby
 flywaydb 'myapp' do
-  params(
-    password: password   
-  )
   flyway_conf(
     '/opt/myapp/db/flyway.conf'
   )
   alt_conf(
     '/opt/myapp/db/custA.conf',
     '/opt/myapp/db/custB.conf'
+  )
+  params(
+    password: password   
   )
   action :migrate
 end
