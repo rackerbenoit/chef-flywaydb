@@ -12,7 +12,7 @@ end
 
 def validate_attributes
   if new_resource.name.casecmp('flyway').zero? && !new_resource.flyway_conf.nil?
-    raise "Flywaydb resource block name cannot be 'flyway'!"
+    raise "Flywaydb resource name cannot be 'flyway'!"
   end
 
   if new_resource.flyway_conf.nil? && new_resource.alt_conf.nil? && new_resource.params.nil?
