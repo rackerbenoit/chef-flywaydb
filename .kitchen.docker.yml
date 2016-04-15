@@ -59,7 +59,7 @@ platforms:
         version: '5.5'
 
 suites:
-- name: default
+- name: conf_file
   run_list:
     - recipe[flywaydb_test::migrate]
   attributes:
