@@ -42,7 +42,7 @@ in flyway.conf. Settings in params override all settings. Default: `nil`.
 * `alt_conf` -  Alternative configuration path or settings. An array
 containing paths and/or settings is also supported.  Each path and settings are written as 
 `#{install_dir}/conf/#{name}[_#{i + 1}].conf` where name is the resource name and i is the index 
-in array. Each item in an array will result in an independent execution of Flyway. Settings in alt_conf 
+in array. Each item in array will result in an independent execution of Flyway. Settings in alt_conf 
 override settings in flyway.conf. Settings in params override all settings. Default: `nil`. 
 * `params` - Command-line parameters to pass to flyway command. Settings in params 
 override all settings. Default: `{}`.
