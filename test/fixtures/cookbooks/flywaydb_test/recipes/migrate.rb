@@ -10,9 +10,9 @@ cookbook_file 'ext_conf' do
   source 'ext.conf'
 end
 
-flywaydb 'flyway' do
-  conf node['flywaydb_test']['conf']
-  ext_conf node['flywaydb_test']['ext_conf']
+flywaydb 'flyway_test' do
+  flyway_conf node['flywaydb_test']['flyway_conf']
+  alt_conf node['flywaydb_test']['alt_conf']
   params node['flywaydb_test']['params']
   debug node['flywaydb_test']['debug']
   sensitive node['flywaydb_test']['sensitive']

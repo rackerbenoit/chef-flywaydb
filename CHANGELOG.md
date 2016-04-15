@@ -1,6 +1,12 @@
 # CHANGELOG
 
-## 4.1.0 2016-04-13
+## 5.0.0 2016-04-15
+
+- Add flyway_conf attribute
+- Add alt_conf attribute
+- Remove conf and ext_conf attributes
+
+## 4.1.0 2016-04-14
 
 - Fix #6 Suppress the command that was executed to hide sensitive 
 information but still log stdout and stderr

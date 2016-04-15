@@ -20,7 +20,7 @@ Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway comm
 
 ## Usage
 
-Include default recipe in cookbook or run list to install flywaydb.
+Include default recipe in cookbook or run list to install flywaydb. 
 
 #### Attributes
 
@@ -32,29 +32,33 @@ Include default recipe in cookbook or run list to install flywaydb.
 
 ### Resources
 
-Use migrate, info, validate, baseline, or repair actions to install flywaydb and execute associated flyway command.
+Use migrate, info, validate, baseline, or repair actions to _install_ flywaydb and execute associated flyway command.
 
 #### Attributes
 
-* `conf` A hash or array of hashes used to create the default Configuration file(s) for the flyway conf 
-file. Key values automatically get prefixed with flyway. This attribute will be ignored if `ext_conf` is 
-set. Default: `nil`. 
-* `ext_conf` - Path or array of paths to external Configuration file(s). The `conf` attribute will be ignored if 
-this is set.  Default: `nil`. 
-* `params` - A hash of command-line parameters to pass to flyway command. Command-line parameters override 
-Configuration files. Default: `{}`.
-* `name` - The name of the flyway conf file. Defaults to resource name.
+* `flyway_conf` -  A file path string or a hash of configuration settings to copy to or write to 
+`#{install_dir}/conf/flyway.conf`.  Configuration settings in alt_conf override settings configured 
+in flyway.conf. Settings in params override all other settings. Default: `nil`.
+* `alt_conf` -  Alternative configuration file path string or a hash of configuration settings. An array
+of both strings and/or hashes is also supported.  Hash(es) are written as 
+`#{install_dir}/conf/#{name}[_#{i + 1}].conf` where name is the Flyway resource name and for arrays 
+the i is the index where a hash was found in array. File path(s) are run as is.  Each item in an array will 
+result in an independent execution of Flyway. Configuration settings in alt_conf override settings configured 
+in flyway.conf. Settings in params override all other settings. Default: `nil`. 
+* `params` - A hash of command-line parameters to pass to flyway command. Settings in params override all 
+other configuration settings. Default: `{}`.
+* `name` - The name of the flyway conf file when alt_conf is defined. Defaults to resource name.
 * `debug` - Print debug output during execution of flyway commands. Default: `false`.
-* `sensitive` - Suppress the Flyway command that was executed to hide sensitive information but still log stdout 
-and stderr from Flyway to chef-client.  Default: `true`.
+* `sensitive` - Suppress logging the Flyway command that was executed to hide sensitive information but still log Flyway
+stdout and stderr to chef-client.  Default: `true`.
 
 #### Examples
 
-Single flyway conf migration
+##### Single migration 
 
 ```ruby
 flywaydb 'myapp' do
-  conf(
+  flyway_conf(
     url: 'jdbc:mysql/localhost/mydb',
     user: 'root',
     locations: 'filesystem:/opt/myapp/db/migration'
@@ -64,16 +68,29 @@ flywaydb 'myapp' do
 end
 ```
 
-Multiple flyway conf migrations with command-line parameters
+##### Single migration using file path
+
+```ruby
+flywaydb 'myapp' do
+  flyway_conf(
+    '/opt/myapp/db/flyway.conf'
+  )
+  action :migrate
+end
+```
+
+##### Multiple migrations with command-line parameters
 
 ```ruby
 flywaydb 'myapp' do
   params(
+    password: password   
+  )
+  flyway_conf(
     user: 'root',
-    password: password,
     url: 'jdbc:mysql/localhost/mysql'
   )
-  conf(
+  alt_conf(
     {
       schemas: 'custA',
       locations: 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custA'
@@ -87,18 +104,19 @@ flywaydb 'myapp' do
 end
 ```
 
-Multiple flyway ext_conf migrations with command-line parameters
+##### Multiple migrations with command-line parameters and file paths
 
 ```ruby
 flywaydb 'myapp' do
   params(
-    user: 'root',
-    password: password,
-    url: 'jdbc:mysql/localhost/mysql'
+    password: password   
   )
-  ext_conf(
-    '/opt/myapp/custA.properties',
-    '/opt/myapp/custB.properties'
+  flyway_conf(
+    '/opt/myapp/db/flyway.conf'
+  )
+  alt_conf(
+    '/opt/myapp/db/custA.conf',
+    '/opt/myapp/db/custB.conf'
   )
   action :migrate
 end
@@ -114,11 +132,13 @@ Example Matcher Usage
 ```ruby
 expect(chef_run).to migrate_flywaydb('flyway').with(
   params: {
+      'password' => 'password'
+  }
+  flyway_conf_: {
       'user' => 'root',
-      'password' => 'password',
       'url' => 'jdbc:mysql://localhost/mysql'
   }
-  conf: [
+  alt_conf: [
     {
       'schemas' => 'custA',
       'locations' => 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custA'

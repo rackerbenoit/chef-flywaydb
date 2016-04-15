@@ -2,8 +2,8 @@ actions :migrate, :clean, :baseline, :info, :repair, :validate
 default_action :migrate
 
 attribute :name, kind_of: String, name_attribute: true
-attribute :ext_conf, kind_of: [String, Array, NilClass], default: nil
-attribute :conf, kind_of: [Hash, Array, NilClass], default: nil
+attribute :flyway_conf, kind_of: [String, Hash, NilClass], default: nil
+attribute :alt_conf, kind_of: [String, Hash, Array, NilClass], default: nil
 attribute :params, kind_of: Hash, default: {}
 attribute :debug, kind_of: [TrueClass, FalseClass], default: false
 attribute :install_dir, kind_of: String, default: lazy { node['flywaydb']['install_dir'] }

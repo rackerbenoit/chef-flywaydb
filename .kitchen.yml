@@ -18,25 +18,29 @@ suites:
     attributes:
       flywaydb_test:
         params:
-          user: root
           password: mysql
           placeholders.test_password: test
-        ext_conf: /tmp/conf/ext.conf
-  - name: conf
+        flyway_conf:
+          user: notset
+          url: jdbc:mysql://notset/mysql
+          schemas: flywaydb_test
+          locations: filesystem:/tmp/db
+          cleanDisabled: true
+          placeholders.test_user: test
+        alt_conf:
+          user: root
+          url: jdbc:mysql://localhost/mysql
+        sensitive: false
+  - name: conf_file
     run_list:
       - recipe[flywaydb_test::migrate]
     attributes:
       flywaydb_test:
         params:
+          user: root
           password: mysql
           placeholders.test_password: test
-        conf:
-          user: root
-          url: jdbc:mysql://localhost/mysql
-          schemas: flywaydb_test
-          locations: filesystem:/tmp/db
-          cleanDisabled: true
-          placeholders.test_user: test
+        flyway_conf: /tmp/conf/ext.conf
         sensitive: false
   - name: 3.2.1
     run_list:
@@ -50,4 +54,4 @@ suites:
           user: root
           password: mysql
           placeholders.test_password: test
-        ext_conf: /tmp/conf/ext.conf
+        alt_conf: /tmp/conf/ext.conf
