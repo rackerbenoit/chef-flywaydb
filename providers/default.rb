@@ -54,7 +54,7 @@ def process_conf(resource_obj, command, conf_name, run = false)
     exec_flyway(command, conf_path) if run
   when String
     remote_file conf_path do
-      source "file://#{resource_obj.tr('file://', '')}"
+      source "file://#{resource_obj.gsub('file://', '')}"
     end
 
     exec_flyway(command, conf_path) if run
