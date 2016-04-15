@@ -36,8 +36,8 @@ Use migrate, info, validate, baseline, or repair actions to _install_ flywaydb a
 
 #### Attributes
 
-* `flyway_conf` -  Flyway configuration path or settings to copy or create as 
-`#{install_dir}/conf/flyway.conf` accordingly.  Settings in alt_conf override settings 
+* `flyway_conf` -  Flyway configuration path or settings to copy or create 
+`#{install_dir}/conf/flyway.conf`.  Settings in alt_conf override settings 
 in flyway.conf. Settings in params override all settings. Default: `nil`.
 * `alt_conf` -  Alternative configuration path or settings. An array
 of both paths and/or settings is also supported.  Each path or settings are written as 
