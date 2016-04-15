@@ -10,21 +10,15 @@ def install_flyway
   end unless run_context.loaded_recipe? 'flywaydb::default'
 end
 
-# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 def validate_attributes
   if new_resource.name.casecmp('flyway').zero? && !new_resource.flyway_conf.nil?
     raise "Flywaydb resource block name cannot be 'flyway'!"
-  end
-
-  if !new_resource.flyway_conf.nil? && new_resource.flyway_conf.is_a?(Array)
-    raise 'Attribute flyway_conf cannot be an array!'
   end
 
   if new_resource.flyway_conf.nil? && new_resource.alt_conf.nil? && new_resource.params.nil?
     raise('Flywaydb requires at least one following attributes to be defined: flyway_conf, alt_conf, or params!')
   end
 end
-# rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
 
 def build_command(command, conf_path)
   cmd = ["#{new_resource.install_dir}/flyway"]
