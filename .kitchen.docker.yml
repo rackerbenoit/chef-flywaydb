@@ -59,7 +59,7 @@ platforms:
         version: '5.5'
 
 suites:
-- name: conf_file
+- name: default
   run_list:
     - recipe[flywaydb_test::migrate]
   attributes:
@@ -76,4 +76,4 @@ suites:
         placeholders.test_user: test
       alt_conf:
         user: root
-        url: jdbc:mysql://127.0.0.1/mysql
+        url: jdbc:mysql://localhost/mysql

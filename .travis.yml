@@ -13,11 +13,11 @@ services:
 
 env:
   matrix:
-  - INSTANCE=conf-file-ubuntu-1404
-  - INSTANCE=conf-file-centos-6
-  - INSTANCE=conf-file-centos-7
-#  - INSTANCE=conf-file-debian-7
-#  - INSTANCE=conf-file-debian-8
+  - INSTANCE=default-ubuntu-1404
+  - INSTANCE=default-centos-6
+  - INSTANCE=default-centos-7
+#  - INSTANCE=default-debian-7
+#  - INSTANCE=default-debian-8
 
 # Don't `bundle install`
 install: echo "skip bundle install"
