@@ -4,6 +4,22 @@ def whyrun_supported?
   true
 end
 
+def install_flyway
+  recipe_eval do
+    run_context.include_recipe 'flywaydb::default'
+  end unless run_context.loaded_recipe? 'flywaydb::default'
+end
+
+def validate_attributes
+  if new_resource.name.casecmp('flyway').zero? && !new_resource.flyway_conf.nil?
+    raise "Flywaydb resource name cannot be 'flyway'!"
+  end
+
+  if new_resource.flyway_conf.nil? && new_resource.alt_conf.nil? && new_resource.params.nil?
+    raise('Flywaydb requires at least one following attributes to be defined: flyway_conf, alt_conf, or params!')
+  end
+end
+
 def build_command(command, conf_path)
   cmd = ["#{new_resource.install_dir}/flyway"]
   new_resource.params.each do |key, value|
@@ -12,45 +28,43 @@ def build_command(command, conf_path)
   cmd << (platform?('windows') ? "-configFile=\"#{conf_path}\"" : "-configFile='#{conf_path}'")
   cmd << '-X' if new_resource.debug
   cmd << command
+  cmd.join(' ')
 end
 
-def write_conf(conf_path, conf)
+def write_conf(conf_path, hash)
   template conf_path do
     source 'flyway.conf.erb'
     sensitive new_resource.sensitive
-    variables(conf: conf)
+    variables(conf: hash)
     cookbook 'flywaydb'
     owner new_resource.user
     group new_resource.group
   end
 end
 
-def process_conf(command, conf_name)
-  if new_resource.conf.respond_to?(:key)
-    conf_path = "#{new_resource.install_dir}/conf/#{conf_name}.conf"
-    write_conf(conf_path, new_resource.conf)
-    exec_flyway(command, conf_path)
-  else
-    new_resource.conf.each_with_index do |h, i|
-      conf_path = "#{new_resource.install_dir}/conf/#{conf_name}_#{i + 1}.conf"
-      write_conf(conf_path, h)
-      exec_flyway(command, conf_path)
+def process_conf(resource_obj, command, conf_name, run = false)
+  conf_path = "#{new_resource.install_dir}/conf/#{conf_name}.conf"
+  case resource_obj
+  when Array
+    resource_obj.each_with_index do |obj, i|
+      process_conf(obj, command, "#{conf_name}_#{i + 1}")
     end
-  end
-end
+  when Hash
+    write_conf(conf_path, resource_obj)
+    exec_flyway(command, conf_path) if run
+  when String
+    remote_file conf_path do
+      source "file://#{resource_obj.gsub('file://', '')}"
+    end
 
-def process_ext_conf(command)
-  if new_resource.ext_conf.is_a?(Array)
-    new_resource.ext_conf.each do |conf_path|
-      exec_flyway(command, conf_path)
-    end
+    exec_flyway(command, conf_path) if run
   else
-    exec_flyway(command, new_resource.ext_conf)
+    raise 'Unsupported resource object!'
   end
 end
 
 def exec_flyway(command, conf_path)
-  cmd = build_command(command, conf_path).join(' ')
+  cmd = build_command(command, conf_path)
 
   # if sensitive then suppress cmd but not stdout or stderr
   ruby_block "flyway #{command} #{conf_path}" do
@@ -66,20 +80,16 @@ def exec_flyway(command, conf_path)
 end
 
 def flyway(command)
-  if new_resource.conf.nil? && new_resource.ext_conf.nil? && new_resource.params.empty?
-    raise('Flyway requires at least one following attributes to be defined: conf, ext_conf, or params!')
+  validate_attributes
+
+  install_flyway
+
+  unless new_resource.flyway_conf.nil?
+    run = new_resource.alt_conf.nil? ? true : false
+    process_conf(new_resource.flyway_conf, command, 'flyway', run)
   end
 
-  recipe_eval do
-    run_context.include_recipe 'flywaydb::default'
-  end unless run_context.loaded_recipe? 'flywaydb::default'
-
-  if new_resource.ext_conf.nil?
-    conf_name = new_resource.name.tr(' ', '_')
-    process_conf(command, conf_name)
-  else
-    process_ext_conf(command)
-  end
+  process_conf(new_resource.alt_conf, command, new_resource.name.tr(' ', '_'), true) unless new_resource.alt_conf.nil?
 end
 
 action :migrate do
