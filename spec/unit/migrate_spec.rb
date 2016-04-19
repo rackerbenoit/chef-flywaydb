@@ -31,8 +31,8 @@ describe 'flywaydb_test::default' do
       end.converge(described_recipe)
     end
 
-    xit 'creates mysql service ' do
-      expect(chef_run).to create_mysql_service('default')
+    it 'installs flyway' do
+      expect(chef_run).to install_flywaydb('install with password')
     end
 
     it 'creates tmp db dir' do
@@ -262,7 +262,7 @@ describe 'flywaydb_test::default' do
     end
 
     it 'executes flyway migrate on flyway_2' do
-      expect(chef_run).to_not run_ruby_block('flyway migrate C:/flyway-4.0/conf/flyway_test_2.conf')
+      expect(chef_run).to_not run_ruby_block('flyway migrate C:flyway-4.0/conf/flyway_test_2.conf')
     end
   end
 end

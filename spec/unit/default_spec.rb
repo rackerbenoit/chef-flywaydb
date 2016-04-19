@@ -13,6 +13,10 @@ describe 'flywaydb::default' do
         log_level: ::LOG_LEVEL).converge(described_recipe)
     end
 
+    it 'installs flyway' do
+      expect(chef_run).to install_flywaydb('install flywaydb')
+    end
+
     it 'creates user' do
       expect(chef_run).to create_user('flyway')
     end
