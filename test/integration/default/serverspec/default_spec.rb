@@ -37,7 +37,7 @@ describe 'flyway::migrate' do
 
     describe command('cat /opt/flyway/conf/flyway_test.conf') do
       its(:stdout) { should match(/flyway.user=root/) }
-      its(:stdout) { should match(%r{flyway.url=jdbc:mysql://localhost/mysql/}) }
+      its(:stdout) { should match(%r{flyway.url=jdbc:mysql://localhost/mysql}) }
     end
   end
 end
