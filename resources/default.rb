@@ -1,4 +1,4 @@
-actions :migrate, :clean, :baseline, :info, :repair, :validate
+actions :migrate, :clean, :baseline, :info, :repair, :validate, :install
 default_action :migrate
 
 attribute :name, kind_of: String, name_attribute: true
@@ -8,6 +8,7 @@ attribute :params, kind_of: Hash, default: {}
 attribute :debug, kind_of: [TrueClass, FalseClass], default: false
 attribute :install_dir, kind_of: String, default: lazy { node['flywaydb']['install_dir'] }
 attribute :user, kind_of: String, default: lazy { node['flywaydb']['user'] }
+attribute :password, kind_of: [String, NilClass], default: nil
 attribute :group, kind_of: String, default: lazy { node['flywaydb']['group'] }
 
 attribute :sensitive, kind_of: [TrueClass, FalseClass] # , default: true - see initialize below

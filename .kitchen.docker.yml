@@ -61,7 +61,8 @@ platforms:
 suites:
 - name: default
   run_list:
-    - recipe[flywaydb_test::migrate]
+    - flywaydb_test::mysql
+    - flywaydb_test::default
   attributes:
     flywaydb_test:
       params:

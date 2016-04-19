@@ -1,5 +1,7 @@
-include_recipe 'flywaydb_test::_mysql'
-include_recipe 'flywaydb_test::_scripts_setup'
+flywaydb 'make sure flyway user and groups are created' do
+  password node['flywaydb_test']['password']
+  action :install
+end
 
 directory '/tmp/conf' do
   action :create
@@ -15,6 +17,7 @@ flywaydb 'flyway_test' do
   alt_conf node['flywaydb_test']['alt_conf']
   params node['flywaydb_test']['params']
   debug node['flywaydb_test']['debug']
+  password node['flywaydb_test']['password']
   sensitive node['flywaydb_test']['sensitive']
   action :migrate
 end

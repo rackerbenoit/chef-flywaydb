@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.0.1 2016-04-19
+
+- Fix #9 Extracting to flyway-4.0 on windows
+
 ## 5.0.0 2016-04-15
 
 - Add flyway_conf attribute

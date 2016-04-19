@@ -13,9 +13,8 @@ when 'windows'
   default['flywaydb']['sha256'] = '985eb7d0cafd5eb59df3c825292b6bb387466f0f11e35eb2295f6b3a78b5821c'
   default['flywaydb']['url'] =
     "#{node['flywaydb']['base_url']}/org/flywaydb/flyway-commandline/#{v}/flyway-commandline-#{v}-windows-x64.zip"
-  default['flywaydb']['install_dir'] = "#{ENV['SYSTEMDRIVE']}\\flyway"
+  default['flywaydb']['install_dir'] = ENV['SYSTEMDRIVE']
 end
 
-default['flywaydb']['name'] = 'flyway'
 default['flywaydb']['user'] = 'flyway'
 default['flywaydb']['group'] = 'flyway'
