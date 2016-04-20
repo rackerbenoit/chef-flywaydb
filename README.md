@@ -157,6 +157,7 @@ Cookbook Matchers
 - info_flywaydb(resource_name)
 - repair_flywaydb(resource_name)
 - validate_flywaydb(resource_name)
+- install_flywaydb(resource_name)
 
 ## Getting Help
 
