@@ -20,21 +20,9 @@ Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway comm
 
 ## Usage
 
-Include default recipe in cookbook or run list to install flywaydb. 
-
-#### Attributes
-
-* `node['flywaydb']['version']` - The flywaydb version to install. Default `4.0`.
-* `node['flywaydb']['sha256']` - The flywaydb SHA 256 checksum for linux or windows platform.
-* `node['flywaydb']['install_dir']` - The base install directory. Default linux: `/opt/flyway` windows: `C:\flyway`.
-* `node['flywaydb']['user']` - The owner of flywaydb. Default `flyway`.
-* `node['flywaydb']['group']` - The group of flywaydb. Default `flyway`.
-
-### Resources
-
 Use migrate, info, validate, baseline, or repair actions to _install_ flywaydb and _execute_ associated flyway command.
 
-#### Attributes
+### Attributes
 
 * `flyway_conf` -  Flyway configuration path or settings to copy or create 
 `#{install_dir}/conf/flyway.conf`.  Settings in alt_conf override settings 
@@ -47,16 +35,19 @@ override settings in flyway.conf. Settings in params override all settings. Defa
 * `params` - Command-line parameters to pass to flyway command. Settings in params 
 override all settings. Default: `{}`.
 * `name` - Name of the alternative conf file when alt_conf is defined. Defaults to resource block name.
+* `install_dir` - The base install directory. Default linux: `/opt/flyway` windows: `C:`.
 * `debug` - Print debug output during execution of flyway commands. Default: `false`.
-* `password` - Password of user. Added for Windows platform to avoid 'The password does not meet the 
+* `user` -  The owner of flywaydb. Default `flyway`.
+* `group` - The group of flywaydb. Default `flyway`.
+* `password` - Required only on Windows Server platforms that throw 'The password does not meet the 
 password policy requirements.' error when creating flyway user. Default: `nil`.
 * `sensitive` - Suppress logging the Flyway command executed to hide sensitive information but 
 still log Flyway stdout and stderr to Chef-client.  Writing of conf files will also be suppressed when
 executing with Chef-client versions that support sensitive. Default: `true`.
 
-#### Examples
+### Examples
 
-##### Single migration using settings
+#### Single migration using settings
 
 ```ruby
 flywaydb 'myapp' do
@@ -70,7 +61,7 @@ flywaydb 'myapp' do
 end
 ```
 
-##### Single migration using path
+#### Single migration using path
 
 ```ruby
 flywaydb 'myapp' do
@@ -81,7 +72,7 @@ flywaydb 'myapp' do
 end
 ```
 
-##### Multiple migrations using settings with alt_conf and params 
+#### Multiple migrations using settings with alt_conf and params 
 
 ```ruby
 flywaydb 'myapp' do
@@ -106,7 +97,7 @@ flywaydb 'myapp' do
 end
 ```
 
-##### Multiple migrations using paths with alt_conf and params 
+#### Multiple migrations using paths with alt_conf and params 
 
 ```ruby
 flywaydb 'myapp' do
