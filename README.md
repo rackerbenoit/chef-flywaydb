@@ -42,7 +42,7 @@ override all settings. Default: `{}`.
 * `debug` - Print debug output during execution of flyway commands. Default: `false`.
 * `user` -  The owner of flywaydb. Default `flyway`.
 * `group` - The group of flywaydb. Default `flyway`.
-* `password` - Required only on Windows Server platforms that throw 'The password does not meet the 
+* `password` - Required only on Windows Servers that throw 'The password does not meet the 
 password policy requirements.' error when creating flyway user. Default: `nil`.
 * `sensitive` - Suppress logging the Flyway command executed to hide sensitive information but 
 still log Flyway stdout and stderr to Chef-client.  Writing of conf files will also be suppressed when
