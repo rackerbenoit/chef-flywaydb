@@ -20,7 +20,10 @@ Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway comm
 
 ## Usage
 
-Use migrate, info, validate, baseline, or repair actions to _install_ flywaydb and _execute_ associated flyway command.
+Use migrate, info, validate, baseline, or repair actions to _install_ 
+flywaydb (if not installed) and _execute_ associated flyway command. 
+An install action is also available if you just want to install 
+flywaydb but not execute any flyway commands.
 
 ### Attributes
 
@@ -35,7 +38,7 @@ override settings in flyway.conf. Settings in params override all settings. Defa
 * `params` - Command-line parameters to pass to flyway command. Settings in params 
 override all settings. Default: `{}`.
 * `name` - Name of the alternative conf file when alt_conf is defined. Defaults to resource block name.
-* `install_dir` - The base install directory. Default linux: `/opt/flyway` windows: `C:`.
+* `install_dir` - The base install directory. Default linux: `/opt/flyway` windows: `ENV['SYSTEMDRIVE']`.
 * `debug` - Print debug output during execution of flyway commands. Default: `false`.
 * `user` -  The owner of flywaydb. Default `flyway`.
 * `group` - The group of flywaydb. Default `flyway`.
