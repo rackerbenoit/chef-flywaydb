@@ -38,7 +38,7 @@ override settings in flyway.conf. Settings in params override all settings. Defa
 * `params` - Command-line parameters to pass to flyway command. Settings in params 
 override all settings. Default: `{}`.
 * `name` - Name of the alternative conf file when alt_conf is defined. Defaults to resource block name.
-* `install_dir` - The base install directory. Default linux: `/opt/flyway` windows: `ENV['SYSTEMDRIVE']`.
+* `install_dir` - The base install directory. Default Linux: `/opt/flyway` Windows: `ENV['SYSTEMDRIVE']`.
 * `debug` - Print debug output during execution of flyway commands. Default: `false`.
 * `user` -  The owner of flywaydb. Default `flyway`.
 * `group` - The group of flywaydb. Default `flyway`.
@@ -64,7 +64,7 @@ flywaydb 'myapp' do
 end
 ```
 
-#### Single migration using path
+#### Single migration using file path
 
 ```ruby
 flywaydb 'myapp' do
@@ -75,7 +75,7 @@ flywaydb 'myapp' do
 end
 ```
 
-#### Multiple migrations using settings with alt_conf and params 
+#### Multiple migrations using settings   
 
 ```ruby
 flywaydb 'myapp' do
@@ -100,7 +100,7 @@ flywaydb 'myapp' do
 end
 ```
 
-#### Multiple migrations using paths with alt_conf and params 
+#### Multiple migrations using file paths
 
 ```ruby
 flywaydb 'myapp' do
