@@ -22,4 +22,8 @@ if defined?(ChefSpec)
   def validate_flywaydb(resource_name)
     ChefSpec::Matchers::ResourceMatcher.new(:flywaydb, :validate, resource_name)
   end
+
+  def install_flywaydb(resource_name)
+    ChefSpec::Matchers::ResourceMatcher.new(:flywaydb, :install, resource_name)
+  end
 end

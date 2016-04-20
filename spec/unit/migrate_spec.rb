@@ -2,7 +2,7 @@
 
 require_relative 'spec_helper'
 
-describe 'flywaydb_test::migrate' do
+describe 'flywaydb_test::default' do
   describe 'test setup' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(
@@ -31,8 +31,8 @@ describe 'flywaydb_test::migrate' do
       end.converge(described_recipe)
     end
 
-    it 'creates mysql service ' do
-      expect(chef_run).to create_mysql_service('default')
+    it 'installs flyway' do
+      expect(chef_run).to install_flywaydb('install with password')
     end
 
     it 'creates tmp db dir' do
@@ -211,7 +211,7 @@ describe 'flywaydb_test::migrate' do
     end
 
     it 'creates flyway.conf file' do
-      expect(chef_run).to create_template('C:\flyway/conf/flyway.conf').with(
+      expect(chef_run).to create_template('C:/flyway-4.0/conf/flyway.conf').with(
         source: 'flyway.conf.erb',
         sensitive: true,
         variables: {
@@ -227,7 +227,7 @@ describe 'flywaydb_test::migrate' do
     end
 
     it 'creates flyway_test_1.conf' do
-      expect(chef_run).to create_template('C:\flyway/conf/flyway_test_1.conf').with(
+      expect(chef_run).to create_template('C:/flyway-4.0/conf/flyway_test_1.conf').with(
         source: 'flyway.conf.erb',
         sensitive: true,
         variables: {
@@ -243,11 +243,11 @@ describe 'flywaydb_test::migrate' do
     end
 
     it 'executes flyway migrate on flyway_1' do
-      expect(chef_run).to_not run_ruby_block('flyway migrate C:\flyway/conf/flyway_test_1.conf')
+      expect(chef_run).to_not run_ruby_block('flyway migrate C:/flyway-4.0/conf/flyway_test_1.conf')
     end
 
     it 'creates flyway_test_2.conf' do
-      expect(chef_run).to create_template('C:\flyway/conf/flyway_test_2.conf').with(
+      expect(chef_run).to create_template('C:/flyway-4.0/conf/flyway_test_2.conf').with(
         source: 'flyway.conf.erb',
         sensitive: true,
         variables: {
@@ -262,7 +262,7 @@ describe 'flywaydb_test::migrate' do
     end
 
     it 'executes flyway migrate on flyway_2' do
-      expect(chef_run).to_not run_ruby_block('flyway migrate C:\flyway/conf/flyway_test_2.conf')
+      expect(chef_run).to_not run_ruby_block('flyway migrate C:flyway-4.0/conf/flyway_test_2.conf')
     end
   end
 end

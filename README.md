@@ -48,6 +48,8 @@ override settings in flyway.conf. Settings in params override all settings. Defa
 override all settings. Default: `{}`.
 * `name` - Name of the alternative conf file when alt_conf is defined. Defaults to resource block name.
 * `debug` - Print debug output during execution of flyway commands. Default: `false`.
+* `password` - Password of user. Added for Windows platform to avoid 'The password does not meet the 
+password policy requirements.' error when creating flyway user. Default: `nil`.
 * `sensitive` - Suppress logging the Flyway command executed to hide sensitive information but 
 still log Flyway stdout and stderr to Chef-client.  Writing of conf files will also be suppressed when
 executing with Chef-client versions that support sensitive. Default: `true`.

@@ -9,12 +9,19 @@ provisioner:
 platforms:
   - name: centos-6.7
   - name: centos-7.1
+    driver_config:
+      network:
+        - ["forwarded_port", {guest: 3306, host: 3306, auto_correct: true}]
   - name: ubuntu-14.04
+  - name: windows-2012r2
+    driver:
+      box: dhoer/windows-2012r2
 
 suites:
   - name: default
     run_list:
-      - recipe[flywaydb_test::migrate]
+      - flywaydb_test::mysql
+      - flywaydb_test::default
     attributes:
       flywaydb_test:
         params:
@@ -31,9 +38,12 @@ suites:
           user: root
           url: jdbc:mysql://localhost/mysql
         sensitive: false
+    excludes:
+      - windows-2012r2
   - name: conf_file
     run_list:
-      - recipe[flywaydb_test::migrate]
+      - flywaydb_test::mysql
+      - flywaydb_test::default
     attributes:
       flywaydb_test:
         params:
@@ -42,9 +52,12 @@ suites:
           placeholders.test_password: test
         flyway_conf: /tmp/conf/ext.conf
         sensitive: false
+    excludes:
+      - windows-2012r2
   - name: 3.2.1
     run_list:
-      - recipe[flywaydb_test::migrate]
+      - flywaydb_test::mysql
+      - flywaydb_test::default
     attributes:
       flywaydb:
         url: https://bintray.com/artifact/download/business/maven/flyway-commandline-3.2.1-linux-x64.tar.gz
@@ -55,3 +68,27 @@ suites:
           password: mysql
           placeholders.test_password: test
         alt_conf: /tmp/conf/ext.conf
+    excludes:
+      - windows-2012r2
+  - name: win # converge default-centos-7.1 before converging win-windows-2012r2
+    run_list:
+      - flywaydb_test::default
+    attributes:
+      flywaydb:
+        group: Administrators
+      flywaydb_test:
+        params:
+          password: test
+        flyway_conf:
+          user: notset
+          url: jdbc:mysql://notset/mysql
+          schemas: flywaydb_test
+          locations: filesystem:/tmp/db
+          cleanDisabled: true
+        alt_conf:
+          user: test
+          url: jdbc:mysql://10.0.0.2/mysql # change ip
+        sensitive: false
+        password: 84aXPZugs8xR7xTz # required by windows
+    includes:
+      - windows-2012r2

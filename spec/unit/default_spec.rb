@@ -9,7 +9,12 @@ describe 'flywaydb::default' do
         platform: 'centos',
         version: '7.0',
         file_cache_path: '/etc/chef/cache',
+        step_into: 'flywaydb',
         log_level: ::LOG_LEVEL).converge(described_recipe)
+    end
+
+    it 'installs flyway' do
+      expect(chef_run).to install_flywaydb('install flywaydb')
     end
 
     it 'creates user' do
@@ -17,7 +22,7 @@ describe 'flywaydb::default' do
     end
 
     it 'creates group' do
-      expect(chef_run).to_not create_group('flyway')
+      expect(chef_run).to create_group('flyway')
     end
 
     it 'creates directory' do
@@ -48,6 +53,7 @@ describe 'flywaydb::default' do
         platform: 'windows',
         version: '2012R2',
         file_cache_path: 'C:\chef\cache',
+        step_into: 'flywaydb',
         log_level: ::LOG_LEVEL) do
         ENV['SYSTEMDRIVE'] = 'C:'
       end.converge(described_recipe)
@@ -58,11 +64,11 @@ describe 'flywaydb::default' do
     end
 
     it 'creates group' do
-      expect(chef_run).to_not create_group('flyway')
+      expect(chef_run).to create_group('flyway')
     end
 
     it 'creates directory' do
-      expect(chef_run).to create_directory('C:\flyway')
+      expect(chef_run).to create_directory('C:')
     end
 
     it 'downloads flyway cli' do
