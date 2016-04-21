@@ -59,7 +59,7 @@ def validate_attributes
     raise "Flywaydb resource name cannot be 'flyway'!"
   end
 
-  if new_resource.flyway_conf.nil? && new_resource.alt_conf.nil? && new_resource.params.nil?
+  if new_resource.flyway_conf.nil? && new_resource.alt_conf.nil? && new_resource.params.empty?
     raise('Flywaydb requires at least one following attributes to be defined: flyway_conf, alt_conf, or params!')
   end
 end
@@ -119,7 +119,7 @@ def process_conf(resource_obj, command, conf_name, run = false)
 
     exec_flyway(command, conf_path) if run
   else
-    raise 'Unsupported resource object!'
+    write_conf(conf_path, {})
   end
 end
 
@@ -144,12 +144,11 @@ def flyway(command)
 
   install_flyway
 
-  unless new_resource.flyway_conf.nil?
-    run = new_resource.alt_conf.nil? ? true : false
-    process_conf(new_resource.flyway_conf, command, 'flyway', run)
-  end
+  run = new_resource.alt_conf.nil? ? true : false
+  process_conf(new_resource.flyway_conf, command, 'flyway', run)
 
-  process_conf(new_resource.alt_conf, command, new_resource.name.tr(' ', '_'), true) unless new_resource.alt_conf.nil?
+  name = new_resource.name.tr(' ', '_')
+  process_conf(new_resource.alt_conf, command, name, true) unless new_resource.alt_conf.nil?
 end
 
 action :migrate do

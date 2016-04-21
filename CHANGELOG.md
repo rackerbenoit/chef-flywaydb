@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.0.2 2016-04-21
+
+- Fix #12 Blank flyway.conf if flyway_conf nil
+
 ## 5.0.1 2016-04-19
 
 - Fix #9 Extracting to flyway-4.0 on windows

@@ -27,26 +27,37 @@ flywaydb but not execute any flyway commands.
 
 ### Attributes
 
-* `flyway_conf` -  Flyway configuration path or settings to copy or create 
-`#{install_dir}/conf/flyway.conf`.  Settings in alt_conf override settings 
-in flyway.conf. Settings in params override all settings. Default: `nil`.
+* `flyway_conf` - Configuration path or settings to copy or 
+create `#{install_dir}/conf/flyway.conf`.  The flyway.conf file will be 
+regenerated for each flywaydb execution and will be blanked out if 
+flyway_conf is nil to prevent alt_conf from inadvertently inheriting 
+its settings. Settings in alt_conf override settings in flyway.conf. 
+Settings in params override all settings. Default: `nil`.
 * `alt_conf` -  Alternative configuration path or settings. An array
-containing paths and/or settings is also supported.  Each path and settings are written as 
-`#{install_dir}/conf/#{name}[_#{i + 1}].conf` where name is the resource name and i is the index 
-in array. Each item in array will result in an independent execution of Flyway. Settings in alt_conf 
-override settings in flyway.conf. Settings in params override all settings. Default: `nil`. 
-* `params` - Command-line parameters to pass to flyway command. Settings in params 
-override all settings. Default: `{}`.
-* `name` - Name of the alternative conf file when alt_conf is defined. Defaults to resource block name.
-* `install_dir` - The base install directory. Default Linux: `/opt/flyway` Windows: `ENV['SYSTEMDRIVE']`.
-* `debug` - Print debug output during execution of flyway commands. Default: `false`.
+containing paths and/or settings is also supported.  Each path and 
+settings are written as `#{install_dir}/conf/#{name}[_#{i + 1}].conf` 
+where name is the resource name and i is the index in array. Each item 
+in array will result in an independent execution of Flyway. Settings in 
+alt_conf override settings in flyway.conf. Settings in params override 
+all settings. Default: `nil`. 
+* `params` - Command-line parameters to pass to flyway command. 
+Settings in params override all settings. Default: `{}`.
+* `name` - Name of the alternative conf file when alt_conf is defined. 
+Defaults to resource block name.
+* `install_dir` - The base install directory. Default Linux: 
+`/opt/flyway` Windows: `ENV['SYSTEMDRIVE']`.
+* `debug` - Print debug output during execution of flyway commands. 
+Default: `false`.
 * `user` -  The owner of flywaydb. Default `flyway`.
 * `group` - The group of flywaydb. Default `flyway`.
-* `password` - Required only on Windows Servers that throw 'The password does not meet the 
-password policy requirements.' error when creating flyway user. Default: `nil`.
-* `sensitive` - Suppress logging the Flyway command executed to hide sensitive information but 
-still log Flyway stdout and stderr to Chef-client.  Writing of conf files will also be suppressed when
-executing with Chef-client versions that support sensitive. Default: `true`.
+* `password` - Required only on Windows Servers that throw 'The 
+password does not meet the password policy requirements.' error when 
+creating flyway user. Default: `nil`.
+* `sensitive` - Suppress logging the Flyway command executed to hide 
+sensitive information but still log Flyway stdout and stderr to 
+Chef-client.  Writing of conf files will also be suppressed when
+executing with Chef-client versions that support sensitive. 
+Default: `true`.
 
 ### Examples
 
