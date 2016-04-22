@@ -138,7 +138,7 @@ Example Matcher Usage
 
 ```ruby
 expect(chef_run).to migrate_flywaydb('flyway').with(
-  flyway_conf_: {
+  flyway_conf: {
       'user' => 'root',
       'url' => 'jdbc:mysql://localhost/mysql'
   }
