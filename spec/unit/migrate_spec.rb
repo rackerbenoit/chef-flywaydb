@@ -27,12 +27,21 @@ describe 'flywaydb_test::default' do
           user: 'root',
           url: 'jdbc:mysql://localhost/mysql'
         }
+        node.set['flywaydb_test']['mysql_driver'] = true
         node.set['flywaydb_test']['sensitive'] = false
       end.converge(described_recipe)
     end
 
     it 'installs flyway' do
       expect(chef_run).to install_flywaydb('install with password')
+    end
+
+    it 'downloads mysql driver' do
+      expect(chef_run).to create_remote_file('download mysql driver')
+    end
+
+    it 'extract mysql driver' do
+      expect(chef_run).to_not run_execute('extract mysql driver')
     end
 
     it 'creates tmp db dir' do
@@ -87,6 +96,7 @@ describe 'flywaydb_test::default' do
           user: 'root',
           url: 'jdbc:mysql://localhost/mysql'
         }
+        node.set['flywaydb_test']['mysql_driver'] = true
         node.set['flywaydb_test']['sensitive'] = false
       end.converge(described_recipe)
     end

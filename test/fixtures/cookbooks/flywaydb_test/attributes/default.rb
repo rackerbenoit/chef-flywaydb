@@ -3,6 +3,7 @@
 default['flywaydb_test']['flyway_conf'] = nil
 default['flywaydb_test']['alt_conf'] = nil
 default['flywaydb_test']['params'] = {}
+default['flywaydb_test']['mysql_driver'] = false
 default['flywaydb_test']['debug'] = false
 default['flywaydb_test']['password'] = nil
 default['flywaydb_test']['sensitive'] = true

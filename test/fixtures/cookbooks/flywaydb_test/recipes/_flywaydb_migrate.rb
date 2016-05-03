@@ -13,6 +13,7 @@ flywaydb 'flyway_test' do
   params node['flywaydb_test']['params']
   debug node['flywaydb_test']['debug']
   password node['flywaydb_test']['password']
+  mysql_driver node['flywaydb_test']['mysql_driver']
   sensitive node['flywaydb_test']['sensitive']
   action :migrate
 end

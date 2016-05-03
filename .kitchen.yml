@@ -37,6 +37,7 @@ suites:
         alt_conf:
           user: root
           url: jdbc:mysql://localhost/mysql
+        mysql_driver: true
         sensitive: false
     excludes:
       - windows-2012r2
