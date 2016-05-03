@@ -28,14 +28,14 @@ flywaydb but not execute any flyway commands.
 ### Attributes
 
 * `flyway_conf` - Configuration path or settings to copy or 
-create `#{install_dir}/conf/flyway.conf`.  The flyway.conf file will be 
+create `conf/flyway.conf`.  The flyway.conf file will be 
 regenerated for each flywaydb execution and will be blanked out if 
 flyway_conf is nil to prevent alt_conf from inadvertently inheriting 
 its settings. Settings in alt_conf override settings in flyway.conf. 
 Settings in params override all settings. Default: `nil`.
 * `alt_conf` -  Alternative configuration path or settings. An array
 containing paths and/or settings is also supported.  Each path and 
-settings are written as `#{install_dir}/conf/#{name}[_#{i + 1}].conf` 
+settings are written as `conf/#{name}[_#{i + 1}].conf` 
 where name is the resource name and i is the index in array. Each item 
 in array will result in an independent execution of Flyway. Settings in 
 alt_conf override settings in flyway.conf. Settings in params override 
@@ -44,8 +44,9 @@ all settings. Default: `nil`.
 Settings in params override all settings. Default: `{}`.
 * `mysql_driver` - MariaDB Connector/J driver is the default driver 
 for *jdbc:mysql:* connections.  Set to true to download and install 
-MySQL Connector/J driver under drivers directory. This will then become 
-the default driver for *jdbc:mysql:* connections. Default: `false`.
+MySQL Connector/J driver under `drivers` directory. This will then 
+become the default driver for *jdbc:mysql:* connections. 
+Default: `false`.
 * `name` - Name of the alternative conf file when alt_conf is defined. 
 Defaults to resource block name.
 * `install_dir` - The base install directory. Default Linux: 
