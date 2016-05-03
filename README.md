@@ -43,9 +43,9 @@ all settings. Default: `nil`.
 * `params` - Command-line parameters to pass to flyway command. 
 Settings in params override all settings. Default: `{}`.
 * `mysql_driver` - MariaDB Connector/J driver is the default driver 
-for MySQL.  Set true to download and install MySQL 
-Connector/J driver under drivers directory. This will then become the 
-default driver for MySQL connections. Default: `false`.
+for *jdbc:mysql:* connections.  Set to true to download and install 
+MySQL Connector/J driver under drivers directory. This will then become 
+the default driver for *jdbc:mysql:* connections. Default: `false`.
 * `name` - Name of the alternative conf file when alt_conf is defined. 
 Defaults to resource block name.
 * `install_dir` - The base install directory. Default Linux: 
