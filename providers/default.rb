@@ -32,7 +32,7 @@ def install_flyway
 
   remote_file 'download flywaydb' do
     path cache
-    source node['flywaydb']['url']
+    source url
     checksum node['flywaydb']['sha256']
     notifies :run, 'batch[unzip flyway (powershell 3 or higher required)]', :immediately if platform?('windows')
     notifies :run, 'execute[extract flyway]', :immediately unless platform?('windows')
@@ -40,8 +40,8 @@ def install_flyway
 
   if platform?('windows')
     batch 'unzip flyway (powershell 3 or higher required)' do
-      code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';"\
-      " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache}', '#{new_resource.install_dir}'); }\""
+      code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';" \
+        " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache}', '#{new_resource.install_dir}'); }\""
       action :nothing
     end
   else
@@ -51,8 +51,41 @@ def install_flyway
       action :nothing
     end
   end
+
+  mysql_driver
 end
 # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+# rubocop:disable Metrics/AbcSize
+def mysql_driver
+  return unless new_resource.mysql_driver
+
+  url = node['flywaydb']['mysql']['url']
+  cache = "#{Chef::Config[:file_cache_path]}#{url.slice(url.rindex('/'), url.size)}"
+
+  remote_file 'download mysql driver' do
+    path cache
+    source url
+    checksum node['flywaydb']['mysql']['sha256']
+    notifies :run, 'batch[unzip mysql driver (powershell 3 or higher required)]', :immediately if platform?('windows')
+    notifies :run, 'execute[extract mysql driver]', :immediately unless platform?('windows')
+  end
+
+  if platform?('windows')
+    batch 'unzip mysql driver (powershell 3 or higher required)' do
+      code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';" \
+        " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache}', '#{new_resource.install_dir}'); }\""
+      action :nothing
+    end
+  else
+    execute 'extract mysql driver' do
+      command "tar -xvzf #{cache} --strip 1 && chown -R #{new_resource.user}:#{new_resource.group} ."
+      cwd "#{install_path}/drivers"
+      action :nothing
+    end
+  end
+end
+# rubocop:enable Metrics/AbcSize
 
 def validate_attributes
   if new_resource.name.casecmp('flyway').zero? && !new_resource.flyway_conf.nil?

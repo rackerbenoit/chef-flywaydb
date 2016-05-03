@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.1.0 2016-05-02
+
+- Fix #13 Flyway 4.0 commandline creates empty metadata table
+
 ## 5.0.2 2016-04-21
 
 - Fix #12 Blank flyway.conf if flyway_conf nil
