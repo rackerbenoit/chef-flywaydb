@@ -3,6 +3,7 @@
 ## 5.1.1 2016-05-05
 
 - Fix #15 Flyway should automatically update if the version changes
+- Fix #16 Chef::Exceptions::NoSuchResourceType
 
 ## 5.1.0 2016-05-02
 

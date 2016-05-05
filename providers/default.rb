@@ -4,7 +4,7 @@ def whyrun_supported?
   true
 end
 
-def flyway_version # url can trump version specific in attributes
+def flyway_version # url can override version specified in attributes
   /flyway-commandline-(.*\d)-/.match(node['flywaydb']['url'])[1]
 end
 
@@ -42,24 +42,24 @@ def install_flyway
     path cache
     source url
     checksum node['flywaydb']['sha256']
-    notifies :run, 'batch[unzip flyway (powershell 3 or higher required)]', :immediately
-    notifies :run, 'execute[extract flyway]', :immediately
+    notifies :run, 'batch[unzip flyway (powershell 3 or higher required)]', :immediately if platform?('windows')
+    notifies :run, 'execute[extract flyway]', :immediately unless platform?('windows')
   end
 
-  batch 'unzip flyway (powershell 3 or higher required)' do
-    code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';" \
+  if platform?('windows')
+    batch 'unzip flyway (powershell 3 or higher required)' do
+      code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';" \
       " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache}', '#{new_resource.install_dir}'); }\""
-    action :nothing
-    only_if { platform?('windows') }
-  end
-
-  execute 'extract flyway' do
-    command "tar -xvzf #{cache}"
-    cwd new_resource.install_dir
-    user new_resource.user
-    group new_resource.group
-    action :nothing
-    not_if { platform?('windows') }
+      action :nothing
+    end
+  else
+    execute 'extract flyway' do
+      command "tar -xvzf #{cache}"
+      cwd new_resource.install_dir
+      user new_resource.user
+      group new_resource.group
+      action :nothing
+    end
   end
 
   link "#{new_resource.install_dir}/flyway" do
