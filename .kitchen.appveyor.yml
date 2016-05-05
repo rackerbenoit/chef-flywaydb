@@ -36,6 +36,6 @@ suites:
           url: jdbc:mysql://localhost/mysql
         mysql_driver: true
         sensitive: false
-#        password: 84aXPZugs8xR7xTz # required by windows
+        password: 84aXPZugs8xR7xTz # required by windows
       flywaydb:
 #        group: Administrators
