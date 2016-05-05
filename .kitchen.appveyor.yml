@@ -38,4 +38,4 @@ suites:
         sensitive: false
         password: 84aXPZugs8xR7xTz # required by windows
       flywaydb:
-#        group: Administrators
+        group: Administrators
