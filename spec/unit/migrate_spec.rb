@@ -37,7 +37,7 @@ describe 'flywaydb_test::default' do
     end
 
     it 'downloads mysql driver' do
-      expect(chef_run).to create_remote_file('download mysql driver')
+      expect(chef_run).to create_remote_file('download mysql driver 5.1.38')
     end
 
     it 'extract mysql driver' do
@@ -125,7 +125,7 @@ describe 'flywaydb_test::default' do
     end
 
     it 'creates flyway.conf file' do
-      expect(chef_run).to create_template('/opt/flyway/conf/flyway.conf').with(
+      expect(chef_run).to create_template('/opt/flyway-4.0/conf/flyway.conf').with(
         source: 'flyway.conf.erb',
         sensitive: false,
         variables: {
@@ -144,7 +144,7 @@ describe 'flywaydb_test::default' do
     end
 
     it 'creates flyway_test.conf file' do
-      expect(chef_run).to create_template('/opt/flyway/conf/flyway_test.conf').with(
+      expect(chef_run).to create_template('/opt/flyway-4.0/conf/flyway_test.conf').with(
         source: 'flyway.conf.erb',
         sensitive: false,
         variables: {
@@ -159,7 +159,13 @@ describe 'flywaydb_test::default' do
     end
 
     it 'executes flyway migrate' do
-      expect(chef_run).to run_ruby_block('flyway migrate /opt/flyway/conf/flyway_test.conf')
+      expect(chef_run).to run_ruby_block('flyway migrate /opt/flyway-4.0/conf/flyway_test.conf')
+    end
+
+    it 'creates flyway link' do
+      expect(chef_run).to create_link('/opt/flyway').with(
+        to: '/opt/flyway-4.0'
+      )
     end
   end
 
@@ -273,6 +279,12 @@ describe 'flywaydb_test::default' do
 
     it 'executes flyway migrate on flyway_2' do
       expect(chef_run).to_not run_ruby_block('flyway migrate C:flyway-4.0/conf/flyway_test_2.conf')
+    end
+
+    it 'creates flyway link' do
+      expect(chef_run).to create_link('C:/flyway').with(
+        to: 'C:/flyway-4.0'
+      )
     end
   end
 end

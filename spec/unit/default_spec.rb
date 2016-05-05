@@ -26,7 +26,7 @@ describe 'flywaydb::default' do
     end
 
     it 'creates directory' do
-      expect(chef_run).to create_directory('/opt/flyway')
+      expect(chef_run).to create_directory('/opt')
     end
 
     it 'downloads flyway cli' do
