@@ -1,0 +1,41 @@
+---
+driver:
+  name: proxy
+  host: localhost
+  reset_command: "exit 0"
+  port: <%= ENV["machine_port"] %>
+  username: <%= ENV["machine_user"] %>
+  password: <%= ENV["machine_pass"] %>
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: 12
+
+platforms:
+  - name: windows-2012R2
+
+suites:
+  - name: default
+    run_list:
+      - flywaydb_test::default
+      - flywaydb_test::default
+    attributes:
+      flywaydb_test:
+        params:
+          password: Password12!
+          placeholders.test_password: test
+        flyway_conf:
+          user: notset
+          url: jdbc:mysql://notset/mysql
+          schemas: flywaydb_test
+          locations: filesystem:/tmp/db
+          cleanDisabled: true
+          placeholders.test_user: test
+        alt_conf:
+          user: root
+          url: jdbc:mysql://localhost/mysql
+        mysql_driver: true
+        sensitive: false
+#        password: 84aXPZugs8xR7xTz # required by windows
+      flywaydb:
+#        group: Administrators
