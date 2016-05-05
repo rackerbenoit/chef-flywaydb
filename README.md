@@ -1,10 +1,12 @@
 # Flywaydb Cookbook
 
 [![Cookbook Version](http://img.shields.io/cookbook/v/flywaydb.svg?style=flat-square)][supermarket]
-[![Build Status](http://img.shields.io/travis/dhoer/chef-flywaydb.svg?style=flat-square)][travis]
+[![linux](http://img.shields.io/travis/dhoer/chef-flywaydb/master.svg?label=linux&style=flat-square)][linux]
+[![win](https://img.shields.io/appveyor/ci/dhoer/chef-flywaydb/master.svg?label=windows&style=flat-square)][win]
 
 [supermarket]: https://supermarket.chef.io/cookbooks/flywaydb
-[travis]: https://travis-ci.org/dhoer/chef-flywaydb
+[linux]: https://travis-ci.org/dhoer/chef-flywaydb
+[win]: https://ci.appveyor.com/project/dhoer/chef-flywaydb
 
 Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway commands via resource actions.
 
