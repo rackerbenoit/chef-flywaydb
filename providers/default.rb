@@ -4,6 +4,14 @@ def whyrun_supported?
   true
 end
 
+def flyway_version # url can trump version specific in attributes
+  /flyway-commandline-(.*\d)-/.match(node['flywaydb']['url'])[1]
+end
+
+def install_path
+  "#{new_resource.install_dir}/flyway-#{flyway_version}"
+end
+
 # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 def install_flyway
   url = node['flywaydb']['url']
@@ -30,26 +38,34 @@ def install_flyway
     mode '0755'
   end
 
-  remote_file 'download flywaydb' do
+  remote_file "download flywaydb #{flyway_version}" do
     path cache
     source url
     checksum node['flywaydb']['sha256']
-    notifies :run, 'batch[unzip flyway (powershell 3 or higher required)]', :immediately if platform?('windows')
-    notifies :run, 'execute[extract flyway]', :immediately unless platform?('windows')
+    notifies :run, 'batch[unzip flyway (powershell 3 or higher required)]', :immediately
+    notifies :run, 'execute[extract flyway]', :immediately
   end
 
-  if platform?('windows')
-    batch 'unzip flyway (powershell 3 or higher required)' do
-      code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';" \
-        " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache}', '#{new_resource.install_dir}'); }\""
-      action :nothing
-    end
-  else
-    execute 'extract flyway' do
-      command "tar -xvzf #{cache} --strip 1 && chown -R #{new_resource.user}:#{new_resource.group} ."
-      cwd new_resource.install_dir
-      action :nothing
-    end
+  batch 'unzip flyway (powershell 3 or higher required)' do
+    code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';" \
+      " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache}', '#{new_resource.install_dir}'); }\""
+    action :nothing
+    only_if { platform?('windows') }
+  end
+
+  execute 'extract flyway' do
+    command "tar -xvzf #{cache}"
+    cwd new_resource.install_dir
+    user new_resource.user
+    group new_resource.group
+    action :nothing
+    not_if { platform?('windows') }
+  end
+
+  link "#{new_resource.install_dir}/flyway" do
+    to "#{new_resource.install_dir}/flyway-#{flyway_version}"
+    user new_resource.user
+    group new_resource.group
   end
 
   mysql_driver
@@ -63,7 +79,7 @@ def mysql_driver
   url = node['flywaydb']['mysql']['url']
   cache = "#{Chef::Config[:file_cache_path]}#{url.slice(url.rindex('/'), url.size)}"
 
-  remote_file 'download mysql driver' do
+  remote_file "download mysql driver #{node['flywaydb']['mysql']['version']}" do
     path cache
     source url
     checksum node['flywaydb']['mysql']['sha256']
@@ -74,13 +90,15 @@ def mysql_driver
   if platform?('windows')
     batch 'unzip mysql driver (powershell 3 or higher required)' do
       code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';" \
-        " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache}', '#{new_resource.install_dir}'); }\""
+        " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache}', '#{install_path}/drivers'); }\""
       action :nothing
     end
   else
     execute 'extract mysql driver' do
-      command "tar -xvzf #{cache} --strip 1 && chown -R #{new_resource.user}:#{new_resource.group} ."
+      command "tar -xvzf #{cache} --strip 1"
       cwd "#{install_path}/drivers"
+      user new_resource.user
+      group new_resource.group
       action :nothing
     end
   end
@@ -94,14 +112,6 @@ def validate_attributes
 
   if new_resource.flyway_conf.nil? && new_resource.alt_conf.nil? && new_resource.params.empty?
     raise('Flywaydb requires at least one following attributes to be defined: flyway_conf, alt_conf, or params!')
-  end
-end
-
-def install_path
-  if platform?('windows')
-    "#{new_resource.install_dir}/flyway-#{node['flywaydb']['version']}"
-  else
-    new_resource.install_dir
   end
 end
 

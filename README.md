@@ -49,8 +49,8 @@ become the default driver for *jdbc:mysql:* connections.
 Default: `false`.
 * `name` - Name of the alternative conf file when alt_conf is defined. 
 Defaults to resource block name.
-* `install_dir` - The base install directory. Default Linux: 
-`/opt/flyway` Windows: `ENV['SYSTEMDRIVE']`.
+* `install_dir` - The base install directory. Default Linux: `/opt` 
+Windows: `ENV['SYSTEMDRIVE']`.
 * `debug` - Print debug output during execution of flyway commands. 
 Default: `false`.
 * `user` -  The owner of flywaydb. Default `flyway`.

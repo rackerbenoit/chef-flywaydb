@@ -6,7 +6,7 @@ default['flywaydb']['group'] = 'flyway'
 
 case node['platform_family']
 when 'debian', 'rhel'
-  default['flywaydb']['install_dir'] = '/opt/flyway'
+  default['flywaydb']['install_dir'] = '/opt'
   default['flywaydb']['url'] = 'https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/' \
     "#{node['flywaydb']['version']}/flyway-commandline-#{node['flywaydb']['version']}-linux-x64.tar.gz"
   default['flywaydb']['sha256'] = '2a91502a0dd5e88b407ed56ba8403f1bb77e013784bcb34420c306b5bac2b476'

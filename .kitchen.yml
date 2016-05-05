@@ -41,6 +41,7 @@ suites:
         sensitive: false
     excludes:
       - windows-2012r2
+
   - name: nil_flyway_conf
     run_list:
       - flywaydb_test::mysql
@@ -60,6 +61,7 @@ suites:
         sensitive: false
     includes:
       - centos-7.1
+
   - name: conf_file
     run_list:
       - flywaydb_test::mysql
@@ -74,6 +76,7 @@ suites:
         sensitive: false
     includes:
       - centos-7.1
+
   - name: 3.2.1
     run_list:
       - flywaydb_test::mysql
@@ -90,6 +93,7 @@ suites:
         alt_conf: /tmp/conf/ext.conf
     includes:
       - centos-7.1
+
   - name: win # converge default-centos-7.1 before converging win-windows-2012r2
     run_list:
       - flywaydb_test::default

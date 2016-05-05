@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.1.1 2016-05-05
+
+- Fix #15 Flyway should automatically update if the version changes
+
 ## 5.1.0 2016-05-02
 
 - Fix #13 Flyway 4.0 commandline creates empty metadata table
