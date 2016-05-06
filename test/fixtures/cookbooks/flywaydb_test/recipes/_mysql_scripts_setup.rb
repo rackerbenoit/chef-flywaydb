@@ -1,4 +1,5 @@
 directory '/tmp/db' do
+  recursive true
   action :create
 end
 
