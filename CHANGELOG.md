@@ -1,9 +1,14 @@
 # CHANGELOG
 
+## 5.1.2 2016-05-06
+
+- Fix #18 MySQL driver should overwrite the old one
+- Fix #17 System Error Message: Access is denied
+
 ## 5.1.1 2016-05-05
 
-- Fix #15 Flyway should automatically update if the version changes
 - Fix #16 Chef::Exceptions::NoSuchResourceType
+- Fix #15 Flyway should automatically update if the version changes
 
 ## 5.1.0 2016-05-02
 

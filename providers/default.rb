@@ -72,15 +72,14 @@ def install_flyway
 end
 # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 def mysql_driver
   return unless new_resource.mysql_driver
 
   url = node['flywaydb']['mysql']['url']
   cache = "#{Chef::Config[:file_cache_path]}#{url.slice(url.rindex('/'), url.size)}"
 
-  remote_file "download mysql driver #{node['flywaydb']['mysql']['version']}" do
-    path cache
+  remote_file cache do
     source url
     checksum node['flywaydb']['mysql']['sha256']
     notifies :run, 'batch[unzip mysql driver (powershell 3 or higher required)]', :immediately if platform?('windows')
@@ -103,15 +102,23 @@ def mysql_driver
     end
   else
     execute 'extract mysql driver' do
-      command "tar -xvzf #{cache} --strip 1"
+      command "tar -xvzf #{cache}"
       cwd "#{install_path}/drivers"
       user new_resource.user
       group new_resource.group
       action :nothing
+      notifies :run, 'execute[mv mysql-connector-java]', :immediately
+    end
+
+    execute 'mv mysql-connector-java' do
+      command "mv '#{install_path}/drivers/mysql-connector-java-#{node['flywaydb']['mysql']['version']}/" \
+        "mysql-connector-java-#{node['flywaydb']['mysql']['version']}-bin.jar' " \
+        "'#{install_path}/drivers/mysql-connector-java-bin.jar'"
+      action :nothing
     end
   end
 end
-# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
 def validate_attributes
   if new_resource.name.casecmp('flyway').zero? && !new_resource.flyway_conf.nil?

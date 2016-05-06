@@ -8,7 +8,7 @@ describe 'flywaydb_test::default' do
       ChefSpec::ServerRunner.new(
         platform: 'centos',
         version: '7.0',
-        file_cache_path: '/etc/chef',
+        file_cache_path: '/etc/chef/cache',
         step_into: ['flywaydb'],
         log_level: ::LOG_LEVEL) do |node|
         node.set['flywaydb_test']['params'] = {
@@ -37,11 +37,18 @@ describe 'flywaydb_test::default' do
     end
 
     it 'downloads mysql driver' do
-      expect(chef_run).to create_remote_file('download mysql driver 5.1.38')
+      expect(chef_run).to create_remote_file('/etc/chef/cache/mysql-connector-java-5.1.38.tar.gz').with(
+        source:
+            'https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.38.tar.gz'
+      )
     end
 
     it 'extract mysql driver' do
       expect(chef_run).to_not run_execute('extract mysql driver')
+    end
+
+    it 'move mysql driver' do
+      expect(chef_run).to_not run_execute('mv mysql-connector-java')
     end
 
     it 'creates tmp db dir' do
@@ -77,7 +84,7 @@ describe 'flywaydb_test::default' do
       ChefSpec::ServerRunner.new(
         platform: 'centos',
         version: '7.0',
-        file_cache_path: '/etc/chef',
+        file_cache_path: '/etc/chef/cache',
         step_into: ['flywaydb'],
         log_level: ::LOG_LEVEL) do |node|
         node.set['flywaydb_test']['params'] = {
