@@ -2,6 +2,7 @@
 
 ## 5.1.2 2016-05-06
 
+- Fix #19 Cannot symlink flyway directory if older version of flywaydb cookbook ran previously
 - Fix #18 MySQL driver should overwrite the old one
 - Fix #17 System Error Message: Access is denied
 

@@ -62,7 +62,16 @@ def install_flyway
     end
   end
 
-  link "#{new_resource.install_dir}/flyway" do
+  target_dir = "#{new_resource.install_dir}/flyway"
+
+  ruby_block "mv legacy #{target_dir} dir" do
+    block do
+      ::File.rename(target_dir, "#{new_resource.install_dir}/flyway_legacy")
+    end
+    only_if { ::File.exist?(target_dir) && !::File.symlink?(target_dir) && !platform?('windows') }
+  end
+
+  link target_dir do
     to install_path
     user new_resource.user
     group new_resource.group

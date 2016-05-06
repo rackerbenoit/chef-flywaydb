@@ -77,6 +77,14 @@ describe 'flywaydb_test::default' do
         path: '/tmp/conf/ext.conf'
       )
     end
+
+    it 'creates legacy dir' do
+      expect(chef_run).to create_directory('/opt/flyway')
+    end
+
+    it 'moves legacy dir' do
+      expect(chef_run).to_not run_ruby_block('mv legacy /opt/flyway dir')
+    end
   end
 
   describe 'single migration on linux' do
@@ -292,6 +300,14 @@ describe 'flywaydb_test::default' do
       expect(chef_run).to create_link('C:/flyway').with(
         to: 'C:/flyway-4.0'
       )
+    end
+
+    it 'creates legacy dir' do
+      expect(chef_run).to_not create_directory('C:/flyway')
+    end
+
+    it 'moves legacy dir' do
+      expect(chef_run).to_not run_ruby_block('mv legacy C:/flyway dir')
     end
   end
 end
