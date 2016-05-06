@@ -32,14 +32,14 @@ def install_flyway
     action :create
   end
 
-  directory new_resource.install_dir do
+  directory install_path do
     owner new_resource.user
     group new_resource.group
     mode '0755'
+    recursive true
   end
 
-  remote_file "download flywaydb #{flyway_version}" do
-    path cache
+  remote_file cache do
     source url
     checksum node['flywaydb']['sha256']
     notifies :run, 'batch[unzip flyway (powershell 3 or higher required)]', :immediately if platform?('windows')
@@ -54,8 +54,8 @@ def install_flyway
     end
   else
     execute 'extract flyway' do
-      command "tar -xvzf #{cache}"
-      cwd new_resource.install_dir
+      command "tar -xvzf #{cache} --strip 1"
+      cwd install_path
       user new_resource.user
       group new_resource.group
       action :nothing
@@ -63,7 +63,7 @@ def install_flyway
   end
 
   link "#{new_resource.install_dir}/flyway" do
-    to "#{new_resource.install_dir}/flyway-#{flyway_version}"
+    to install_path
     user new_resource.user
     group new_resource.group
   end
@@ -91,6 +91,14 @@ def mysql_driver
     batch 'unzip mysql driver (powershell 3 or higher required)' do
       code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';" \
         " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache}', '#{install_path}/drivers'); }\""
+      action :nothing
+      notifies :run, 'batch[mv mysql-connector-java]', :immediately
+    end
+
+    batch 'mv mysql-connector-java' do
+      code "mv '#{install_path}/drivers/mysql-connector-java-#{node['flywaydb']['mysql']['version']}/" \
+        "mysql-connector-java-#{node['flywaydb']['mysql']['version']}-bin.jar' " \
+        "'#{install_path}/drivers/mysql-connector-java-bin.jar'"
       action :nothing
     end
   else

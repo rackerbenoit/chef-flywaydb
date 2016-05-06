@@ -3,7 +3,7 @@ driver:
   name: vagrant
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
   require_chef_omnibus: 11
 
 platforms:
@@ -111,8 +111,9 @@ suites:
           cleanDisabled: true
         alt_conf:
           user: test
-          url: jdbc:mysql://10.0.0.2/mysql # change ip
+          url: jdbc:mysql://10.0.0.3/mysql # change ip
         sensitive: false
         password: 84aXPZugs8xR7xTz # required by windows
+        mysql_driver: true
     includes:
       - windows-2012r2
