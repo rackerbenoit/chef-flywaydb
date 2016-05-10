@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.2.0 2016-05-10
+
+- Use Flyway 4.0.1
+
 ## 5.1.2 2016-05-06
 
 - Fix #19 Cannot symlink flyway directory if older version of flywaydb cookbook ran previously

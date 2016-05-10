@@ -9,3 +9,5 @@ ChefSpec::Coverage.start!
 ::CHEFSPEC_OPTS = {
   log_level: ::LOG_LEVEL
 }.freeze
+
+VERSION = '4.0.1'.freeze

@@ -10,7 +10,8 @@ describe 'flywaydb_test::default' do
         version: '7.0',
         file_cache_path: '/etc/chef/cache',
         step_into: ['flywaydb'],
-        log_level: ::LOG_LEVEL) do |node|
+        log_level: ::LOG_LEVEL
+      ) do |node|
         node.set['flywaydb_test']['params'] = {
           password: 'mysql',
           'placeholders.test_password' => 'test'
@@ -94,7 +95,8 @@ describe 'flywaydb_test::default' do
         version: '7.0',
         file_cache_path: '/etc/chef/cache',
         step_into: ['flywaydb'],
-        log_level: ::LOG_LEVEL) do |node|
+        log_level: ::LOG_LEVEL
+      ) do |node|
         node.set['flywaydb_test']['params'] = {
           password: 'mysql',
           'placeholders.test_password' => 'test'
@@ -140,7 +142,7 @@ describe 'flywaydb_test::default' do
     end
 
     it 'creates flyway.conf file' do
-      expect(chef_run).to create_template('/opt/flyway-4.0/conf/flyway.conf').with(
+      expect(chef_run).to create_template("/opt/flyway-#{VERSION}/conf/flyway.conf").with(
         source: 'flyway.conf.erb',
         sensitive: false,
         variables: {
@@ -159,7 +161,7 @@ describe 'flywaydb_test::default' do
     end
 
     it 'creates flyway_test.conf file' do
-      expect(chef_run).to create_template('/opt/flyway-4.0/conf/flyway_test.conf').with(
+      expect(chef_run).to create_template("/opt/flyway-#{VERSION}/conf/flyway_test.conf").with(
         source: 'flyway.conf.erb',
         sensitive: false,
         variables: {
@@ -174,12 +176,12 @@ describe 'flywaydb_test::default' do
     end
 
     it 'executes flyway migrate' do
-      expect(chef_run).to run_ruby_block('flyway migrate /opt/flyway-4.0/conf/flyway_test.conf')
+      expect(chef_run).to run_ruby_block("flyway migrate /opt/flyway-#{VERSION}/conf/flyway_test.conf")
     end
 
     it 'creates flyway link' do
       expect(chef_run).to create_link('/opt/flyway').with(
-        to: '/opt/flyway-4.0'
+        to: "/opt/flyway-#{VERSION}"
       )
     end
   end
@@ -189,9 +191,10 @@ describe 'flywaydb_test::default' do
       ChefSpec::ServerRunner.new(
         platform: 'windows',
         version: '2012R2',
-        file_cache_path: 'C:\\chef\\cache',
+        file_cache_path: 'C:/chef/cache',
         step_into: ['flywaydb'],
-        log_level: ::LOG_LEVEL) do |node|
+        log_level: ::LOG_LEVEL
+      ) do |node|
         ENV['SYSTEMDRIVE'] = 'C:'
         node.set['flywaydb_test']['params'] = {
           password: 'mysql'
@@ -242,7 +245,7 @@ describe 'flywaydb_test::default' do
     end
 
     it 'creates flyway.conf file' do
-      expect(chef_run).to create_template('C:/flyway-4.0/conf/flyway.conf').with(
+      expect(chef_run).to create_template("C:/flyway-#{VERSION}/conf/flyway.conf").with(
         source: 'flyway.conf.erb',
         sensitive: true,
         variables: {
@@ -258,7 +261,7 @@ describe 'flywaydb_test::default' do
     end
 
     it 'creates flyway_test_1.conf' do
-      expect(chef_run).to create_template('C:/flyway-4.0/conf/flyway_test_1.conf').with(
+      expect(chef_run).to create_template("C:/flyway-#{VERSION}/conf/flyway_test_1.conf").with(
         source: 'flyway.conf.erb',
         sensitive: true,
         variables: {
@@ -274,11 +277,11 @@ describe 'flywaydb_test::default' do
     end
 
     it 'executes flyway migrate on flyway_1' do
-      expect(chef_run).to_not run_ruby_block('flyway migrate C:/flyway-4.0/conf/flyway_test_1.conf')
+      expect(chef_run).to_not run_ruby_block("flyway migrate C:/flyway-#{VERSION}/conf/flyway_test_1.conf")
     end
 
     it 'creates flyway_test_2.conf' do
-      expect(chef_run).to create_template('C:/flyway-4.0/conf/flyway_test_2.conf').with(
+      expect(chef_run).to create_template("C:/flyway-#{VERSION}/conf/flyway_test_2.conf").with(
         source: 'flyway.conf.erb',
         sensitive: true,
         variables: {
@@ -293,12 +296,12 @@ describe 'flywaydb_test::default' do
     end
 
     it 'executes flyway migrate on flyway_2' do
-      expect(chef_run).to_not run_ruby_block('flyway migrate C:flyway-4.0/conf/flyway_test_2.conf')
+      expect(chef_run).to_not run_ruby_block("flyway migrate C:/flyway-#{VERSION}/conf/flyway_test_2.conf")
     end
 
     it 'creates flyway link' do
       expect(chef_run).to create_link('C:/flyway').with(
-        to: 'C:/flyway-4.0'
+        to: "C:/flyway-#{VERSION}"
       )
     end
 

@@ -1,4 +1,4 @@
-default['flywaydb']['version'] = '4.0'
+default['flywaydb']['version'] = '4.0.1'
 default['flywaydb']['mysql']['version'] = '5.1.38'
 
 default['flywaydb']['user'] = 'flyway'
