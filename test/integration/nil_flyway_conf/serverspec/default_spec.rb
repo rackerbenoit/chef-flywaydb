@@ -42,9 +42,9 @@ describe 'flyway::migrate' do
       it { should be_owned_by 'flyway' }
     end
 
-    describe file('/opt/flyway/drivers/mysql-connector-java-5.1.38-bin.jar') do
-      it { should be_file }
-      it { should be_owned_by 'flyway' }
+    describe file('/opt/flyway/drivers/mysql-connector-java-bin.jar') do
+      it { should_not be_file }
+      it { should_not be_owned_by 'flyway' }
     end
 
     describe command('cat /opt/flyway/conf/flyway.conf') do
