@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.2.1 2016-05-16
+
+- Fix # 20 MySQL driver missing when new version of flyway installed
+
 ## 5.2.0 2016-05-10
 
 - Use Flyway 4.0.1

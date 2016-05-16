@@ -45,11 +45,11 @@ describe 'flywaydb_test::default' do
     end
 
     it 'extract mysql driver' do
-      expect(chef_run).to_not run_execute('extract mysql driver')
+      expect(chef_run).to run_execute('extract mysql driver')
     end
 
     it 'move mysql driver' do
-      expect(chef_run).to_not run_execute('mv mysql-connector-java')
+      expect(chef_run).to_not run_ruby_block('mv mysql-connector-java')
     end
 
     it 'creates tmp db dir' do

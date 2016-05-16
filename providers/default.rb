@@ -91,23 +91,15 @@ def mysql_driver
   remote_file cache do
     source url
     checksum node['flywaydb']['mysql']['sha256']
-    notifies :run, 'batch[unzip mysql driver (powershell 3 or higher required)]', :immediately if platform?('windows')
-    notifies :run, 'execute[extract mysql driver]', :immediately unless platform?('windows')
   end
+
+  mysql_driver_extract_path = "#{install_path}/drivers/mysql-connector-java-#{node['flywaydb']['mysql']['version']}"
 
   if platform?('windows')
     batch 'unzip mysql driver (powershell 3 or higher required)' do
       code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';" \
         " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache}', '#{install_path}/drivers'); }\""
-      action :nothing
-      notifies :run, 'batch[mv mysql-connector-java]', :immediately
-    end
-
-    batch 'mv mysql-connector-java' do
-      code "mv '#{install_path}/drivers/mysql-connector-java-#{node['flywaydb']['mysql']['version']}/" \
-        "mysql-connector-java-#{node['flywaydb']['mysql']['version']}-bin.jar' " \
-        "'#{install_path}/drivers/mysql-connector-java-bin.jar'"
-      action :nothing
+      not_if { ::File.exist?(mysql_driver_extract_path) }
     end
   else
     execute 'extract mysql driver' do
@@ -115,16 +107,19 @@ def mysql_driver
       cwd "#{install_path}/drivers"
       user new_resource.user
       group new_resource.group
-      action :nothing
-      notifies :run, 'execute[mv mysql-connector-java]', :immediately
+      not_if { ::File.exist?(mysql_driver_extract_path) }
     end
+  end
 
-    execute 'mv mysql-connector-java' do
-      command "mv '#{install_path}/drivers/mysql-connector-java-#{node['flywaydb']['mysql']['version']}/" \
-        "mysql-connector-java-#{node['flywaydb']['mysql']['version']}-bin.jar' " \
-        "'#{install_path}/drivers/mysql-connector-java-bin.jar'"
-      action :nothing
+  mysql_driver_extract_jar =
+    "#{mysql_driver_extract_path}/mysql-connector-java-#{node['flywaydb']['mysql']['version']}-bin.jar"
+
+  ruby_block 'mv mysql-connector-java' do
+    block do
+      require 'fileutils'
+      FileUtils.mv(mysql_driver_extract_jar, "#{install_path}/drivers/mysql-connector-java-bin.jar")
     end
+    only_if { ::File.exist?(mysql_driver_extract_jar) }
   end
 end
 # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

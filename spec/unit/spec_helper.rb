@@ -4,7 +4,7 @@ require 'chefspec/berkshelf'
 
 ChefSpec::Coverage.start!
 
-::LOG_LEVEL = :warn
+::LOG_LEVEL = :error
 
 ::CHEFSPEC_OPTS = {
   log_level: ::LOG_LEVEL
