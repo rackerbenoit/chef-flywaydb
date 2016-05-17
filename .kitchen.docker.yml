@@ -48,7 +48,7 @@ platforms:
   attributes:
     flywaydb_test:
       mysql:
-        version: 5.5
+        version: '5.5'
 
 - name: debian-8
   driver:
@@ -60,7 +60,7 @@ platforms:
   attributes:
     flywaydb_test:
       mysql:
-        version: 5.5
+        version: '5.5'
 
 - name: fedora-23
   driver:
@@ -81,7 +81,7 @@ platforms:
   attributes:
     flywaydb_test:
       mysql:
-        version: 5.5
+        version: '5.5'
 
 - name: ubuntu-14.04
   driver:
@@ -93,7 +93,7 @@ platforms:
   attributes:
     flywaydb_test:
       mysql:
-        version: 5.6
+        version: '5.6'
 
 - name: ubuntu-16.04
   driver:
@@ -125,4 +125,4 @@ suites:
         url: jdbc:mysql://localhost/mysql
       mysql_driver: true
       mysql:
-        version: 5.7
+        version: '5.7'
