@@ -7,9 +7,11 @@ description 'Installs and configures flywaydb database migration tool'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '5.2.1'
 
-supports 'centos', '>= 6.0'
-supports 'redhat', '>= 6.0'
-supports 'ubuntu', '>= 14.04'
+supports 'centos'
+supports 'debian'
+supports 'fedora'
+supports 'redhat'
+supports 'ubuntu'
 supports 'windows'
 
 source_url 'https://github.com/dhoer/chef-flywaydb' if respond_to?(:source_url)
