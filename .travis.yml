@@ -20,7 +20,7 @@ env:
   - INSTANCE=default-centos-5
 #  - INSTANCE=default-debian-7
   - INSTANCE=default-debian-8
-  - INSTANCE=default-fedora-23
+#  - INSTANCE=default-fedora-23
 
 # Don't `bundle install`
 install: echo "skip bundle install"
