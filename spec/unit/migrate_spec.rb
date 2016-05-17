@@ -50,8 +50,14 @@ describe 'flywaydb_test::default' do
       expect(chef_run).to run_execute('extract mysql driver')
     end
 
-    it 'move mysql driver' do
-      expect(chef_run).to_not run_ruby_block('mv mysql-connector-java')
+    it 'delete legacy mysql driver' do
+      expect(chef_run).to_not run_ruby_block("rm legacy /opt/flyway-#{VERSION}/drivers/mysql-connector-java-bin.jar")
+    end
+
+    it 'links mysql driver' do
+      expect(chef_run).to create_link("/opt/flyway-#{VERSION}/drivers/mysql-connector-java-bin.jar").with(
+        to: "/opt/flyway-#{VERSION}/drivers/mysql-connector-java-5.1.38/mysql-connector-java-5.1.38-bin.jar"
+      )
     end
 
     it 'creates tmp db dir' do

@@ -93,13 +93,14 @@ def mysql_driver
     checksum node['flywaydb']['mysql']['sha256']
   end
 
-  mysql_driver_extract_path = "#{install_path}/drivers/mysql-connector-java-#{node['flywaydb']['mysql']['version']}"
+  mysql_driver_extract_jar = "#{install_path}/drivers/mysql-connector-java-#{node['flywaydb']['mysql']['version']}" \
+    "/mysql-connector-java-#{node['flywaydb']['mysql']['version']}-bin.jar"
 
   if platform?('windows')
     batch 'unzip mysql driver (powershell 3 or higher required)' do
       code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';" \
         " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache}', '#{install_path}/drivers'); }\""
-      not_if { ::File.exist?(mysql_driver_extract_path) }
+      not_if { ::File.exist?(mysql_driver_extract_jar) }
     end
   else
     execute 'extract mysql driver' do
@@ -107,19 +108,23 @@ def mysql_driver
       cwd "#{install_path}/drivers"
       user new_resource.user
       group new_resource.group
-      not_if { ::File.exist?(mysql_driver_extract_path) }
+      not_if { ::File.exist?(mysql_driver_extract_jar) }
     end
   end
 
-  mysql_driver_extract_jar =
-    "#{mysql_driver_extract_path}/mysql-connector-java-#{node['flywaydb']['mysql']['version']}-bin.jar"
+  mysql_driver_jar = "#{install_path}/drivers/mysql-connector-java-bin.jar"
 
-  ruby_block 'mv mysql-connector-java' do
+  ruby_block "rm legacy #{mysql_driver_jar}" do
     block do
-      require 'fileutils'
-      FileUtils.mv(mysql_driver_extract_jar, "#{install_path}/drivers/mysql-connector-java-bin.jar")
+      ::File.delete(mysql_driver)
     end
-    only_if { ::File.exist?(mysql_driver_extract_jar) }
+    only_if { ::File.exist?(mysql_driver_jar) && !::File.symlink?(mysql_driver_jar) && !platform?('windows') }
+  end
+
+  link mysql_driver_jar do
+    to mysql_driver_extract_jar
+    user new_resource.user
+    group new_resource.group
   end
 end
 # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
