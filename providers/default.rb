@@ -116,7 +116,8 @@ def mysql_driver
 
   ruby_block "rm legacy #{mysql_driver_jar}" do
     block do
-      ::File.delete(mysql_driver)
+      require 'fileutils'
+      ::FileUtils.remove_file(mysql_driver_jar, true)
     end
     only_if { ::File.exist?(mysql_driver_jar) && !::File.symlink?(mysql_driver_jar) && !platform?('windows') }
   end
