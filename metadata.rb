@@ -9,7 +9,6 @@ version '5.2.1'
 
 supports 'centos'
 supports 'debian'
-supports 'fedora'
 supports 'redhat'
 supports 'ubuntu'
 supports 'windows'
