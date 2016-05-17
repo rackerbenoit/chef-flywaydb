@@ -2,7 +2,6 @@ AllCops:
   Exclude:
     - '.kitchen/**/*'
     - 'vendor/**/*'
-    - 'C\:/**/*'
 
 LineLength:
   Max: 120

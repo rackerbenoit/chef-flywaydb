@@ -45,6 +45,10 @@ platforms:
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
       - RUN /usr/bin/apt-get install apt-transport-https net-tools -y
+  attributes:
+    flywaydb_test:
+      mysql:
+        version: 5.5
 
 - name: debian-8
   driver:
@@ -53,6 +57,10 @@ platforms:
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
       - RUN /usr/bin/apt-get install apt-transport-https net-tools -y
+  attributes:
+    flywaydb_test:
+      mysql:
+        version: 5.5
 
 - name: fedora-23
   driver:
@@ -70,6 +78,10 @@ platforms:
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
       - RUN /usr/bin/apt-get install apt-transport-https net-tools -y
+  attributes:
+    flywaydb_test:
+      mysql:
+        version: 5.5
 
 - name: ubuntu-14.04
   driver:
@@ -78,6 +90,10 @@ platforms:
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
       - RUN /usr/bin/apt-get install apt-transport-https net-tools -y
+  attributes:
+    flywaydb_test:
+      mysql:
+        version: 5.6
 
 - name: ubuntu-16.04
   driver:
@@ -108,3 +124,5 @@ suites:
         user: root
         url: jdbc:mysql://localhost/mysql
       mysql_driver: true
+      mysql:
+        version: 5.7
