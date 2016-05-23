@@ -1,5 +1,6 @@
 default['flywaydb']['version'] = '4.0.1'
 default['flywaydb']['mysql']['version'] = '5.1.38'
+default['flywaydb']['timeout'] = 259_200
 
 default['flywaydb']['user'] = 'flyway'
 default['flywaydb']['group'] = 'flyway'

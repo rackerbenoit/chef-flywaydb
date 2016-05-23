@@ -199,7 +199,7 @@ def exec_flyway(command, conf_path)
     block do
       puts ''
       puts cmd unless new_resource.sensitive
-      exec = Mixlib::ShellOut.new(cmd)
+      exec = Mixlib::ShellOut.new(cmd, timeout: new_resource.timeout)
       exec.run_command
       puts exec.stdout
       raise exec.stderr if exec.error?

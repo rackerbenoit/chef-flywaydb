@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.3.0 2016-05-22
+
+- Add timeout option that defaults to 72hrs
+
 ## 5.2.1 2016-05-16
 
 - Fix #20 MySQL driver missing when new version of flyway installed

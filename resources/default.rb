@@ -11,6 +11,7 @@ attribute :install_dir, kind_of: String, default: lazy { node['flywaydb']['insta
 attribute :user, kind_of: String, default: lazy { node['flywaydb']['user'] }
 attribute :password, kind_of: [String, NilClass], default: nil
 attribute :group, kind_of: String, default: lazy { node['flywaydb']['group'] }
+attribute :timeout, kind_of: Integer, default: lazy { node['flywaydb']['timeout'] }
 
 attribute :sensitive, kind_of: [TrueClass, FalseClass] # , default: true - see initialize below
 

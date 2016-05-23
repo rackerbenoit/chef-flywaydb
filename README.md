@@ -65,6 +65,8 @@ sensitive information but still log Flyway stdout and stderr to
 Chef-client.  Writing of conf files will also be suppressed when
 executing with Chef-client versions that support sensitive. 
 Default: `true`.
+* `timeout` - Number of seconds to wait on flyway process before 
+raising an Exception. Default: `259_200` (72hrs).
 
 ### Examples
 

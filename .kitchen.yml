@@ -7,12 +7,10 @@ provisioner:
   require_chef_omnibus: 11
 
 platforms:
-  - name: centos-6.7
   - name: centos-7.1
     driver_config:
       network:
         - ["forwarded_port", {guest: 3306, host: 3306, auto_correct: true}]
-  - name: ubuntu-14.04
   - name: windows-2012r2
     driver:
       box: dhoer/windows-2012r2
@@ -41,6 +39,28 @@ suites:
         sensitive: false
     excludes:
       - windows-2012r2
+
+  - name: timeout
+    run_list:
+      - flywaydb_test::mysql
+      - flywaydb_test::timeout
+    attributes:
+      flywaydb:
+        timeout: 10 # seconds
+      flywaydb_test:
+        params:
+          password: mysql
+          placeholders.test_password: test
+        flyway_conf:
+          user: root
+          url: jdbc:mysql://localhost/mysql
+          schemas: flywaydb_test
+          locations: filesystem:/tmp/db
+          cleanDisabled: true
+          placeholders.test_user: test
+        sensitive: false
+    includes:
+      - centos-7.1
 
   - name: nil_flyway_conf
     run_list:
