@@ -82,6 +82,7 @@ def install_flyway
 end
 # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+# rubocop:disable Metrics/AbcSize
 def mysql_driver
   return unless new_resource.mysql_driver
 
@@ -103,6 +104,7 @@ def mysql_driver
     group new_resource.group
   end
 end
+# rubocop:enable Metrics/AbcSize
 
 # rubocop:disable Metrics/AbcSize
 def mariadb_driver
