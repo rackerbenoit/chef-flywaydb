@@ -77,58 +77,56 @@ def install_flyway
     group new_resource.group
   end
 
+  mariadb_driver
   mysql_driver
 end
 # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 def mysql_driver
   return unless new_resource.mysql_driver
 
   url = node['flywaydb']['mysql']['url']
-  cache = "#{Chef::Config[:file_cache_path]}#{url.slice(url.rindex('/'), url.size)}"
+  mysql_driver_path = "#{install_path}/drivers#{url.slice(url.rindex('/'), url.size)}"
 
-  remote_file cache do
-    source url
-    checksum node['flywaydb']['mysql']['sha256']
-  end
-
-  mysql_driver_extract_jar = "#{install_path}/drivers/mysql-connector-java-#{node['flywaydb']['mysql']['version']}" \
-    "/mysql-connector-java-#{node['flywaydb']['mysql']['version']}-bin.jar"
-
-  if platform?('windows')
-    batch 'unzip mysql driver (powershell 3 or higher required)' do
-      code "powershell.exe -nologo -noprofile -command \"& { Add-Type -A 'System.IO.Compression.FileSystem';" \
-        " [IO.Compression.ZipFile]::ExtractToDirectory('#{cache}', '#{install_path}/drivers'); }\""
-      not_if { ::File.exist?(mysql_driver_extract_jar) }
-    end
-  else
-    execute 'extract mysql driver' do
-      command "tar -xvzf #{cache}"
-      cwd "#{install_path}/drivers"
-      user new_resource.user
-      group new_resource.group
-      not_if { ::File.exist?(mysql_driver_extract_jar) }
-    end
-  end
-
-  mysql_driver_jar = "#{install_path}/drivers/mysql-connector-java-bin.jar"
-
-  ruby_block "rm legacy #{mysql_driver_jar}" do
+  ruby_block 'remove mysql-connector-java' do
     block do
       require 'fileutils'
-      ::FileUtils.remove_file(mysql_driver_jar, true)
+      ::FileUtils.rm_r(::Dir.glob("#{install_path}/drivers/mysql-connector-java-*.jar"))
     end
-    only_if { ::File.exist?(mysql_driver_jar) && !::File.symlink?(mysql_driver_jar) && !platform?('windows') }
+    not_if { ::File.exist?(mysql_driver_path) }
   end
 
-  link mysql_driver_jar do
-    to mysql_driver_extract_jar
+  remote_file mysql_driver_path do
+    source url
+    checksum node['flywaydb']['mysql']['sha256']
     user new_resource.user
     group new_resource.group
   end
 end
-# rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+
+# rubocop:disable Metrics/AbcSize
+def mariadb_driver
+  return unless node['flywaydb']['mariadb']['version'] && !new_resource.mysql_driver
+
+  url = node['flywaydb']['mariadb']['url']
+  mariadb_driver_path = "#{install_path}/drivers#{url.slice(url.rindex('/'), url.size)}"
+
+  ruby_block 'remove mariadb-java-client' do
+    block do
+      require 'fileutils'
+      ::FileUtils.rm_r(::Dir.glob("#{install_path}/drivers/mariadb-java-client-*.jar"))
+    end
+    not_if { ::File.exist?(mariadb_driver_path) }
+  end
+
+  remote_file mariadb_driver_path do
+    source url
+    checksum node['flywaydb']['mariadb']['sha256']
+    user new_resource.user
+    group new_resource.group
+  end
+end
+# rubocop:enable Metrics/AbcSize
 
 def validate_attributes
   if new_resource.name.casecmp('flyway').zero? && !new_resource.flyway_conf.nil?

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 5.4.0 2016-05-30
+
+- Update MariaDB driver version to 1.4.5 
+- Update MySQL driver version to 5.1.39
+
 ## 5.3.0 2016-05-22
 
 - Add timeout option that defaults to 72hrs
