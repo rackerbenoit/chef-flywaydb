@@ -8,7 +8,6 @@ describe 'flywaydb::default' do
       ChefSpec::ServerRunner.new(
         platform: 'centos',
         version: '7.0',
-        # file_cache_path: '/etc/chef/cache',
         step_into: 'flywaydb',
         log_level: ::LOG_LEVEL
       ).converge(described_recipe)
@@ -48,7 +47,6 @@ describe 'flywaydb::default' do
       ChefSpec::ServerRunner.new(
         platform: 'windows',
         version: '2012R2',
-        # file_cache_path: 'C:/chef/cache',
         step_into: 'flywaydb',
         log_level: ::LOG_LEVEL
       ) do

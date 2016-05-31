@@ -37,27 +37,28 @@ describe 'flywaydb_test::default' do
       expect(chef_run).to install_flywaydb('install with password')
     end
 
+    it 'downloads mariadb driver' do
+      expect(chef_run).to create_remote_file(
+        '/opt/flyway-4.0.1/drivers/mariadb-java-client-1.4.5.jar'
+      ).with(
+        source: 'http://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/1.4.5/mariadb-java-client-1.4.5.jar'
+      )
+    end
+
+    it 'remove mariadb-java-client' do
+      expect(chef_run).to run_ruby_block('remove mariadb-java-client')
+    end
+
     it 'downloads mysql driver' do
       expect(chef_run).to create_remote_file(
-        "#{Chef::Config[:file_cache_path]}/mysql-connector-java-5.1.38.tar.gz"
+        '/opt/flyway-4.0.1/drivers/mysql-connector-java-5.1.39.jar'
       ).with(
-        source:
-            'https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.38.tar.gz'
+        source: 'http://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.39/mysql-connector-java-5.1.39.jar'
       )
     end
 
-    it 'extract mysql driver' do
-      expect(chef_run).to run_execute('extract mysql driver')
-    end
-
-    it 'delete legacy mysql driver' do
-      expect(chef_run).to_not run_ruby_block("rm legacy /opt/flyway-#{VERSION}/drivers/mysql-connector-java-bin.jar")
-    end
-
-    it 'links mysql driver' do
-      expect(chef_run).to create_link("/opt/flyway-#{VERSION}/drivers/mysql-connector-java-bin.jar").with(
-        to: "/opt/flyway-#{VERSION}/drivers/mysql-connector-java-5.1.38/mysql-connector-java-5.1.38-bin.jar"
-      )
+    it 'remove mysql-connector-java' do
+      expect(chef_run).to run_ruby_block('remove mysql-connector-java')
     end
 
     it 'creates tmp db dir' do
@@ -225,6 +226,14 @@ describe 'flywaydb_test::default' do
         node.set['flywaydb_test']['debug'] = true
         node.set['flywaydb_test']['sensitive'] = true
       end.converge(described_recipe)
+    end
+
+    it 'downloads mysql driver' do
+      expect(chef_run).to create_remote_file(
+        'C:/flyway-4.0.1/drivers/mariadb-java-client-1.4.5.jar'
+      ).with(
+        source: 'http://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/1.4.5/mariadb-java-client-1.4.5.jar'
+      )
     end
 
     it 'migrates db' do
