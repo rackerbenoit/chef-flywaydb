@@ -82,53 +82,36 @@ def install_flyway
 end
 # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-# rubocop:disable Metrics/AbcSize
 def mysql_driver
   return unless new_resource.mysql_driver
 
-  url = node['flywaydb']['mysql']['url']
-  mysql_driver_path = "#{install_path}/drivers#{url.slice(url.rindex('/'), url.size)}"
-
-  ruby_block 'remove mysql-connector-java' do
-    block do
-      require 'fileutils'
-      ::FileUtils.rm_r(::Dir.glob("#{install_path}/drivers/mysql-connector-java-*.jar"))
-    end
-    not_if { ::File.exist?(mysql_driver_path) }
-  end
-
-  remote_file mysql_driver_path do
-    source url
-    checksum node['flywaydb']['mysql']['sha256']
-    user new_resource.user
-    group new_resource.group
-  end
+  download_driver('mysql-connector-java', node['flywaydb']['mysql']['url'], node['flywaydb']['mysql']['sha256'])
 end
-# rubocop:enable Metrics/AbcSize
 
-# rubocop:disable Metrics/AbcSize
 def mariadb_driver
   return unless node['flywaydb']['mariadb']['version'] && !new_resource.mysql_driver
 
-  url = node['flywaydb']['mariadb']['url']
-  mariadb_driver_path = "#{install_path}/drivers#{url.slice(url.rindex('/'), url.size)}"
+  download_driver('mariadb-java-client', node['flywaydb']['mariadb']['url'], node['flywaydb']['mariadb']['sha256'])
+end
 
-  ruby_block 'remove mariadb-java-client' do
+def download_driver(name, url, sha256)
+  driver_path = "#{install_path}/drivers#{url.slice(url.rindex('/'), url.size)}"
+
+  ruby_block "remove #{name}" do
     block do
       require 'fileutils'
-      ::FileUtils.rm_r(::Dir.glob("#{install_path}/drivers/mariadb-java-client-*.jar"))
+      ::FileUtils.rm_r(::Dir.glob("#{install_path}/drivers/#{name}-*.jar"))
     end
-    not_if { ::File.exist?(mariadb_driver_path) }
+    not_if { ::File.exist?(driver_path) }
   end
 
-  remote_file mariadb_driver_path do
+  remote_file driver_path do
     source url
-    checksum node['flywaydb']['mariadb']['sha256']
+    checksum sha256
     user new_resource.user
     group new_resource.group
   end
 end
-# rubocop:enable Metrics/AbcSize
 
 def validate_attributes
   if new_resource.name.casecmp('flyway').zero? && !new_resource.flyway_conf.nil?
