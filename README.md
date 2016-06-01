@@ -9,7 +9,8 @@
 [win]: https://ci.appveyor.com/project/dhoer/chef-flywaydb
 
 Installs [flywaydb](http://flywaydb.org) (v4.0.1) and allows for execution of flyway commands via resource 
-actions.  It also downloads the latest MariaDB Connector/J driver (v1.4.5).
+actions.  It also downloads the latest MariaDB Connector/J driver (v1.4.5). Set 
+`node['flywaydb']['mariadb']['version'] = nil` to use the MariaDB Connector/J driver that ships with flywaydb.
 
 ## Requirements
 
