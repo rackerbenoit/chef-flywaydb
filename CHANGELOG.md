@@ -1,9 +1,14 @@
 # CHANGELOG
 
+## 5.5.0 2016-06-08
+
+- Use Flyway 4.0.2
+- Set MariaDB driver version to nil to use the MariaDB Connector/J driver that ships with flywaydb
+
 ## 5.4.0 2016-05-30
 
-- Update MariaDB driver version to 1.4.5 
-- Update MySQL driver version to 5.1.39
+- Set MariaDB driver version to 1.4.5 
+- Set MySQL driver version to 5.1.39
 
 ## 5.3.0 2016-05-22
 
