@@ -8,10 +8,11 @@ describe 'flywaydb_test::default' do
       ChefSpec::ServerRunner.new(
         platform: 'centos',
         version: '7.0',
-        # file_cache_path: '/etc/chef/cache',
         step_into: ['flywaydb'],
         log_level: ::LOG_LEVEL
       ) do |node|
+        node.set['flywaydb']['mariadb']['version'] = '1.4.5'
+        node.set['flywaydb']['mariadb']['sha256'] = '12206cb77afcd1e178121c2263f92f1cac1481040c74634c3b04edc549dd60ad'
         node.set['flywaydb_test']['params'] = {
           password: 'mysql',
           'placeholders.test_password' => 'test'
@@ -39,7 +40,7 @@ describe 'flywaydb_test::default' do
 
     it 'downloads mariadb driver' do
       expect(chef_run).to create_remote_file(
-        '/opt/flyway-4.0.1/drivers/mariadb-java-client-1.4.5.jar'
+        "/opt/flyway-#{VERSION}/drivers/mariadb-java-client-1.4.5.jar"
       ).with(
         source: 'http://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/1.4.5/mariadb-java-client-1.4.5.jar'
       )
@@ -51,7 +52,7 @@ describe 'flywaydb_test::default' do
 
     it 'downloads mysql driver' do
       expect(chef_run).to create_remote_file(
-        '/opt/flyway-4.0.1/drivers/mysql-connector-java-5.1.39.jar'
+        "/opt/flyway-#{VERSION}/drivers/mysql-connector-java-5.1.39.jar"
       ).with(
         source: 'http://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.39/mysql-connector-java-5.1.39.jar'
       )
@@ -102,7 +103,7 @@ describe 'flywaydb_test::default' do
       ChefSpec::ServerRunner.new(
         platform: 'centos',
         version: '7.0',
-        # file_cache_path: '/etc/chef/cache',
+        # file_cache_path: "/etc/chef/cache",
         step_into: ['flywaydb'],
         log_level: ::LOG_LEVEL
       ) do |node|
@@ -200,11 +201,13 @@ describe 'flywaydb_test::default' do
       ChefSpec::ServerRunner.new(
         platform: 'windows',
         version: '2012R2',
-        # file_cache_path: 'C:/chef/cache',
+        # file_cache_path: "C:/chef/cache",
         step_into: ['flywaydb'],
         log_level: ::LOG_LEVEL
       ) do |node|
         ENV['SYSTEMDRIVE'] = 'C:'
+        node.set['flywaydb']['mariadb']['version'] = '1.4.5'
+        node.set['flywaydb']['mariadb']['sha256'] = '12206cb77afcd1e178121c2263f92f1cac1481040c74634c3b04edc549dd60ad'
         node.set['flywaydb_test']['params'] = {
           password: 'mysql'
         }
@@ -230,7 +233,7 @@ describe 'flywaydb_test::default' do
 
     it 'downloads mysql driver' do
       expect(chef_run).to create_remote_file(
-        'C:/flyway-4.0.1/drivers/mariadb-java-client-1.4.5.jar'
+        "C:/flyway-#{VERSION}/drivers/mariadb-java-client-1.4.5.jar"
       ).with(
         source: 'http://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/1.4.5/mariadb-java-client-1.4.5.jar'
       )
