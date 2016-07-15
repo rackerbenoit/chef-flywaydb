@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.5.1 2016-07-15
+
+- Fix #25 Do not create a user/group when passing in values
+
 ## 5.5.0 2016-06-08
 
 - Use Flyway 4.0.2

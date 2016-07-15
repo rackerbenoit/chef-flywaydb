@@ -60,8 +60,11 @@ Defaults to resource block name.
 Windows: `ENV['SYSTEMDRIVE']`.
 * `debug` - Print debug output during execution of flyway commands. 
 Default: `false`.
-* `user` -  The owner of flywaydb. Default `flyway`.
-* `group` - The group of flywaydb. Default `flyway`.
+* `user` -  The owner of flywaydb. Creates a flyway user when nil or uses 
+value passed in. Default `nil`.
+* `group` - The group of flywaydb. Creates flyway or modifies Administrators 
+group when nil (or set to Administrators on Windows for backwards 
+compatibility) or uses value passed in. Default `nil`.
 * `password` - Required only on Windows Servers that throw 'The 
 password does not meet the password policy requirements.' error when 
 creating flyway user. Default: `nil`.

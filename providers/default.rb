@@ -17,24 +17,34 @@ def install_flyway
   url = node['flywaydb']['url']
   cache = "#{Chef::Config[:file_cache_path]}#{url.slice(url.rindex('/'), url.size)}"
 
-  user new_resource.user do
+  usr = new_resource.user.nil? ? 'flyway' : new_resource.user
+
+  user usr do
     comment 'Flyway System User'
     home install_path
     shell '/sbin/nologin'
     password new_resource.password
     system true
     action [:create, :lock]
+    only_if { new_resource.user.nil? }
   end
 
-  group new_resource.group do
+  if new_resource.group.nil?
+    grp = platform?('windows') ? 'Administrators' : 'flyway'
+  else
+    grp = new_resource.group
+  end
+
+  group grp do
     append true
-    members new_resource.user
+    members usr
     action :create
+    only_if { new_resource.group.nil? || (platform?('windows') && new_resource.group == 'Administrators') }
   end
 
   directory install_path do
-    owner new_resource.user
-    group new_resource.group
+    owner usr
+    group grp
     mode '0755'
     recursive true
   end
@@ -56,8 +66,8 @@ def install_flyway
     execute 'extract flyway' do
       command "tar -xvzf #{cache} --strip 1"
       cwd install_path
-      user new_resource.user
-      group new_resource.group
+      user usr
+      group grp
       action :nothing
     end
   end
@@ -73,8 +83,8 @@ def install_flyway
 
   link target_dir do
     to install_path
-    user new_resource.user
-    group new_resource.group
+    user usr
+    group grp
   end
 
   mariadb_driver
@@ -108,8 +118,8 @@ def download_driver(name, url, sha256)
   remote_file driver_path do
     source url
     checksum sha256
-    user new_resource.user
-    group new_resource.group
+    user usr
+    group grp
   end
 end
 
@@ -148,8 +158,8 @@ def write_conf(conf_path, hash)
     sensitive new_resource.sensitive
     variables(conf: hash)
     cookbook 'flywaydb'
-    owner new_resource.user
-    group new_resource.group
+    owner usr
+    group grp
   end
 end
 
