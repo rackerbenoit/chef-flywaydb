@@ -59,7 +59,7 @@ describe 'flywaydb::default' do
     end
 
     it 'creates group' do
-      expect(chef_run).to create_group('flyway')
+      expect(chef_run).to create_group('Administrators')
     end
 
     it 'creates directory' do

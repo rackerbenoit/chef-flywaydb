@@ -276,7 +276,7 @@ describe 'flywaydb_test::default' do
           }
         },
         owner: 'flyway',
-        group: 'flyway'
+        group: 'Administrators'
       )
     end
 
@@ -292,7 +292,7 @@ describe 'flywaydb_test::default' do
 
         },
         owner: 'flyway',
-        group: 'flyway'
+        group: 'Administrators'
       )
     end
 
@@ -311,7 +311,7 @@ describe 'flywaydb_test::default' do
           }
         },
         owner: 'flyway',
-        group: 'flyway'
+        group: 'Administrators'
       )
     end
 

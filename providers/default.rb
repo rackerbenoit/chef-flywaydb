@@ -12,14 +12,20 @@ def install_path
   "#{new_resource.install_dir}/flyway-#{flyway_version}"
 end
 
-# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-def install_flyway
-  url = node['flywaydb']['url']
-  cache = "#{Chef::Config[:file_cache_path]}#{url.slice(url.rindex('/'), url.size)}"
+def usr
+  new_resource.user.nil? ? 'flyway' : new_resource.user
+end
 
-  usr = new_resource.user.nil? ? 'flyway' : new_resource.user
+def grp
+  if new_resource.group.nil?
+    platform?('windows') ? 'Administrators' : 'flyway'
+  else
+    new_resource.group
+  end
+end
 
-  user usr do
+def create_usr_grp
+  user usr do # ~FC021
     comment 'Flyway System User'
     home install_path
     shell '/sbin/nologin'
@@ -29,18 +35,20 @@ def install_flyway
     only_if { new_resource.user.nil? }
   end
 
-  if new_resource.group.nil?
-    grp = platform?('windows') ? 'Administrators' : 'flyway'
-  else
-    grp = new_resource.group
-  end
-
-  group grp do
+  group grp do # ~FC021
     append true
     members usr
     action :create
     only_if { new_resource.group.nil? || (platform?('windows') && new_resource.group == 'Administrators') }
   end
+end
+
+# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+def install_flyway
+  url = node['flywaydb']['url']
+  cache = "#{Chef::Config[:file_cache_path]}#{url.slice(url.rindex('/'), url.size)}"
+
+  create_usr_grp
 
   directory install_path do
     owner usr
