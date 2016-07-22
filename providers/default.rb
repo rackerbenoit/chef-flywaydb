@@ -176,7 +176,7 @@ def process_conf(resource_obj, command, conf_name, run = false)
   case resource_obj
   when Array
     resource_obj.each_with_index do |obj, i|
-      process_conf(obj, command, "#{conf_name}_#{i + 1}")
+      process_conf(obj, command, "#{conf_name}_#{i + 1}", run)
     end
   when Hash
     write_conf(conf_path, resource_obj)
