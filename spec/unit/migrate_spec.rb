@@ -297,7 +297,7 @@ describe 'flywaydb_test::default' do
     end
 
     it 'executes flyway migrate on flyway_1' do
-      expect(chef_run).to_not run_ruby_block("flyway migrate C:/flyway-#{VERSION}/conf/flyway_test_1.conf")
+      expect(chef_run).to run_ruby_block("flyway migrate C:/flyway-#{VERSION}/conf/flyway_test_1.conf")
     end
 
     it 'creates flyway_test_2.conf' do
@@ -316,7 +316,7 @@ describe 'flywaydb_test::default' do
     end
 
     it 'executes flyway migrate on flyway_2' do
-      expect(chef_run).to_not run_ruby_block("flyway migrate C:/flyway-#{VERSION}/conf/flyway_test_2.conf")
+      expect(chef_run).to run_ruby_block("flyway migrate C:/flyway-#{VERSION}/conf/flyway_test_2.conf")
     end
 
     it 'creates flyway link' do
