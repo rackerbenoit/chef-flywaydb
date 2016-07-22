@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.5.2 2016-07-22
+
+- Fix #27 Missing parameter 'run' in recursive process_conf call
+
 ## 5.5.1 2016-07-15
 
 - Fix #25 Do not create a user/group when passing in values

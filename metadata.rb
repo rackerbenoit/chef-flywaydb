@@ -5,13 +5,12 @@ maintainer_email 'dennis.hoer@gmail.com'
 license 'MIT'
 description 'Installs and configures flywaydb database migration tool'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '5.5.1'
+source_url 'https://github.com/dhoer/chef-flywaydb' if respond_to?(:source_url)
+issues_url 'https://github.com/dhoer/chef-flywaydb/issues' if respond_to?(:issues_url)
+version '5.5.2'
 
 supports 'centos'
 supports 'debian'
 supports 'redhat'
 supports 'ubuntu'
 supports 'windows'
-
-source_url 'https://github.com/dhoer/chef-flywaydb' if respond_to?(:source_url)
-issues_url 'https://github.com/dhoer/chef-flywaydb/issues' if respond_to?(:issues_url)
