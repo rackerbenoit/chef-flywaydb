@@ -111,7 +111,7 @@ flywaydb 'myapp' do
     user: 'root',
     url: 'jdbc:mysql/localhost/mysql'
   )
-  alt_conf(
+  alt_conf([
     {
       schemas: 'custA',
       locations: 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custA'
@@ -120,7 +120,7 @@ flywaydb 'myapp' do
        schemas: 'custB',
        locations: 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custB'
     }
-  )
+  ])
   params(
     password: password   
   )
@@ -135,10 +135,10 @@ flywaydb 'myapp' do
   flyway_conf(
     '/opt/myapp/db/flyway.conf'
   )
-  alt_conf(
+  alt_conf([
     '/opt/myapp/db/custA.conf',
     '/opt/myapp/db/custB.conf'
-  )
+  ])
   params(
     password: password   
   )
