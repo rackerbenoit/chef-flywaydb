@@ -132,13 +132,11 @@ def download_driver(name, url, sha256)
 end
 
 def validate_attributes
-  if new_resource.name.casecmp('flyway').zero? && !new_resource.flyway_conf.nil?
-    raise "Flywaydb resource name cannot be 'flyway'!"
-  end
+  fail "Flywaydb resource name cannot be 'flyway'!" \
+    if new_resource.name.casecmp('flyway').zero? && !new_resource.flyway_conf.nil?
 
-  if new_resource.flyway_conf.nil? && new_resource.alt_conf.nil? && new_resource.params.empty?
-    raise('Flywaydb requires at least one following attributes to be defined: flyway_conf, alt_conf, or params!')
-  end
+  fail('Flywaydb requires at least one following attributes to be defined: flyway_conf, alt_conf, or params!') \
+    if new_resource.flyway_conf.nil? && new_resource.alt_conf.nil? && new_resource.params.empty?
 end
 
 def exec_path
@@ -203,7 +201,7 @@ def exec_flyway(command, conf_path)
       exec = Mixlib::ShellOut.new(cmd, timeout: new_resource.timeout)
       exec.run_command
       puts exec.stdout
-      raise exec.stderr if exec.error?
+      fail exec.stderr if exec.error?
     end
   end
 end
