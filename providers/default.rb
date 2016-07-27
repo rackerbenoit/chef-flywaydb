@@ -132,13 +132,11 @@ def download_driver(name, url, sha256)
 end
 
 def validate_attributes
-  if new_resource.name.casecmp('flyway').zero? && !new_resource.flyway_conf.nil?
-    raise "Flywaydb resource name cannot be 'flyway'!"
-  end
+  raise "Flywaydb resource name cannot be 'flyway'!" \
+    if new_resource.name.casecmp('flyway').zero? && !new_resource.flyway_conf.nil?
 
-  if new_resource.flyway_conf.nil? && new_resource.alt_conf.nil? && new_resource.params.empty?
-    raise('Flywaydb requires at least one following attributes to be defined: flyway_conf, alt_conf, or params!')
-  end
+  raise('Flywaydb requires at least one following attributes to be defined: flyway_conf, alt_conf, or params!') \
+    if new_resource.flyway_conf.nil? && new_resource.alt_conf.nil? && new_resource.params.empty?
 end
 
 def exec_path
