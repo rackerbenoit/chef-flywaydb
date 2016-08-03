@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 5.6.0 2016-08-03 
+
+- Use Flyway 4.0.3
+
 ## 5.5.2 2016-07-22
 
 - Fix #27 Missing parameter 'run' in recursive process_conf call

@@ -1,4 +1,4 @@
-default['flywaydb']['version'] = '4.0.2'
+default['flywaydb']['version'] = '4.0.3'
 default['flywaydb']['user'] = nil # creates flyway user when nil
 default['flywaydb']['group'] = nil # creates flyway or modifies Windows Administrators group when nil
 default['flywaydb']['timeout'] = 259_200 # 72hrs

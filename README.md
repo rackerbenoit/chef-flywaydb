@@ -8,7 +8,7 @@
 [linux]: https://travis-ci.org/dhoer/chef-flywaydb
 [win]: https://ci.appveyor.com/project/dhoer/chef-flywaydb
 
-Installs [flywaydb](http://flywaydb.org) (v4.0.2) and allows for execution of flyway commands via resource 
+Installs [flywaydb](http://flywaydb.org) (v4.0.3) and allows for execution of flyway commands via resource 
 actions.  
 
 By default, the MariaDB Connector/J driver that ships with flywaydb is used.  Set the 
