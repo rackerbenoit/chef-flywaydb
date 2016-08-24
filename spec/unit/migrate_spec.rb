@@ -40,7 +40,7 @@ describe 'flywaydb_test::default' do
 
     it 'downloads mariadb driver' do
       expect(chef_run).to create_remote_file(
-        "/opt/flyway-#{VERSION}/drivers/mariadb-java-client-1.4.5.jar"
+        "/opt/flywaydb/flyway-#{VERSION}/drivers/mariadb-java-client-1.4.5.jar"
       ).with(
         source: 'http://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/1.4.5/mariadb-java-client-1.4.5.jar'
       )
@@ -52,7 +52,7 @@ describe 'flywaydb_test::default' do
 
     it 'downloads mysql driver' do
       expect(chef_run).to create_remote_file(
-        "/opt/flyway-#{VERSION}/drivers/mysql-connector-java-5.1.39.jar"
+        "/opt/flywaydb/flyway-#{VERSION}/drivers/mysql-connector-java-5.1.39.jar"
       ).with(
         source: 'http://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.39/mysql-connector-java-5.1.39.jar'
       )
@@ -89,12 +89,8 @@ describe 'flywaydb_test::default' do
       )
     end
 
-    it 'creates legacy dir' do
-      expect(chef_run).to create_directory('/opt/flyway')
-    end
-
-    it 'moves legacy dir' do
-      expect(chef_run).to_not run_ruby_block('mv legacy /opt/flyway dir')
+    it 'creates install dir' do
+      expect(chef_run).to create_directory('/opt/flywaydb')
     end
   end
 
@@ -152,7 +148,7 @@ describe 'flywaydb_test::default' do
     end
 
     it 'creates flyway.conf file' do
-      expect(chef_run).to create_template("/opt/flyway-#{VERSION}/conf/flyway.conf").with(
+      expect(chef_run).to create_template("/opt/flywaydb/flyway-#{VERSION}/conf/flyway.conf").with(
         source: 'flyway.conf.erb',
         sensitive: false,
         variables: {
@@ -171,7 +167,7 @@ describe 'flywaydb_test::default' do
     end
 
     it 'creates flyway_test.conf file' do
-      expect(chef_run).to create_template("/opt/flyway-#{VERSION}/conf/flyway_test.conf").with(
+      expect(chef_run).to create_template("/opt/flywaydb/flyway-#{VERSION}/conf/flyway_test.conf").with(
         source: 'flyway.conf.erb',
         sensitive: false,
         variables: {
@@ -186,12 +182,12 @@ describe 'flywaydb_test::default' do
     end
 
     it 'executes flyway migrate' do
-      expect(chef_run).to run_ruby_block("flyway migrate /opt/flyway-#{VERSION}/conf/flyway_test.conf")
+      expect(chef_run).to run_ruby_block("flyway migrate /opt/flywaydb/flyway-#{VERSION}/conf/flyway_test.conf")
     end
 
     it 'creates flyway link' do
-      expect(chef_run).to create_link('/opt/flyway').with(
-        to: "/opt/flyway-#{VERSION}"
+      expect(chef_run).to create_link('/opt/flywaydb/flyway').with(
+        to: "/opt/flywaydb/flyway-#{VERSION}"
       )
     end
   end
@@ -233,7 +229,7 @@ describe 'flywaydb_test::default' do
 
     it 'downloads mysql driver' do
       expect(chef_run).to create_remote_file(
-        "C:/flyway-#{VERSION}/drivers/mariadb-java-client-1.4.5.jar"
+        "C:/flywaydb/flyway-#{VERSION}/drivers/mariadb-java-client-1.4.5.jar"
       ).with(
         source: 'http://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/1.4.5/mariadb-java-client-1.4.5.jar'
       )
@@ -265,7 +261,7 @@ describe 'flywaydb_test::default' do
     end
 
     it 'creates flyway.conf file' do
-      expect(chef_run).to create_template("C:/flyway-#{VERSION}/conf/flyway.conf").with(
+      expect(chef_run).to create_template("C:/flywaydb/flyway-#{VERSION}/conf/flyway.conf").with(
         source: 'flyway.conf.erb',
         sensitive: true,
         variables: {
@@ -281,7 +277,7 @@ describe 'flywaydb_test::default' do
     end
 
     it 'creates flyway_test_1.conf' do
-      expect(chef_run).to create_template("C:/flyway-#{VERSION}/conf/flyway_test_1.conf").with(
+      expect(chef_run).to create_template("C:/flywaydb/flyway-#{VERSION}/conf/flyway_test_1.conf").with(
         source: 'flyway.conf.erb',
         sensitive: true,
         variables: {
@@ -297,11 +293,11 @@ describe 'flywaydb_test::default' do
     end
 
     it 'executes flyway migrate on flyway_1' do
-      expect(chef_run).to run_ruby_block("flyway migrate C:/flyway-#{VERSION}/conf/flyway_test_1.conf")
+      expect(chef_run).to run_ruby_block("flyway migrate C:/flywaydb/flyway-#{VERSION}/conf/flyway_test_1.conf")
     end
 
     it 'creates flyway_test_2.conf' do
-      expect(chef_run).to create_template("C:/flyway-#{VERSION}/conf/flyway_test_2.conf").with(
+      expect(chef_run).to create_template("C:/flywaydb/flyway-#{VERSION}/conf/flyway_test_2.conf").with(
         source: 'flyway.conf.erb',
         sensitive: true,
         variables: {
@@ -316,21 +312,17 @@ describe 'flywaydb_test::default' do
     end
 
     it 'executes flyway migrate on flyway_2' do
-      expect(chef_run).to run_ruby_block("flyway migrate C:/flyway-#{VERSION}/conf/flyway_test_2.conf")
+      expect(chef_run).to run_ruby_block("flyway migrate C:/flywaydb/flyway-#{VERSION}/conf/flyway_test_2.conf")
     end
 
     it 'creates flyway link' do
-      expect(chef_run).to create_link('C:/flyway').with(
-        to: "C:/flyway-#{VERSION}"
+      expect(chef_run).to create_link('C:/flywaydb/flyway').with(
+        to: "C:/flywaydb/flyway-#{VERSION}"
       )
     end
 
-    it 'creates legacy dir' do
-      expect(chef_run).to_not create_directory('C:/flyway')
-    end
-
-    it 'moves legacy dir' do
-      expect(chef_run).to_not run_ruby_block('mv legacy C:/flyway dir')
+    it 'creates dir' do
+      expect(chef_run).to create_directory('C:/flywaydb')
     end
   end
 end

@@ -50,7 +50,7 @@ def install_flyway
 
   create_usr_grp
 
-  directory install_path do
+  directory new_resource.install_dir do
     owner usr
     group grp
     mode '0755'
@@ -72,8 +72,8 @@ def install_flyway
     end
   else
     execute 'extract flyway' do
-      command "tar -xvzf #{cache} --strip 1"
-      cwd install_path
+      command "tar -xvzf #{cache}"
+      cwd new_resource.install_dir
       user usr
       group grp
       action :nothing
@@ -82,17 +82,14 @@ def install_flyway
 
   target_dir = "#{new_resource.install_dir}/flyway"
 
-  ruby_block "mv legacy #{target_dir} dir" do
-    block do
-      ::File.rename(target_dir, "#{new_resource.install_dir}/flyway_legacy")
-    end
-    only_if { ::File.exist?(target_dir) && !::File.symlink?(target_dir) && !platform?('windows') }
-  end
-
   link target_dir do
     to install_path
     user usr
     group grp
+  end
+
+  execute "chmod +x #{target_dir}/flyway" do
+    not_if { platform?('windows') }
   end
 
   mariadb_driver

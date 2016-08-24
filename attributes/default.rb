@@ -17,12 +17,12 @@ default['flywaydb']['mysql']['url'] = 'http://repo1.maven.org/maven2/mysql/mysql
 
 case node['platform_family']
 when 'windows'
-  default['flywaydb']['install_dir'] = ENV['SYSTEMDRIVE']
+  default['flywaydb']['install_dir'] = "#{ENV['SYSTEMDRIVE']}/flywaydb"
   default['flywaydb']['url'] = 'https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/' \
     "#{node['flywaydb']['version']}/flyway-commandline-#{node['flywaydb']['version']}-windows-x64.zip"
   default['flywaydb']['sha256'] = '01edd65f7bcbe19f75ec42ee22150f2153dff739226c936f525f740d873954ea'
 else
-  default['flywaydb']['install_dir'] = '/opt'
+  default['flywaydb']['install_dir'] = '/opt/flywaydb'
   default['flywaydb']['url'] = 'https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/' \
     "#{node['flywaydb']['version']}/flyway-commandline-#{node['flywaydb']['version']}-linux-x64.tar.gz"
   default['flywaydb']['sha256'] = 'cc2e0db10403b508a7d07b4a55a08156d709a98263b3681cc4c740112f3695a2'

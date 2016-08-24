@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 6.0.0 2016-08-23
+
+- Append flywaydb directory to install directory e.g., /opt/flywaydb
+- Fix #30 Make flyway executable
+
 ## 5.6.0 2016-08-03 
 
 - Use Flyway 4.0.3
