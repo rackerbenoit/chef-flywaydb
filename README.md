@@ -11,13 +11,12 @@
 Installs [flywaydb](http://flywaydb.org) (v4.0.3) and allows for execution of flyway commands via resource 
 actions.  
 
-By default, the MariaDB Connector/J driver that ships with flywaydb is used.  Set the 
-`node['flywaydb']['mariadb']['version']` attribute to install a MariaDB Connector/J driver version other 
-than the one that ships with flywaydb.
+Connector/J Drivers
 
-MariaDB Connector/J driver is the default driver for jdbc:mysql: connections. If you would like to use 
-MySQL Connector/J driver instead, set `mysql_driver` attribute to true to download and install. This will 
-then become the default driver for jdbc:mysql: connections.
+- To use a MariaDB Connector/J driver version other than the one that ships with flywaydb, set
+`node['flywaydb']['mariadb']['version']` attribute to [version](http://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/) desired. 
+- To use MySQL Connector/J driver instead of MariaDB Connector/J driver for jdbc:mysql: connections, 
+set `mysql_driver` attribute to true. 
 
 ## Requirements
 
