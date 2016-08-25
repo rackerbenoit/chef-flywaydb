@@ -15,6 +15,10 @@ By default, the MariaDB Connector/J driver that ships with flywaydb is used.  Se
 `node['flywaydb']['mariadb']['version']` attribute to install a MariaDB Connector/J driver version other 
 than the one that ships with flywaydb.
 
+MariaDB Connector/J driver is the default driver for jdbc:mysql: connections. If you would like to use 
+MySQL Connector/J driver instead, set `mysql_driver` attribute to true to download and install. This will 
+then become the default driver for jdbc:mysql: connections.
+
 ## Requirements
 
 - Chef 11+
