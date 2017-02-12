@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 6.1.0 2017-02-10
+
+- Use Flyway 4.1.0
+- Set MySQl driver to 5.1.40
+
 ## 6.0.0 2016-08-23
 
 - Append flywaydb directory to install directory e.g., /opt/flywaydb

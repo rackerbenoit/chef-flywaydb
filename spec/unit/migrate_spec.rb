@@ -52,9 +52,9 @@ describe 'flywaydb_test::default' do
 
     it 'downloads mysql driver' do
       expect(chef_run).to create_remote_file(
-        "/opt/flywaydb/flyway-#{VERSION}/drivers/mysql-connector-java-5.1.39.jar"
+        "/opt/flywaydb/flyway-#{VERSION}/drivers/mysql-connector-java-5.1.40.jar"
       ).with(
-        source: 'http://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.39/mysql-connector-java-5.1.39.jar'
+        source: 'http://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.40/mysql-connector-java-5.1.40.jar'
       )
     end
 
