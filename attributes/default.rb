@@ -11,7 +11,7 @@ default['flywaydb']['mariadb']['url'] = 'http://repo1.maven.org/maven2/org/maria
 
 # http://dev.mysql.com/doc/relnotes/connector-j/5.1/en/news-5-1.html
 default['flywaydb']['mysql']['version'] = '5.1.40'
-default['flywaydb']['mysql']['sha256'] = '668330de57485999cdbbcad22ea21159a0fc3711f11ccbca7b12b65195fa7539'
+default['flywaydb']['mysql']['sha256'] = '27a80bf2e36d9d08d1be93f70d3124633a6952fe3b95833306905dcba6bfe96d'
 default['flywaydb']['mysql']['url'] = 'http://repo1.maven.org/maven2/mysql/mysql-connector-java/' \
   "#{node['flywaydb']['mysql']['version']}/mysql-connector-java-#{node['flywaydb']['mysql']['version']}.jar"
 
