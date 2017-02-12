@@ -3,4 +3,4 @@ version '0.1.0'
 
 depends 'flywaydb'
 
-depends 'mysql'
+depends 'mysql', '~> 8.0'
