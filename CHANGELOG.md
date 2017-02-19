@@ -2,7 +2,7 @@
 
 ## 6.1.0 2017-02-10
 
-- Use Flyway 4.1.0
+- Use Flyway 4.1.1
 - Set MySQl driver to 5.1.40
 
 ## 6.0.0 2016-08-23

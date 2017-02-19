@@ -1,4 +1,4 @@
-default['flywaydb']['version'] = '4.1.0'
+default['flywaydb']['version'] = '4.1.1'
 default['flywaydb']['user'] = nil # creates flyway user when nil
 default['flywaydb']['group'] = nil # creates flyway or modifies Windows Administrators group when nil
 default['flywaydb']['timeout'] = 259_200 # 72hrs
@@ -20,10 +20,10 @@ when 'windows'
   default['flywaydb']['install_dir'] = "#{ENV['SYSTEMDRIVE']}/flywaydb"
   default['flywaydb']['url'] = 'https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/' \
     "#{node['flywaydb']['version']}/flyway-commandline-#{node['flywaydb']['version']}-windows-x64.zip"
-  default['flywaydb']['sha256'] = '845a4013f3112a57d698db8701d8ffab79d2d0a98ce626bbc7a989aca94c6ee4'
+  default['flywaydb']['sha256'] = '4bf880a1e9421d55490129f2e435152c83d78142624edb1f83ab953a49468fdf'
 else
   default['flywaydb']['install_dir'] = '/opt/flywaydb'
   default['flywaydb']['url'] = 'https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/' \
     "#{node['flywaydb']['version']}/flyway-commandline-#{node['flywaydb']['version']}-linux-x64.tar.gz"
-  default['flywaydb']['sha256'] = '6d5f23429b75c2f69a51758fed98572ee47ae92e6cc7fa2ff896d81be8fcb055'
+  default['flywaydb']['sha256'] = 'db6107bd04bb8fce838543690b5eb3ea264c8701e4f7907e8f5e6becc6e7ade8'
 end

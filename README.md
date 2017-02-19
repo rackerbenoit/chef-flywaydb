@@ -8,7 +8,7 @@
 [linux]: https://travis-ci.org/dhoer/chef-flywaydb
 [win]: https://ci.appveyor.com/project/dhoer/chef-flywaydb
 
-Installs [flywaydb](http://flywaydb.org) (v4.1.0) and allows for execution of flyway commands via resource 
+Installs [flywaydb](http://flywaydb.org) (v4.1.1) and allows for execution of flyway commands via resource 
 actions.  
 
 Connector/J Drivers
