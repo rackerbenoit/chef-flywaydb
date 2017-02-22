@@ -7,7 +7,7 @@ gem 'foodcritic'
 gem 'rubocop'
 
 group :integration do
-  gem 'kitchen-dokken'
+  gem 'kitchen-dokken', '~> 1.0'
   gem 'kitchen-localhost'
   gem 'kitchen-vagrant'
   gem 'test-kitchen', '~> 1.13.0'
