@@ -87,7 +87,7 @@ raising an Exception. Default: `259_200` (72hrs).
 ```ruby
 flywaydb 'myapp' do
   flyway_conf(
-    url: 'jdbc:mysql/localhost/mydb',
+    url: 'jdbc:mysql//localhost/mydb',
     user: 'root',
     locations: 'filesystem:/opt/myapp/db/migration',
     cleanDisabled: true
@@ -113,7 +113,7 @@ end
 flywaydb 'myapp' do
   flyway_conf(
     user: 'root',
-    url: 'jdbc:mysql/localhost/mysql'
+    url: 'jdbc:mysql//localhost/mysql'
   )
   alt_conf([
     {
