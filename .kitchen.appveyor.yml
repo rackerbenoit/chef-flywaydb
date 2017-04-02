@@ -14,10 +14,6 @@ provisioner:
 platforms:
   - name: windows-2012R2
 
-init:
-  # Configure Git on Windows to properly handle line endings
-  - git config --global core.autocrlf true
-
 suites:
   - name: default
     run_list:
