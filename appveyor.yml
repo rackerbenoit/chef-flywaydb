@@ -20,10 +20,6 @@ environment:
 clone_folder: c:\projects\kitchen-machine
 clone_depth: 1
 
-init:
-  # Configure Git on Windows to properly handle line endings
-  - git config --global core.autocrlf true
-
 install:
   - ps: net user /add $env:machine_user $env:machine_pass
   - ps: net localgroup administrators $env:machine_user /add
