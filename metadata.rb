@@ -1,4 +1,5 @@
 # Encoding: utf-8
+
 name 'flywaydb'
 maintainer 'Dennis Hoer'
 maintainer_email 'dennis.hoer@gmail.com'

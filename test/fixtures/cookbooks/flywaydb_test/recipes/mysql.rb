@@ -3,5 +3,5 @@ mysql_service 'default' do
   bind_address '0.0.0.0'
   port '3306'
   initial_root_password 'mysql'
-  action [:create, :start]
+  action %i(create start)
 end

@@ -31,7 +31,7 @@ def create_usr_grp
     shell '/sbin/nologin'
     password new_resource.password
     system true
-    action [:create, :lock]
+    action %i(create lock)
     only_if { new_resource.user.nil? }
   end
 
