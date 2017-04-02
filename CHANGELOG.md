@@ -3,7 +3,7 @@
 ## 7.0.0 2017-04-01
 
 - Rename params attribute to parameters to be Chef 13 compatible
-
+- Use Flyway 4.1.2
 
 ## 6.1.0 2017-02-10
 
