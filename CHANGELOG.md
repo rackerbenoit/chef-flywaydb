@@ -4,6 +4,7 @@
 
 - Rename params attribute to parameters to be Chef 13 compatible
 - Use Flyway 4.1.2
+- Set MySQl driver to 5.1.41
 
 ## 6.1.0 2017-02-10
 

@@ -16,8 +16,8 @@ Connector/J Drivers
 - To use a MariaDB Connector/J driver version other than the one that ships with flywaydb, set
 `node['flywaydb']['mariadb']['version']` attribute to 
 [version](http://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/) desired. 
-- To use MySQL Connector/J driver instead of MariaDB Connector/J driver for jdbc:mysql: connections, 
-set `mysql_driver` attribute to true. If you want a different version than 5.
+- To use MySQL Connector/J driver (v5.1.41) instead of MariaDB Connector/J driver for jdbc:mysql: connections, 
+set `mysql_driver` attribute to true.
 
 ## Requirements
 
