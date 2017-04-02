@@ -12,3 +12,4 @@ ChefSpec::Coverage.start!
 }.freeze
 
 VERSION = '4.1.2'.freeze
+MYSQL_VERSION = '5.1.41'.freeze

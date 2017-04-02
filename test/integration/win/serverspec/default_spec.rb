@@ -12,7 +12,7 @@ describe 'flyway::migrate' do
       it { should be_owned_by 'flyway' }
     end
 
-    describe file("C:/flywaydb/flyway/drivers/mysql-connector-java-#{MARIADB_VERSION}.jar") do
+    describe file("C:/flywaydb/flyway/drivers/mysql-connector-java-#{MYSQL_VERSION}.jar") do
       it { should be_file }
       it { should be_owned_by 'flyway' }
     end
@@ -44,7 +44,7 @@ describe 'flyway::migrate' do
       it { should be_owned_by 'flyway' }
     end
 
-    describe file("/opt/flywaydb/flyway/drivers/mysql-connector-java-#{MARIADB_VERSION}.jar") do
+    describe file("/opt/flywaydb/flyway/drivers/mysql-connector-java-#{MYSQL_VERSION}.jar") do
       it { should be_file }
       it { should be_owned_by 'flyway' }
     end
