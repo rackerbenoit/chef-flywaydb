@@ -132,8 +132,8 @@ def validate_attributes
   raise "Flywaydb resource name cannot be 'flyway'!" \
     if new_resource.name.casecmp('flyway').zero? && !new_resource.flyway_conf.nil?
 
-  raise('Flywaydb requires at least one following attributes to be defined: flyway_conf, alt_conf, or params!') \
-    if new_resource.flyway_conf.nil? && new_resource.alt_conf.nil? && new_resource.params.empty?
+  raise('Flywaydb requires at least one following attributes to be defined: flyway_conf, alt_conf, or parameters!') \
+    if new_resource.flyway_conf.nil? && new_resource.alt_conf.nil? && new_resource.parameters.empty?
 end
 
 def exec_path
@@ -146,7 +146,7 @@ end
 
 def build_command(command, conf_path)
   cmd = [exec_path]
-  new_resource.params.each do |key, value|
+  new_resource.parameters.each do |key, value|
     cmd << (platform?('windows') ? "-#{key}=\"#{value}\"" : "-#{key}='#{value}'")
   end
   cmd << (platform?('windows') ? "-configFile=\"#{conf_path}\"" : "-configFile='#{conf_path}'")

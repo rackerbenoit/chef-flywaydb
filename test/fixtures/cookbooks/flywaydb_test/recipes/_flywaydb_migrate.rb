@@ -10,7 +10,7 @@ end
 flywaydb 'flyway_test' do
   flyway_conf node['flywaydb_test']['flyway_conf']
   alt_conf node['flywaydb_test']['alt_conf']
-  params node['flywaydb_test']['params']
+  parameters node['flywaydb_test']['parameters']
   debug node['flywaydb_test']['debug']
   password node['flywaydb_test']['password']
   mysql_driver node['flywaydb_test']['mysql_driver']

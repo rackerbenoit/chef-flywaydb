@@ -43,16 +43,16 @@ create `conf/flyway.conf`.  The flyway.conf file will be
 regenerated for each flywaydb execution and will be blanked out if 
 flyway_conf is nil to prevent alt_conf from inadvertently inheriting 
 its settings. Settings in alt_conf override settings in flyway.conf. 
-Settings in params override all settings. Default: `nil`.
+Settings in parameters override all settings. Default: `nil`.
 * `alt_conf` -  Alternative configuration path or settings. An array
 containing paths and/or settings is also supported.  Each path and 
 settings are written as `conf/#{name}[_#{i + 1}].conf` 
 where name is the resource name and i is the index in array. Each item 
 in array will result in an independent execution of Flyway. Settings in 
-alt_conf override settings in flyway.conf. Settings in params override 
+alt_conf override settings in flyway.conf. Settings in parameters override 
 all settings. Default: `nil`. 
-* `params` - Command-line parameters to pass to flyway command. 
-Settings in params override all settings. Default: `{}`.
+* `parameters` - Command-line parameters to pass to flyway command. 
+Settings in parameters override all settings. Default: `{}`.
 * `mysql_driver` - MariaDB Connector/J driver is the default driver 
 for *jdbc:mysql:* connections.  Set to true to download and install 
 MySQL Connector/J driver under `drivers` directory. This will then 
@@ -125,7 +125,7 @@ flywaydb 'myapp' do
        locations: 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custB'
     }
   ])
-  params(
+  parameters(
     password: password   
   )
   action :migrate
@@ -143,7 +143,7 @@ flywaydb 'myapp' do
     '/opt/myapp/db/custA.conf',
     '/opt/myapp/db/custB.conf'
   ])
-  params(
+  parameters(
     password: password   
   )
   action :migrate
@@ -173,7 +173,7 @@ expect(chef_run).to migrate_flywaydb('flyway').with(
       'locations' => 'filesystem:/opt/myapp/db/migration/core,/opt/myapp/db/migration/custB'
     }
   ],
-  params: {
+  parameters: {
       'password' => 'password'
   }
   debug: false,

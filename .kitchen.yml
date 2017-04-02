@@ -22,7 +22,7 @@ suites:
       - flywaydb_test::default
     attributes:
       flywaydb_test:
-        params:
+        parameters:
           password: mysql
           placeholders.test_password: test
         flyway_conf:
@@ -48,7 +48,7 @@ suites:
       flywaydb:
         timeout: 10 # seconds
       flywaydb_test:
-        params:
+        parameters:
           password: mysql
           placeholders.test_password: test
         flyway_conf:
@@ -68,7 +68,7 @@ suites:
       - flywaydb_test::default
     attributes:
       flywaydb_test:
-        params:
+        parameters:
           password: mysql
           placeholders.test_password: test
         alt_conf:
@@ -88,7 +88,7 @@ suites:
       - flywaydb_test::default
     attributes:
       flywaydb_test:
-        params:
+        parameters:
           user: root
           password: mysql
           placeholders.test_password: test
@@ -106,7 +106,7 @@ suites:
         url: https://bintray.com/artifact/download/business/maven/flyway-commandline-3.2.1-linux-x64.tar.gz
         sha256: 8b9ba320a69b8cdef6de60118e312d3cbe96ca37a24b8aec7be4cdf4950bb5fe
       flywaydb_test:
-        params:
+        parameters:
           user: root
           password: mysql
           placeholders.test_password: test
@@ -121,7 +121,7 @@ suites:
       flywaydb:
         group: Administrators
       flywaydb_test:
-        params:
+        parameters:
           password: test
         flyway_conf:
           user: notset

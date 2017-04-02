@@ -21,7 +21,7 @@ suites:
       - flywaydb_test::default
     attributes:
       flywaydb_test:
-        params:
+        parameters:
           password: Password12!
           placeholders.test_password: test
         flyway_conf:

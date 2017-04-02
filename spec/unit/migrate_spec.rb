@@ -13,7 +13,7 @@ describe 'flywaydb_test::default' do
       ) do |node|
         node.set['flywaydb']['mariadb']['version'] = '1.4.5'
         node.set['flywaydb']['mariadb']['sha256'] = '12206cb77afcd1e178121c2263f92f1cac1481040c74634c3b04edc549dd60ad'
-        node.set['flywaydb_test']['params'] = {
+        node.set['flywaydb_test']['parameters'] = {
           password: 'mysql',
           'placeholders.test_password' => 'test'
         }
@@ -103,7 +103,7 @@ describe 'flywaydb_test::default' do
         step_into: ['flywaydb'],
         log_level: ::LOG_LEVEL
       ) do |node|
-        node.set['flywaydb_test']['params'] = {
+        node.set['flywaydb_test']['parameters'] = {
           password: 'mysql',
           'placeholders.test_password' => 'test'
         }
@@ -126,7 +126,7 @@ describe 'flywaydb_test::default' do
 
     it 'migrates db' do
       expect(chef_run).to migrate_flywaydb('flyway_test').with(
-        params: {
+        parameters: {
           'password' => 'mysql',
           'placeholders.test_password' => 'test'
         },
@@ -204,7 +204,7 @@ describe 'flywaydb_test::default' do
         ENV['SYSTEMDRIVE'] = 'C:'
         node.set['flywaydb']['mariadb']['version'] = '1.4.5'
         node.set['flywaydb']['mariadb']['sha256'] = '12206cb77afcd1e178121c2263f92f1cac1481040c74634c3b04edc549dd60ad'
-        node.set['flywaydb_test']['params'] = {
+        node.set['flywaydb_test']['parameters'] = {
           password: 'mysql'
         }
         node.set['flywaydb_test']['flyway_conf'] = {
@@ -237,7 +237,7 @@ describe 'flywaydb_test::default' do
 
     it 'migrates db' do
       expect(chef_run).to migrate_flywaydb('flyway_test').with(
-        params: {
+        parameters: {
           'password' => 'mysql'
         },
         flyway_conf: {
