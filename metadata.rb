@@ -10,6 +10,8 @@ source_url 'https://github.com/dhoer/chef-flywaydb' if respond_to?(:source_url)
 issues_url 'https://github.com/dhoer/chef-flywaydb/issues' if respond_to?(:issues_url)
 version '6.1.0'
 
+chef_version '>= 11.0'
+
 supports 'centos'
 supports 'debian'
 supports 'redhat'
