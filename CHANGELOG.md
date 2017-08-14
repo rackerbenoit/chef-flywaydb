@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 7.1.0 2017-08-14
+
+- Use Flyway 4.2.0
+- Set MySQl driver to 5.1.43
+- Use cookstyle for unit testing 
+
 ## 7.0.0 2017-04-01
 
 - Rename params attribute to parameters to be Chef 13 compatible
@@ -13,7 +19,7 @@
 
 ## 6.0.0 2016-08-23
 
-- Append flywaydb directory to install directory e.g., /opt/flywaydb
+- Append flywaydb directory to install directory e.g., /opt is now /opt/flywaydb
 - Fix #30 Make flyway executable
 
 ## 5.6.0 2016-08-03 
