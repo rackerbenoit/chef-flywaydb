@@ -8,7 +8,7 @@
 [linux]: https://travis-ci.org/dhoer/chef-flywaydb
 [win]: https://ci.appveyor.com/project/dhoer/chef-flywaydb
 
-Installs [flywaydb](http://flywaydb.org) (v4.1.2) and allows for execution of flyway commands via resource 
+Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway commands via resource 
 actions.  
 
 Connector/J Drivers
@@ -16,7 +16,7 @@ Connector/J Drivers
 - To use a MariaDB Connector/J driver version other than the one that ships with flywaydb, set
 `node['flywaydb']['mariadb']['version']` attribute to 
 [version](http://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/) desired. 
-- To use MySQL Connector/J driver (v5.1.41) instead of MariaDB Connector/J driver for jdbc:mysql: connections, 
+- To use MySQL Connector/J driver instead of MariaDB Connector/J driver for jdbc:mysql: connections, 
 set `mysql_driver` attribute to true.
 
 ## Requirements
