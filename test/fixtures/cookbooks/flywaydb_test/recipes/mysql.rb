@@ -1,3 +1,5 @@
+include_recipe 'yum-mysql-community'
+
 mysql_service 'default' do
   version node['flywaydb_test']['mysql']['version']
   bind_address '0.0.0.0'
