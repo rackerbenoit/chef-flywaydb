@@ -7,7 +7,7 @@ describe 'flywaydb_test::default' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(
         platform: 'centos',
-        version: '7.0',
+        version: '7.3.1611',
         step_into: ['flywaydb'],
         log_level: ::LOG_LEVEL
       ) do |node|
@@ -99,7 +99,7 @@ describe 'flywaydb_test::default' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(
         platform: 'centos',
-        version: '7.0',
+        version: '7.3.1611',
         # file_cache_path: "/etc/chef/cache",
         step_into: ['flywaydb'],
         log_level: ::LOG_LEVEL

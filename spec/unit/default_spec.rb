@@ -7,7 +7,7 @@ describe 'flywaydb::default' do
     let(:chef_run) do
       ChefSpec::ServerRunner.new(
         platform: 'centos',
-        version: '7.0',
+        version: '7.3.1611',
         step_into: 'flywaydb',
         log_level: ::LOG_LEVEL
       ).converge(described_recipe)
