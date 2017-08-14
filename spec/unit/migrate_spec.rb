@@ -15,7 +15,7 @@ describe 'flywaydb_test::default' do
         node.set['flywaydb']['mariadb']['sha256'] = '12206cb77afcd1e178121c2263f92f1cac1481040c74634c3b04edc549dd60ad'
         node.set['flywaydb_test']['parameters'] = {
           password: 'mysql',
-          'placeholders.test_password' => 'test'
+          'placeholders.test_password' => 'test',
         }
         node.set['flywaydb_test']['flyway_conf'] = {
           user: 'notset',
@@ -23,11 +23,11 @@ describe 'flywaydb_test::default' do
           schemas: 'flywaydb_test',
           locations: 'filesystem:/tmp/db',
           cleanDisabled: true,
-          'placeholders.test_user' => 'test'
+          'placeholders.test_user' => 'test',
         }
         node.set['flywaydb_test']['alt_conf'] = {
           user: 'root',
-          url: 'jdbc:mysql://localhost/mysql'
+          url: 'jdbc:mysql://localhost/mysql',
         }
         node.set['flywaydb_test']['mysql_driver'] = true
         node.set['flywaydb_test']['sensitive'] = false
@@ -106,7 +106,7 @@ describe 'flywaydb_test::default' do
       ) do |node|
         node.set['flywaydb_test']['parameters'] = {
           password: 'mysql',
-          'placeholders.test_password' => 'test'
+          'placeholders.test_password' => 'test',
         }
         node.set['flywaydb_test']['flyway_conf'] = {
           user: 'notset',
@@ -114,11 +114,11 @@ describe 'flywaydb_test::default' do
           schemas: 'flywaydb_test',
           locations: 'filesystem:/tmp/db',
           cleanDisabled: true,
-          'placeholders.test_user' => 'test'
+          'placeholders.test_user' => 'test',
         }
         node.set['flywaydb_test']['alt_conf'] = {
           user: 'root',
-          url: 'jdbc:mysql://localhost/mysql'
+          url: 'jdbc:mysql://localhost/mysql',
         }
         node.set['flywaydb_test']['mysql_driver'] = true
         node.set['flywaydb_test']['sensitive'] = false
@@ -129,7 +129,7 @@ describe 'flywaydb_test::default' do
       expect(chef_run).to migrate_flywaydb('flyway_test').with(
         parameters: {
           'password' => 'mysql',
-          'placeholders.test_password' => 'test'
+          'placeholders.test_password' => 'test',
         },
         flyway_conf: {
           'user' => 'notset',
@@ -137,11 +137,11 @@ describe 'flywaydb_test::default' do
           'schemas' => 'flywaydb_test',
           'locations' => 'filesystem:/tmp/db',
           'cleanDisabled' => true,
-          'placeholders.test_user' => 'test'
+          'placeholders.test_user' => 'test',
         },
         alt_conf: {
           'user' => 'root',
-          'url' => 'jdbc:mysql://localhost/mysql'
+          'url' => 'jdbc:mysql://localhost/mysql',
         },
         debug: false,
         sensitive: false
@@ -159,8 +159,8 @@ describe 'flywaydb_test::default' do
             'schemas' => 'flywaydb_test',
             'locations' => 'filesystem:/tmp/db',
             'cleanDisabled' => true,
-            'placeholders.test_user' => 'test'
-          }
+            'placeholders.test_user' => 'test',
+          },
         },
         owner: 'flyway',
         group: 'flyway'
@@ -174,8 +174,8 @@ describe 'flywaydb_test::default' do
         variables: {
           conf: {
             'user' => 'root',
-            'url' => 'jdbc:mysql://localhost/mysql'
-          }
+            'url' => 'jdbc:mysql://localhost/mysql',
+          },
         },
         owner: 'flyway',
         group: 'flyway'
@@ -206,22 +206,22 @@ describe 'flywaydb_test::default' do
         node.set['flywaydb']['mariadb']['version'] = '1.4.5'
         node.set['flywaydb']['mariadb']['sha256'] = '12206cb77afcd1e178121c2263f92f1cac1481040c74634c3b04edc549dd60ad'
         node.set['flywaydb_test']['parameters'] = {
-          password: 'mysql'
+          password: 'mysql',
         }
         node.set['flywaydb_test']['flyway_conf'] = {
           user: 'mysql',
           password: 'notset',
-          url: 'jdbc:mysql://notset/mysql'
+          url: 'jdbc:mysql://notset/mysql',
         }
         node.set['flywaydb_test']['alt_conf'] = [
           {
             url: 'jdbc:mysql://localhost/mysql',
-            schemas: 'schema_a'
+            schemas: 'schema_a',
           },
           {
             url: 'jdbc:mysql://localhost/mysql',
-            schemas: 'schema_b'
-          }
+            schemas: 'schema_b',
+          },
         ]
         node.set['flywaydb_test']['debug'] = true
         node.set['flywaydb_test']['sensitive'] = true
@@ -239,22 +239,22 @@ describe 'flywaydb_test::default' do
     it 'migrates db' do
       expect(chef_run).to migrate_flywaydb('flyway_test').with(
         parameters: {
-          'password' => 'mysql'
+          'password' => 'mysql',
         },
         flyway_conf: {
           'user' => 'mysql',
           'password' => 'notset',
-          'url' => 'jdbc:mysql://notset/mysql'
+          'url' => 'jdbc:mysql://notset/mysql',
         },
         alt_conf: [
           {
             'url' => 'jdbc:mysql://localhost/mysql',
-            'schemas' => 'schema_a'
+            'schemas' => 'schema_a',
           },
           {
             'url' => 'jdbc:mysql://localhost/mysql',
-            'schemas' => 'schema_b'
-          }
+            'schemas' => 'schema_b',
+          },
         ],
         debug: true,
         sensitive: true
@@ -269,8 +269,8 @@ describe 'flywaydb_test::default' do
           conf: {
             'user' => 'mysql',
             'password' => 'notset',
-            'url' => 'jdbc:mysql://notset/mysql'
-          }
+            'url' => 'jdbc:mysql://notset/mysql',
+          },
         },
         owner: 'flyway',
         group: 'Administrators'
@@ -284,8 +284,8 @@ describe 'flywaydb_test::default' do
         variables: {
           conf: {
             'url' => 'jdbc:mysql://localhost/mysql',
-            'schemas' => 'schema_a'
-          }
+            'schemas' => 'schema_a',
+          },
 
         },
         owner: 'flyway',
@@ -304,8 +304,8 @@ describe 'flywaydb_test::default' do
         variables: {
           conf: {
             'url' => 'jdbc:mysql://localhost/mysql',
-            'schemas' => 'schema_b'
-          }
+            'schemas' => 'schema_b',
+          },
         },
         owner: 'flyway',
         group: 'Administrators'

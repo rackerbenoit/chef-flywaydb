@@ -43,7 +43,6 @@ def create_usr_grp
   end
 end
 
-# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 def install_flyway
   url = node['flywaydb']['url']
   cache = "#{Chef::Config[:file_cache_path]}#{url.slice(url.rindex('/'), url.size)}"
@@ -130,7 +129,7 @@ end
 
 def validate_attributes
   raise "Flywaydb resource name cannot be 'flyway'!" \
-    if new_resource.name.casecmp('flyway').zero? && !new_resource.flyway_conf.nil?
+    if new_resource.name.casecmp('flyway') == 0 && !new_resource.flyway_conf.nil?
 
   raise('Flywaydb requires at least one following attributes to be defined: flyway_conf, alt_conf, or parameters!') \
     if new_resource.flyway_conf.nil? && new_resource.alt_conf.nil? && new_resource.parameters.empty?

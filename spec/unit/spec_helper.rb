@@ -8,8 +8,8 @@ ChefSpec::Coverage.start!
 ::LOG_LEVEL = :error
 
 ::CHEFSPEC_OPTS = {
-  log_level: ::LOG_LEVEL
+  log_level: ::LOG_LEVEL,
 }.freeze
 
-VERSION = '4.1.2'.freeze
-MYSQL_VERSION = '5.1.41'.freeze
+VERSION = '4.2.0'.freeze
+MYSQL_VERSION = '5.1.43'.freeze
