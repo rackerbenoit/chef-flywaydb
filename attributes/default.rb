@@ -20,10 +20,10 @@ when 'windows'
   default['flywaydb']['install_dir'] = "#{ENV['SYSTEMDRIVE']}/flywaydb"
   default['flywaydb']['url'] = 'https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/' \
     "#{node['flywaydb']['version']}/flyway-commandline-#{node['flywaydb']['version']}-windows-x64.zip"
-  default['flywaydb']['sha256'] = '99f21d3c634afe23515231ef3c366a7fb447d74d77a59406ac9efd05ab417259'
+  default['flywaydb']['sha256'] = '99daa6f5d57e0f8a2e2267299c071ebd69f5a6f5cca2c5c43f9c5b1f0087c2f2'
 else
   default['flywaydb']['install_dir'] = '/opt/flywaydb'
   default['flywaydb']['url'] = 'https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/' \
     "#{node['flywaydb']['version']}/flyway-commandline-#{node['flywaydb']['version']}-linux-x64.tar.gz"
-  default['flywaydb']['sha256'] = '31e8bfec3aa40a08e3bb184386b19764cee3a48ae4ee3d6328c9bc5836affef7'
+  default['flywaydb']['sha256'] = '162e0673120fd40552dd111420c90224710a03e90bfd81189c0cb02f65cf0337'
 end
