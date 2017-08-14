@@ -1,4 +1,4 @@
-include_recipe 'yum-mysql-community:mysql57' if platform?('centos')
+include_recipe 'yum-mysql-community::mysql57' if platform?('centos')
 
 mysql_service 'default' do
   version node['flywaydb_test']['mysql']['version']
