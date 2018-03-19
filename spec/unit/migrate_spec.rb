@@ -46,9 +46,9 @@ describe 'flywaydb_test::default' do
       )
     end
 
-    it 'remove mariadb-java-client' do
-      expect(chef_run).to run_ruby_block('remove mariadb-java-client')
-    end
+    # it 'remove mariadb-java-client' do
+    #   expect(chef_run).to run_ruby_block('remove mariadb-java-client')
+    # end
 
     it 'downloads mysql driver' do
       expect(chef_run).to create_remote_file(
