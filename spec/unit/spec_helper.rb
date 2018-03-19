@@ -11,5 +11,5 @@ ChefSpec::Coverage.start!
   log_level: ::LOG_LEVEL,
 }.freeze
 
-VERSION = '4.2.0'.freeze
+VERSION = '5.0.7'.freeze
 MYSQL_VERSION = '5.1.43'.freeze

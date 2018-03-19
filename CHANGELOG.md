@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 7.2.0 2018-03-18
+
+- Use Flyway 5.0.7
+
 ## 7.1.1 2017-08-15
 
 - Add respond_to? conditional to metadata chef version
