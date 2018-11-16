@@ -25,5 +25,5 @@ else
   default['flywaydb']['install_dir'] = '/opt/flywaydb'
   default['flywaydb']['url'] = 'https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/' \
     "#{node['flywaydb']['version']}/flyway-commandline-#{node['flywaydb']['version']}-linux-x64.tar.gz"
-  default['flywaydb']['sha256'] = '901ea5c795810c8e8affb42296cc7ecf759313431d5badd2948bae319acb2375'
+  default['flywaydb']['sha256'] = '3ac463a17583c3479de2eee377c2a48e739b527c87b4168426125fc4b019a552'
 end
