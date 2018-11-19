@@ -15,15 +15,16 @@ default['flywaydb']['mysql']['sha256'] = '81c8b2d94247d6db4c3ff2bacfe5c11f552cb6
 default['flywaydb']['mysql']['url'] = 'http://repo1.maven.org/maven2/mysql/mysql-connector-java/' \
   "#{node['flywaydb']['mysql']['version']}/mysql-connector-java-#{node['flywaydb']['mysql']['version']}.jar"
 
+# Generate SHA-256 from https://hash.online-convert.com/sha256-generator
 case node['platform_family']
 when 'windows'
   default['flywaydb']['install_dir'] = "#{ENV['SYSTEMDRIVE']}/flywaydb"
   default['flywaydb']['url'] = 'https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/' \
     "#{node['flywaydb']['version']}/flyway-commandline-#{node['flywaydb']['version']}-windows-x64.zip"
-  default['flywaydb']['sha256'] = '15ec93b4120e8dd494b5494c8fcfc56f448b90d544de033f804c41188580ea1b'
+  default['flywaydb']['sha256'] = '483469b1d2eaa7dc4bd208b34351cf68cbef8a5d8efcaa1ef4af97e3d76a4a24'
 else
   default['flywaydb']['install_dir'] = '/opt/flywaydb'
   default['flywaydb']['url'] = 'https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/' \
     "#{node['flywaydb']['version']}/flyway-commandline-#{node['flywaydb']['version']}-linux-x64.tar.gz"
-  default['flywaydb']['sha256'] = '3ac463a17583c3479de2eee377c2a48e739b527c87b4168426125fc4b019a552'
+  default['flywaydb']['sha256'] = '694cb50d8a9770eb1bfb038bfd6ff36336dec15364320682065dc7e31d72ac2d'
 end
