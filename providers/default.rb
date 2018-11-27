@@ -148,7 +148,7 @@ def build_command(command, conf_path)
   new_resource.parameters.each do |key, value|
     cmd << (platform?('windows') ? "-#{key}=\"#{value}\"" : "-#{key}='#{value}'")
   end
-  cmd << (platform?('windows') ? "-configFile=\"#{conf_path}\"" : "-configFile='#{conf_path}'")
+  cmd << (platform?('windows') ? "-configFiles=\"#{conf_path}\"" : "-configFiles='#{conf_path}'")
   cmd << '-X' if new_resource.debug
   cmd << command
   cmd.join(' ')

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 7.3.0 2018-11-12
+
+- Use Flyway 5.2.1 and remove warning for configFile
+
 ## 7.2.0 2018-03-18
 
 - Use Flyway 5.0.7
