@@ -1,11 +1,11 @@
 # Flywaydb Cookbook
 
 [![Cookbook Version](http://img.shields.io/cookbook/v/flywaydb.svg?style=flat-square)][supermarket]
-[![linux](http://img.shields.io/travis/dhoer/chef-flywaydb/master.svg?label=linux&style=flat-square)][linux]
+[![linux](http://img.shields.io/travis/rackerbenoit/chef-flywaydb/master.svg?label=linux&style=flat-square)][linux]
 [![win](https://img.shields.io/appveyor/ci/dhoer/chef-flywaydb/master.svg?label=windows&style=flat-square)][win]
 
 [supermarket]: https://supermarket.chef.io/cookbooks/flywaydb
-[linux]: https://travis-ci.org/dhoer/chef-flywaydb
+[linux]: https://travis-ci.org/rackerbenoit/chef-flywaydb
 [win]: https://ci.appveyor.com/project/dhoer/chef-flywaydb
 
 Installs [flywaydb](http://flywaydb.org) and allows for execution of flyway commands via resource 
@@ -194,12 +194,12 @@ Cookbook Matchers
 ## Getting Help
 
 - Ask specific questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/flyway).
-- Report bugs and discuss potential features in [Github issues](https://github.com/dhoer/chef-flywaydb/issues).
+- Report bugs and discuss potential features in [Github issues](https://github.com/rackerbenoit/chef-flywaydb/issues).
 
 ## Contributing
 
-Please refer to [CONTRIBUTING](https://github.com/dhoer/chef-flywaydb/blob/master/CONTRIBUTING.md).
+Please refer to [CONTRIBUTING](https://github.com/rackerbenoit/chef-flywaydb/blob/master/CONTRIBUTING.md).
 
 ## License
 
-MIT - see the accompanying [LICENSE](https://github.com/dhoer/chef-flywaydb/blob/master/LICENSE.md) file for details.
+MIT - see the accompanying [LICENSE](https://github.com/rackerbenoit/chef-flywaydb/blob/master/LICENSE.md) file for details.

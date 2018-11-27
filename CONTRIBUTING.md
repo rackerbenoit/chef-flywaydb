@@ -6,14 +6,14 @@ We strive to be an open and welcoming community. Please be nice to one another.
 ### Coding
 
 * Pick a task:
-  * Offer feedback on open [pull requests](https://github.com/dhoer/chef-flywaydb/pulls).
-  * Review open [issues](https://github.com/dhoer/chef-flywaydb/issues) for things to help on.
-  * [Create an issue](https://github.com/dhoer/chef-flywaydb/issues/new) to start a discussion on additions or features.
+  * Offer feedback on open [pull requests](https://github.com/rackerbenoit/chef-flywaydb/pulls).
+  * Review open [issues](https://github.com/rackerbenoit/chef-flywaydb/issues) for things to help on.
+  * [Create an issue](https://github.com/rackerbenoit/chef-flywaydb/issues/new) to start a discussion on additions or features.
 * Fork the project, add your changes and tests to cover them in a topic branch.
-* Commit your changes and rebase against `dhoer/chef-flywaydb` to ensure everything is up to date.
-* [Submit a pull request](https://github.com/dhoer/chef-flywaydb/compare/).
+* Commit your changes and rebase against `rackerbenoit/chef-flywaydb` to ensure everything is up to date.
+* [Submit a pull request](https://github.com/rackerbenoit/chef-flywaydb/compare/).
 
 ### Non-Coding
 
-* Offer feedback on open [issues](https://github.com/dhoer/chef-flywaydb/issues).
+* Offer feedback on open [issues](https://github.com/rackerbenoit/chef-flywaydb/issues).
 * Organize or volunteer at events.

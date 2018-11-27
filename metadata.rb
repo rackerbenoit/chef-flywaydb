@@ -1,13 +1,13 @@
 # Encoding: utf-8
 
 name 'flywaydb'
-maintainer 'Dennis Hoer'
-maintainer_email 'dennis.hoer@gmail.com'
+maintainer 'Paul Benoit'
+maintainer_email 'paul.benoit36@gmail.com'
 license 'MIT'
 description 'Installs and configures flywaydb database migration tool'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-source_url 'https://github.com/dhoer/chef-flywaydb' if respond_to?(:source_url)
-issues_url 'https://github.com/dhoer/chef-flywaydb/issues' if respond_to?(:issues_url)
+source_url 'https://github.com/rackerbenoit/chef-flywaydb' if respond_to?(:source_url)
+issues_url 'https://github.com/rackerbenoit/chef-flywaydb/issues' if respond_to?(:issues_url)
 version '7.3.0'
 
 chef_version '>= 11.0' if respond_to?(:chef_version)
