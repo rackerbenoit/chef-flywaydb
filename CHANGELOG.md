@@ -1,4 +1,7 @@
 # CHANGELOG
+## 7.3.1 2018-12-03
+
+- Use Flyway 5.2.3
 
 ## 7.3.0 2018-11-12
 
@@ -16,7 +19,7 @@
 
 - Use Flyway 4.2.0
 - Set MySQl driver to 5.1.43
-- Use cookstyle for unit testing 
+- Use cookstyle for unit testing
 
 ## 7.0.0 2017-04-01
 
@@ -34,7 +37,7 @@
 - Append flywaydb directory to install directory e.g., /opt is now /opt/flywaydb
 - Fix #30 Make flyway executable
 
-## 5.6.0 2016-08-03 
+## 5.6.0 2016-08-03
 
 - Use Flyway 4.0.3
 
@@ -53,7 +56,7 @@
 
 ## 5.4.0 2016-05-30
 
-- Set MariaDB driver version to 1.4.5 
+- Set MariaDB driver version to 1.4.5
 - Set MySQL driver version to 5.1.39
 
 ## 5.3.0 2016-05-22
@@ -99,7 +102,7 @@
 
 ## 4.1.0 2016-04-14
 
-- Fix #6 Suppress the command that was executed to hide sensitive 
+- Fix #6 Suppress the command that was executed to hide sensitive
 information but still log stdout and stderr
 
 ## 4.0.1 2016-04-12
@@ -108,7 +111,7 @@ information but still log stdout and stderr
 
 ## 4.0.0 2016-03-24
 
-- Fix #4 Quote param values to avoid interpretation by the shell 
+- Fix #4 Quote param values to avoid interpretation by the shell
 
 ## 3.1.0 2016-03-09
 
@@ -121,7 +124,7 @@ information but still log stdout and stderr
 
 ## 3.0.0 2016-02-20
 
-- Remove global attributes ext_conf, conf, params, sensitive, and debug 
+- Remove global attributes ext_conf, conf, params, sensitive, and debug
 - Default sensitive to true
 
 ## 2.0.0 2016-02-10
