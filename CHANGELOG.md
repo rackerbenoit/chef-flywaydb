@@ -1,4 +1,7 @@
 # CHANGELOG
+## 7.3.1 2019-1-14
+
+- Use Flyway 5.2.4
 ## 7.3.1 2018-12-03
 
 - Use Flyway 5.2.3
