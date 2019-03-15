@@ -1,4 +1,8 @@
 # CHANGELOG
+## 8.0.1 2019-3-15
+
+- Use Flyway 6.0.0-beta
+
 ## 8.0.0 2019-1-31
 
 - bump version only, to 8.0.0

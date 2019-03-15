@@ -1,6 +1,6 @@
 require 'serverspec'
 
-VERSION = '5.2.4'.freeze
+VERSION = '6.0.0-beta'.freeze
 MYSQL_VERSION = '5.1.43'.freeze
 
 if (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM).nil?
